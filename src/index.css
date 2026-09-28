@@ -1,0 +1,2062 @@
+/* =====================================================
+   PRADIPTA ENDRA MAULANA — Fullstack Dev Portfolio
+   Theme: Cosmic Purple Gradient (Lando Norris 10/10 Style)
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,700;1,9..40,900&family=Syne:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Core Cosmic Palette */
+  --bg:            #06040d;
+  --bg-2:          #0c081a;
+  --surface:       #120c27;
+  --surface-2:     #1a1236;
+  --surface-hover: #23184a;
+
+  /* Cosmic Purple Accents */
+  --violet:        #8b5cf6;
+  --purple:        #a855f7;
+  --fuchsia:       #d946ef;
+  --indigo:        #6366f1;
+  --cyan:          #06b6d4;
+
+  /* Accent Glows */
+  --accent:        #a855f7;
+  --accent-bright: #c084fc;
+  --accent-neon:   #e879f9;
+  --accent-glow:   rgba(168, 85, 247, 0.3);
+
+  /* Text Colors */
+  --text:          #f3eefc;
+  --text-muted:    #9e92c2;
+  --text-faint:    #584d7d;
+
+  /* Borders & Dividers */
+  --border:        rgba(168, 85, 247, 0.15);
+  --border-bright: rgba(168, 85, 247, 0.35);
+
+  /* Gradients */
+  --grad-primary:  linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%);
+  --grad-purple:   linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%);
+  --grad-glow:     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(168, 85, 247, 0.35), transparent 70%);
+  --grad-card:     linear-gradient(180deg, rgba(26, 18, 54, 0.8) 0%, rgba(12, 8, 26, 0.9) 100%);
+
+  /* Typography */
+  --font-display:  'Syne', system-ui, sans-serif;
+  --font-body:     'DM Sans', system-ui, sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+
+  /* Animation Timings */
+  --ease-expo:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth:   cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================================
+   RESET & GLOBAL BASES
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) var(--bg-2);
+  background: #07041a; /* Base dark so Topography renders on dark canvas */
+}
+
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 4px; }
+
+body {
+  font-family: var(--font-body);
+  background: transparent;
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.5;
+  cursor: none;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+body.tiramisu-theme {
+  --bg:            #F5EAE1;
+  --bg-2:          #EFE4D9;
+  --surface:       #E8DCCF;
+  --surface-2:     #DFD2C4;
+  --surface-hover: #D8C6B6;
+  
+  --text:          #2C221D;
+  --text-muted:    #6b5a51;
+  --text-faint:    #8b7c72;
+  
+  --border:        rgba(44, 34, 29, 0.1);
+  --border-bright: rgba(44, 34, 29, 0.25);
+  
+  --grad-card:     linear-gradient(180deg, rgba(239, 227, 216, 0.8) 0%, rgba(245, 234, 225, 0.9) 100%);
+}
+
+::selection {
+  background: var(--purple);
+  color: #fff;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: none; border: none; background: none; }
+
+/* Background Starfield Canvas */
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-bright);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  box-shadow: 0 0 15px var(--accent-bright);
+}
+
+.cursor-ring {
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid rgba(192, 132, 252, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-expo),
+              height 0.3s var(--ease-expo),
+              border-color 0.3s ease,
+              background 0.3s ease;
+}
+
+.cursor-ring.hovered {
+  width: 60px;
+  height: 60px;
+  border-color: var(--accent-bright);
+  background: rgba(168, 85, 247, 0.12);
+}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--grad-primary);
+  z-index: 9000;
+  transform-origin: left;
+  box-shadow: 0 0 12px var(--purple);
+}
+
+/* ============================================================
+   CLEAN LANDO-STYLE INTRO LOADER
+   Solid bg → PE monogram → thin line → name bottom → slides UP
+   ============================================================ */
+.ln-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #07041a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Subtle ambient glow - removed gradient as requested */
+.ln-loader-glow {
+  display: none;
+}
+
+/* Center Video Logo */
+.ln-loader-logo-video {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px; /* Adjust based on preferred video size */
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ln-loader-logo-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Blend the black background of the video with the loader's background */
+  mix-blend-mode: screen;
+}
+
+/* Thin horizontal line that grows outward from center */
+.ln-loader-line {
+  position: absolute;
+  bottom: calc(2.5rem + 1.8rem);
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: rgba(168, 85, 247, 0.3);
+  transform-origin: center;
+  z-index: 2;
+}
+
+/* Bottom name — like "LANDO NORRIS" text */
+.ln-loader-bottom {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 1vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(192, 132, 252, 0.55);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+
+
+
+
+
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 8000;
+  padding: 1.25rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: padding 0.4s ease, background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease;
+}
+
+.nav.scrolled {
+  padding: 0.9rem 3rem;
+  background: rgba(6, 4, 13, 0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.nav-logo-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--grad-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--purple);
+  transition: width 0.3s var(--ease-expo);
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nav-cta {
+  padding: 0.6rem 1.4rem;
+  border-radius: 100px;
+  background: var(--grad-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+  transition: transform 0.3s var(--ease-bounce), box-shadow 0.3s ease;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.6);
+}
+
+.nav-ham-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-bright);
+  background: rgba(26, 18, 54, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.nav-ham-btn:hover {
+  border-color: var(--accent-bright);
+  background: rgba(168, 85, 247, 0.15);
+}
+
+.ham-line {
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-ham-btn.open .ham-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-ham-btn.open .ham-line:nth-child(2) { opacity: 0; }
+.nav-ham-btn.open .ham-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* MENU OVERLAY */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 4, 13, 0.96);
+  backdrop-filter: blur(30px);
+  z-index: 7500;
+  padding: 8rem 4rem 4rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.menu-link-wrap { overflow: hidden; }
+
+.menu-link-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.3s ease, transform 0.3s var(--ease-expo);
+  line-height: 1.1;
+}
+
+.menu-link-index {
+  font-size: 1.2rem;
+  font-family: var(--font-mono);
+  color: var(--purple);
+}
+
+.menu-link-item:hover {
+  color: var(--text);
+  transform: translateX(20px);
+}
+
+.menu-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  border-left: 1px solid var(--border);
+  padding-left: 3rem;
+}
+
+.menu-tech-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.menu-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.menu-tech-tag {
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.menu-socials {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.menu-social-link {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.menu-social-link:hover { color: var(--accent-bright); }
+
+/* ============================================================
+   HERO — SCROLL-DRIVEN STAGE
+   ============================================================ */
+.hero-scroll-outer {
+  position: relative;
+  height: 250vh; /* space for scrolling */
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+/* Ambient glows */
+.hero-glow-1 {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 70%);
+  top: -180px;
+  right: -80px;
+  pointer-events: none;
+  animation: floatGlow 10s ease-in-out infinite;
+  z-index: 0;
+}
+
+.hero-glow-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
+  bottom: 0;
+  left: -100px;
+  pointer-events: none;
+  animation: floatGlow 12s ease-in-out 3s infinite reverse;
+  z-index: 0;
+}
+
+@keyframes floatGlow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+.hero-grid-line {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* LAYER 1 (z:1): Giant name text behind photo */
+.hero-name-behind {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  gap: 0;
+}
+
+.hero-name-word {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* LAYER 2 (z:2): The Shrinking White Layer */
+.hero-front-layer {
+  position: absolute;
+  inset: 0; /* Starts full screen */
+  z-index: 2;
+  background: #e6e5e1; /* The off-white Lando Norris background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform-origin: center center;
+}
+
+.hero-front-pattern {
+  position: absolute !important;
+  inset: 0;
+  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Centered Portrait Frame inside the white layer */
+.hero-portrait-frame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 3.5 / 5;
+  background: transparent;
+  margin-top: 9vh; /* Push portrait lower */
+}
+
+/* Dark vignette overlay — fades in as portrait shrinks on scroll */
+.hero-portrait-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 2, 18, 0.88);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hero-portrait-frame .hero-morph-canvas-wrap {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  filter: none;
+  border-radius: 0;
+}
+
+.hero-portrait-frame .hero-morph-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Status badge (z:5) */
+.hero-status-badge {
+  position: absolute;
+  top: 7rem;
+  left: 3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 100px;
+  border: 1px solid var(--border-bright);
+  background: rgba(26, 18, 54, 0.65);
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  z-index: 5;
+}
+
+/* Scroll Velocity Background */
+.hero-velocity-bg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hero-velocity-text {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 900;
+  color: #c084fc; /* Neon purple accent for the first line */
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  opacity: 0.8;
+}
+
+/* Make the second line of text (or icons) white */
+.hero-velocity-bg section > :nth-child(2) .hero-velocity-text {
+  color: #f3f4f6;
+  opacity: 0.9;
+}
+
+.hero-velocity-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 3.5rem;
+  padding: 0 1.75rem;
+  /* Icons inherit the massive font-size from .hero-velocity-text, so they will scale up beautifully! */
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: blink 2s ease-in-out infinite;
+}
+
+.hero-bottom-info {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MANIFESTO SECTION (like Lando's "REDEFINING LIMITS" section)
+   ============================================================ */
+.manifesto-section {
+  position: relative;
+  background: transparent;
+  padding: 8rem 4vw 8rem;
+  overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Purple accent blocks — like Lando's lime green blocks */
+.manifesto-block {
+  position: absolute;
+  background: var(--purple);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.manifesto-block-1 {
+  width: 40%;
+  height: clamp(1.5rem, 4vw, 3.5rem);
+  top: 35%;
+  right: -5%;
+  opacity: 0.85;
+}
+
+.manifesto-block-2 {
+  width: 30%;
+  height: clamp(1.5rem, 4vw, 3.5rem);
+  top: 55%;
+  left: -5%;
+  opacity: 0.85;
+}
+
+.manifesto-block-3 {
+  width: 25%;
+  height: clamp(1.5rem, 4vw, 3.5rem);
+  top: 70%;
+  right: 5%;
+  opacity: 0.85;
+}
+
+/* Text container */
+.manifesto-text-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Line wrapper for block reveal */
+.manifesto-line-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.1em;
+}
+
+/* The sliding box */
+.manifesto-reveal-box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--text);
+  z-index: 2;
+  border-radius: 4px;
+}
+
+/* Highlight boxes stay purple */
+.manifesto-reveal-box.is-highlight-box {
+  background: var(--purple);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+}
+
+/* Text line */
+.manifesto-line {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 4vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* Highlight text is simply colored purple */
+.manifesto-line.is-highlight-text {
+  color: var(--purple);
+}
+
+/* Sub caption below text */
+.manifesto-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(192, 132, 252, 0.6);
+  margin-top: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+
+
+/* ============================================================
+   HERO LAYOUT (LANDO NORRIS STYLE: TEXT BEHIND PORTRAIT)
+   Layer stack:
+     z-index: 1  → hero-title-bg  (GIANT TEXT, behind everything)
+     z-index: 3  → hero-portrait-stage (portrait + side widgets)
+     z-index: 4  → hero-bottom (bio, cta, stats)
+   ============================================================ */
+
+/* Giant background title — sits BEHIND the portrait */
+.hero-title-bg {
+  position: absolute;           /* does NOT take flow space */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 2rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10.5vw, 11rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-transform: uppercase;
+  z-index: 1;                   /* BEHIND portrait (z:3) */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Each title word clips in from below (overflow hidden per-line) */
+.hero-title-bg .hero-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-title-bg .hero-title-inner {
+  display: block;
+}
+
+/* Status badge — top-left like Lando's "NEXT RACE" card */
+.hero-status-badge {
+  position: absolute;
+  top: 7rem;
+  left: 3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 100px;
+  border: 1px solid var(--border-bright);
+  background: rgba(26, 18, 54, 0.65);
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  z-index: 5;
+}
+
+/* Portrait stage: 3-column grid, floats IN FRONT of the title text */
+.hero-portrait-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: 260px 1fr 260px;
+  align-items: center;
+  gap: 2rem;
+  z-index: 3;                   /* IN FRONT of hero-title-bg (z:1) */
+}
+
+/* Centre column: portrait image floats above the text */
+.hero-morph-center {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+/* Shared text styles (reused by hero-title-bg children) */
+.hero-title-line { display: block; overflow: hidden; }
+.hero-title-inner { display: block; }
+
+.grad-text {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.outline-text {
+  -webkit-text-stroke: 1.5px rgba(243, 238, 252, 0.22);
+  color: transparent;
+  transition: -webkit-text-stroke 0.3s ease;
+}
+
+.outline-text:hover {
+  -webkit-text-stroke: 1.5px var(--accent-bright);
+}
+
+/* Monogram badge floating above portrait */
+.hero-top-monogram {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(26, 18, 54, 0.95);
+  border: 1px solid var(--border-bright);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--accent-bright);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.3);
+  z-index: 10;
+}
+
+/* Portrait canvas wrapper */
+.hero-morph-canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  /* No aspect-ratio: let the canvas define height */
+  border-radius: 0;            /* no rounding — Lando style is full bleed */
+  overflow: hidden;
+  background: transparent;
+  /* Drop shadow to separate portrait from title text */
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.85));
+}
+
+.hero-morph-canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: crosshair;
+}
+
+/* Side info cards */
+.hero-widget-card {
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: var(--grad-card);
+  border: 1px solid var(--border-bright);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  z-index: 4;                  /* above title */
+}
+
+.widget-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+}
+
+.widget-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.widget-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+/* HERO BOTTOM GRID */
+.hero-bottom {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: flex-end;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-bio-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-desc {
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 580px;
+  font-weight: 400;
+}
+
+.hero-desc strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.btn-grad {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: 100px;
+  background: var(--grad-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.45);
+  transition: transform 0.3s var(--ease-bounce), box-shadow 0.3s ease;
+}
+
+.btn-grad:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.7);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: 100px;
+  border: 1px solid var(--border-bright);
+  background: rgba(26, 18, 54, 0.4);
+  backdrop-filter: blur(10px);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease-bounce);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-bright);
+  background: rgba(168, 85, 247, 0.15);
+  transform: translateY(-3px);
+}
+
+/* HERO FLOATING STATS CARD */
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.float-stat-card {
+  padding: 1.25rem 1rem;
+  border-radius: 18px;
+  background: var(--grad-card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  transition: transform 0.4s var(--ease-expo), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.float-stat-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-bright);
+  box-shadow: 0 15px 35px rgba(168, 85, 247, 0.25);
+}
+
+.float-stat-val {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.3rem;
+}
+
+.float-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   INFINITE MARQUEE SECTION
+   ============================================================ */
+.marquee-section {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: var(--grad-primary);
+  padding: 1.1rem 0;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.4);
+  z-index: 10;
+  margin-top: 2rem;
+}
+
+.marquee-velocity-text {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #f3f4f6;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   SECTIONS GENERAL LAYOUT & SCROLL REVEALS (BUG FIX: ALWAYS SHOWABLE)
+   ============================================================ */
+.section {
+  position: relative;
+  padding: 7rem 3rem;
+  z-index: 2;
+  opacity: 1;
+}
+
+.section-alt {
+  background: transparent;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: 1.2rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 3.5rem;
+}
+
+.section-title em {
+  font-style: normal;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ANIMATION SCROLL REVEAL STYLES (ENFORCED SHOW) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease-expo), transform 0.7s var(--ease-expo);
+}
+
+[data-reveal="left"] {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+[data-reveal="right"] {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+[data-reveal].revealed {
+  opacity: 1 !important;
+  transform: translate(0, 0) !important;
+}
+
+/* ============================================================
+   HORIZONTAL SCROLL SHOWCASE (LANDO NORRIS STYLE)
+   ============================================================ */
+.showcase-section {
+  position: relative;
+  height: 1000vh; /* Extremely long scroll to slow down the effect */
+  width: 100%;
+}
+
+.showcase-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.showcase-track {
+  display: flex;
+  width: max-content; /* Dynamically wraps content so calc(-100% + 100vw) works perfectly */
+  height: 100%;
+  padding-left: 15vw; 
+  padding-right: 5vw; /* Smaller padding at the end so it stops close to the last image */
+  gap: 4vw; /* Nice spacing, no crashing */
+  align-items: center;
+}
+
+.showcase-item {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reference Exact Scatter Layout */
+/* Item 0: Top Left (like Golfing) */
+.showcase-item-0 { 
+  align-self: flex-start; 
+  margin-top: 10vh;
+}
+.showcase-item-0 .showcase-img-wrap { width: 22vw; max-width: 350px; aspect-ratio: 4/5; }
+
+/* Item 1: Bottom Left (like Helmet) */
+.showcase-item-1 { 
+  align-self: flex-end; 
+  margin-bottom: 15vh;
+}
+.showcase-item-1 .showcase-img-wrap { width: 25vw; max-width: 400px; aspect-ratio: 1/1; }
+
+/* Item 2: Top Middle (like Suit Guy) */
+.showcase-item-2 { 
+  align-self: flex-start; 
+  margin-top: 22vh;
+}
+.showcase-item-2 .showcase-img-wrap { width: 16vw; max-width: 250px; aspect-ratio: 3/4; }
+
+/* Item 3: Bottom Middle (like Dog Guy) */
+.showcase-item-3 { 
+  align-self: flex-end; 
+  margin-bottom: 5vh;
+}
+.showcase-item-3 .showcase-img-wrap { width: 22vw; max-width: 350px; aspect-ratio: 4/5; }
+
+/* Item 4: Center Right (Huge Camera Guy) */
+.showcase-item-4 { 
+  align-self: center; 
+}
+.showcase-item-4 .showcase-img-wrap { width: 42vw; max-width: 800px; aspect-ratio: 16/10; }
+
+/* Item 5: Top Far Right (like Trophy Guy) */
+.showcase-item-5 { 
+  align-self: flex-start; 
+  margin-top: 25vh;
+}
+.showcase-item-5 .showcase-img-wrap { width: 18vw; max-width: 280px; aspect-ratio: 4/5; }
+
+/* Item 6: Bottom Far Right (like 2nd Helmet) */
+.showcase-item-6 { 
+  align-self: flex-end; 
+  margin-bottom: 12vh;
+}
+.showcase-item-6 .showcase-img-wrap { width: 25vw; max-width: 400px; aspect-ratio: 1/1; }
+
+/* Item 7: Top Left */
+.showcase-item-7 { 
+  align-self: flex-start; 
+  margin-top: 15vh;
+}
+.showcase-item-7 .showcase-img-wrap { width: 22vw; max-width: 350px; aspect-ratio: 3/4; }
+
+/* Item 8: Bottom */
+.showcase-item-8 { 
+  align-self: flex-end; 
+  margin-bottom: 10vh;
+}
+.showcase-item-8 .showcase-img-wrap { width: 40vw; max-width: 600px; aspect-ratio: 16/9; }
+
+/* Item 9: Center Right */
+.showcase-item-9 { 
+  align-self: center; 
+}
+.showcase-item-9 .showcase-img-wrap { width: 18vw; max-width: 300px; aspect-ratio: 1/1; }
+
+.showcase-item-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.showcase-img-wrap {
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);
+}
+
+.showcase-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-item:hover .showcase-img-wrap img {
+  transform: scale(1.05);
+}
+
+.showcase-meta {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   PROJECTS SECTION (RACE TABLE STYLE - LANDO NORRIS)
+   ============================================================ */
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+}
+
+.race-table-container {
+  border: 1px solid var(--border-bright);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.table-row-head {
+  display: grid;
+  grid-template-columns: 80px 2.5fr 2fr 1fr 120px;
+  padding: 1.25rem 2.5rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+}
+
+.table-row-item {
+  display: grid;
+  grid-template-columns: 80px 2.5fr 2fr 1fr 120px;
+  align-items: center;
+  padding: 2rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, transform 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.table-row-item:last-child {
+  border-bottom: none;
+}
+
+.table-row-item:hover {
+  background: var(--surface-hover);
+}
+
+.proj-num {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--purple);
+}
+
+.proj-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.proj-main-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.table-row-item:hover .proj-main-title {
+  color: var(--accent-bright);
+  transform: translateX(6px);
+}
+
+.proj-sub-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.proj-tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-pill {
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.proj-year {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.proj-action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-bright);
+  background: rgba(168, 85, 247, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: transform 0.3s var(--ease-bounce), background 0.3s ease, border-color 0.3s ease;
+}
+
+.table-row-item:hover .proj-action-btn {
+  transform: scale(1.15) rotate(45deg);
+  background: var(--purple);
+  border-color: var(--accent-bright);
+  color: #fff;
+}
+
+/* ============================================================
+   TECH STACK & GEAR MASONRY (LANDO MERCH GRID STYLE)
+   ============================================================ */
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.gear-card {
+  border-radius: 24px;
+  background: var(--grad-card);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+  transition: transform 0.4s var(--ease-expo), border-color 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.gear-card.wide {
+  grid-column: span 2;
+}
+
+.gear-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent-bright);
+  box-shadow: 0 25px 50px rgba(168, 85, 247, 0.25);
+}
+
+.gear-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.gear-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid var(--border-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--accent-bright);
+}
+
+.gear-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  background: rgba(26, 18, 54, 0.6);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.gear-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.gear-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 1.75rem;
+}
+
+.gear-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* ============================================================
+   EXPERIENCE TIMELINE
+   ============================================================ */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: relative;
+  padding-left: 2rem;
+  border-left: 2px solid var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.timeline-item:hover {
+  transform: translateX(10px);
+  border-color: var(--accent-bright);
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2.65rem;
+  top: 2.5rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--purple);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 15px var(--purple);
+}
+
+.exp-date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-bright);
+  margin-bottom: 0.5rem;
+}
+
+.exp-role {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.exp-company {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.exp-body {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+/* ============================================================
+   CONTACT HERO & FOOTER (LANDO NORRIS FOOTER STYLE)
+   ============================================================ */
+.contact-section {
+  position: relative;
+  padding: 8rem 3rem 5rem;
+  text-align: center;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.contact-bg-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 500px;
+  background: radial-gradient(ellipse at bottom, rgba(168, 85, 247, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.contact-title em {
+  font-style: normal;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-sub {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-email-btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 900;
+  color: var(--text);
+  border-bottom: 3px solid var(--purple);
+  padding-bottom: 0.25rem;
+  margin-bottom: 3rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-email-btn:hover {
+  color: var(--accent-bright);
+  border-color: var(--accent-bright);
+}
+
+.social-btns-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer {
+  position: relative;
+  padding: 3rem 3rem 2rem;
+  border-top: 1px solid var(--border);
+  z-index: 2;
+  background: transparent;
+}
+
+.footer-big-brand {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 15rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  line-height: 0.8;
+  text-align: center;
+  margin: 2rem 0;
+  -webkit-text-stroke: 2px rgba(168, 85, 247, 0.25);
+  color: transparent;
+  user-select: none;
+  transition: -webkit-text-stroke 0.4s ease;
+}
+
+.footer-big-brand:hover {
+  -webkit-text-stroke: 2px var(--accent-bright);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero-portrait-stage { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-bottom { grid-template-columns: 1fr; gap: 2rem; }
+  .about-grid  { grid-template-columns: 1fr; gap: 3rem; }
+  .masonry-grid { grid-template-columns: 1fr; }
+  .gear-card.wide { grid-column: span 1; }
+  .table-row-head, .table-row-item { grid-template-columns: 60px 2fr 1fr 80px; }
+  .table-row-head div:nth-child(3), .table-row-item div:nth-child(3) { display: none; }
+  .menu-overlay { grid-template-columns: 1fr; padding: 6rem 2rem; }
+  .menu-info-col { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 2rem; }
+}
+
+@media (max-width: 640px) {
+  .nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 5.5rem 1.5rem 2rem; min-height: 100svh; }
+  .hero-title-bg { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+  .hero-status-badge { left: 1.5rem; top: 5.5rem; }
+  .hero-stats-grid { grid-template-columns: 1fr; }
+  .section { padding: 4rem 1.5rem; }
+  .table-row-head { display: none; }
+  .table-row-item { grid-template-columns: 1fr 60px; padding: 1.25rem; }
+  .proj-tech-pills, .proj-year { display: none; }
+}
+
+/* ============================================================
+   SPOTLIGHT REVEAL
+   ============================================================ */
+.spotlight-reveal-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  cursor: none;
+}
+
+.spotlight-base, .spotlight-hover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.spotlight-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+}
+
+.spotlight-mask-layer {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   FLOATING COSMIC BUTTON
+   ============================================================ */
+.floating-cosmic-btn {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 100;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--purple);
+  text-transform: uppercase;
+  background: transparent;
+  border: 2px solid var(--purple);
+  border-radius: 50px;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4), inset 0 0 10px rgba(168, 85, 247, 0.2);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.floating-cosmic-btn:hover {
+  background: rgba(168, 85, 247, 0.1);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(168, 85, 247, 0.4);
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   IDE SECTION STYLES
+   ============================================================ */
+.ide-section {
+  padding: 5rem 2rem;
+  z-index: 5;
+  position: relative;
+}
+
+.ide-window {
+  background: #1e1e1e;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+}
+
+.ide-header {
+  background: #252526;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.ide-dots {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+}
+
+.ide-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.ide-title {
+  flex: 1;
+  text-align: center;
+  color: #969696;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.ide-body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ide-code-area {
+  display: flex;
+  padding: 1.5rem 0;
+  flex: 1;
+}
+
+.ide-line-numbers {
+  display: flex;
+  flex-direction: column;
+  color: #858585;
+  padding: 0 1rem;
+  text-align: right;
+  user-select: none;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ide-code {
+  flex: 1;
+  color: #d4d4d4;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.code-typing .text-type__content {
+  color: #ce9178; /* Python string color in VSCode */
+}
+
+.ide-terminal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #1e1e1e;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.term-header {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.75rem;
+  color: #e7e7e7;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-transform: uppercase;
+}
+
+.term-content {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  color: #cccccc;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.term-path {
+  color: #4af626; /* Terminal green */
+  margin-right: 0.5rem;
+}
+
+.term-output {
+  color: #cccccc;
+  margin: 0.25rem 0;
+}
+
+.term-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ============================================================
+   SOCIAL LINKS SECTION
+   ============================================================ */
+.social-links-section {
+  padding: 8rem 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+}
+
+.social-split-container {
+  display: flex;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+}
+
+.social-block.left {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.social-block.right {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.social-title {
+  font-size: clamp(4rem, 8vw, 10rem);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  line-height: 0.85;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  word-break: break-word;
+}
+
+.social-desc {
+  max-width: 450px;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.social-btn {
+  background: #ccff00; /* lime green from Lando Norris site */
+  color: #000;
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 10px 20px rgba(204, 255, 0, 0.2);
+}
+
+.social-btn:hover {
+  transform: scale(1.1) translateY(-5px);
+  background: #e6ff00;
+  box-shadow: 0 15px 25px rgba(204, 255, 0, 0.4);
+}
+
+@media (max-width: 900px) {
+  .social-split-container {
+    flex-direction: column;
+    gap: 4rem;
+  }
+}
