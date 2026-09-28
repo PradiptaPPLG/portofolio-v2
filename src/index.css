@@ -2057,6 +2057,6 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 @media (max-width: 900px) {
   .social-split-container {
     flex-direction: column;
-    gap: 4rem;
+    gap: 4rem;  
   }
 }

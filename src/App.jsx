@@ -8,6 +8,7 @@ import Shuffle from './components/Shuffle';
 import Topography from './components/Topography';
 import ScrollVelocity from './components/ScrollVelocity';
 import Signature from './components/Signature';
+import RotatingText from './components/RotatingText';
 import { SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiPostgresql, SiPrisma, SiDocker, SiKubernetes } from 'react-icons/si';
 import { FaAws } from 'react-icons/fa';
 import './index.css';
@@ -783,28 +784,57 @@ function IdeSection() {
     }
   }, [termPhase]);
 
-  const handleCodeComplete = () => {
+  const handleCodeComplete1 = () => {
+    setTermPhase(0.5); // Start typing second line
+  };
+
+  const handleCodeComplete2 = () => {
     setTermPhase((prev) => {
-      if (prev === 0) {
-        setShowTerminal(true);
-        return 1; // Terminal slides up
-      }
-      return prev;
+      setShowTerminal(true);
+      return 1; // Terminal slides up
     });
   };
 
   const handleTermCommandComplete = () => {
     setTermPhase(3); // Finished typing, wait for enter
     setTimeout(() => {
-      setTermPhase(4); // Show output
+      setTermPhase(4); // Show outputs
     }, 600); // 600ms delay for "Enter" key feeling
   };
 
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end']
+  });
+
+  const texts = [
+    "Coding",
+    "UI/UX",
+    "Database",
+    "Mobile App",
+    "Data Science",
+    "Editing Video",
+    "Design Canva",
+    "ALL!"
+  ];
+
+  const rotatingRef = useRef();
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // 8 items, clamp index to texts array bounds
+    const index = Math.min(texts.length - 1, Math.floor(latest * texts.length));
+    if (rotatingRef.current) {
+      rotatingRef.current.jumpTo(index);
+    }
+  });
+
   return (
-    <section className="section ide-section" id="ide">
-      {/* Made max-width much larger (1100px) so the IDE looks big and spacious */}
-      <div className="container" style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        <div className="ide-window">
+    <section ref={containerRef} className="section ide-section" id="ide" style={{ height: '400vh' }}>
+      <div className="container" style={{ position: 'sticky', top: '25vh', display: 'flex', flexWrap: 'nowrap', gap: '2rem', maxWidth: '1600px', width: '95vw', margin: '0 auto', alignItems: 'stretch' }}>
+        
+        {/* LEFT: IDE Window */}
+        <div className="ide-window" style={{ flex: '1 1 45%', minWidth: '400px', height: 'auto', margin: 0 }}>
           {/* Header (Mac UI) */}
           <div className="ide-header">
             <div className="ide-dots">
@@ -826,16 +856,32 @@ function IdeSection() {
                 <span>5</span>
               </div>
               <div className="ide-code">
-                <TextType 
-                  text="print('Hello World!')" 
-                  typingSpeed={40}
-                  startOnVisible={true}
-                  onSentenceComplete={handleCodeComplete}
-                  className="code-typing"
-                  loop={false}
-                  showCursor={termPhase === 0} // Hide cursor after typing finishes
-                  cursorCharacter="|"
-                />
+                <div className="code-line">
+                  <TextType 
+                    text="print('Hello World!')" 
+                    typingSpeed={40}
+                    startOnVisible={true}
+                    onSentenceComplete={handleCodeComplete1}
+                    className="code-typing"
+                    loop={false}
+                    showCursor={termPhase === 0} // Hide cursor after typing finishes
+                    cursorCharacter="|"
+                  />
+                </div>
+                {termPhase >= 0.5 && (
+                  <div className="code-line">
+                    <TextType 
+                      text="print('Aku suka coding')" 
+                      typingSpeed={40}
+                      startOnVisible={true}
+                      onSentenceComplete={handleCodeComplete2}
+                      className="code-typing"
+                      loop={false}
+                      showCursor={termPhase === 0.5}
+                      cursorCharacter="|"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -872,6 +918,7 @@ function IdeSection() {
                     {termPhase >= 4 && (
                       <>
                         <div className="term-output">Hello World!</div>
+                        <div className="term-output">Aku suka coding</div>
                         <div className="term-line">
                           <span className="term-path">~/Projects/portofolio-v2 $</span> <span className="term-cursor">_</span>
                         </div>
@@ -883,6 +930,55 @@ function IdeSection() {
             </AnimatePresence>
           </div>
         </div>
+
+        {/* RIGHT: Adobe Canvas text-rotate */}
+        <div className="canvas-window" style={{ flex: '1 1 55%', minWidth: '500px', position: 'relative', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+          <div style={{ position: 'relative', width: '100%' }}>
+            <img src="/assets/adobecanvas.png" alt="Adobe Canvas" style={{ width: '100%', height: 'auto', borderRadius: '12px', display: 'block' }} />
+              <div style={{
+                position: 'absolute',
+                top: '35%',
+                left: '34%',
+                transform: 'translateY(-50%)',
+                fontSize: 'clamp(0.6rem, 1.1vw, 1.4rem)',
+                fontFamily: 'var(--font-display)',
+                fontWeight: '900',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                whiteSpace: 'nowrap'
+              }}>
+                <RotatingText
+                  ref={rotatingRef}
+                  texts={texts}
+                  style={{
+                    backgroundColor: '#ccff00',
+                    color: '#000',
+                    padding: '0.4rem 1.2rem',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+                    border: '3px solid #1a1236',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  staggerFrom={"last"}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "-120%", opacity: 0 }}
+                  staggerDuration={0.025}
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                  rotationInterval={2000}
+                  auto={false}
+                  loop={false}
+                />
+              </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
