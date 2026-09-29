@@ -533,18 +533,22 @@ function Hero({ loaded }) {
 }
 
 /* ============================================================
-   MANIFESTO SECTION — scroll-reveal stagger text
-   Persis Lando Norris's "REDEFINING LIMITS, FIGHTING FOR WINS"
-   but adapted: membangun sistem, merancang pengalaman...
+   MANIFESTO SECTION
    ============================================================ */
-function ManifestoSection() {
-  const lines = [
-    { text: 'MEMBANGUN SISTEM,',              highlight: false },
-    { text: 'MERANCANG',                       highlight: false },
-    { text: 'PENGALAMAN DIGITAL',              highlight: true },
-    { text: 'YANG LUAR BIASA,',               highlight: false },
-    { text: 'ALUMNI RPL',                      highlight: true },
-    { text: 'SMKN 1 CIAMIS.',                  highlight: false },
+function BiodataSection() {
+  const biodataLines = [
+    { label: 'FULL NAME', text: 'Pradipta Endra Maulana', highlight: true },
+    { label: 'NISN / ID', text: '0099206823 / 242510639', highlight: false },
+    { label: 'BORN', text: 'Ciamis, 2 Maret 2009', highlight: false },
+    { label: 'INTERESTS', text: 'Fullstack Web, UI/UX, Data Science', highlight: true },
+  ];
+
+  const skillLines = [
+    { text: 'Fullstack Web Development', highlight: true },
+    { text: 'UI/UX & Graphic Design', highlight: false },
+    { text: 'Game Development', highlight: false },
+    { text: 'Mobile Development', highlight: true },
+    { text: 'Data Science & Architecture', highlight: false },
   ];
 
   const containerVariants = {
@@ -554,9 +558,8 @@ function ManifestoSection() {
     }
   };
 
-  // The box slides from left to right over the text, then disappears
-  const boxVariants = {
-    hidden: { left: 0, width: '0%' },
+  const boxVariantsLTR = {
+    hidden: { left: 0, width: '0%', right: 'auto' },
     visible: { 
       left: ['0%', '0%', '100%'],
       width: ['0%', '100%', '0%'],
@@ -564,7 +567,15 @@ function ManifestoSection() {
     }
   };
 
-  // Text stays hidden until the box fully covers it, then pops in
+  const boxVariantsRTL = {
+    hidden: { right: 0, width: '0%', left: 'auto' },
+    visible: { 
+      right: ['0%', '0%', '100%'],
+      width: ['0%', '100%', '0%'],
+      transition: { duration: 0.9, ease: [0.65, 0, 0.35, 1], times: [0, 0.5, 1] }
+    }
+  };
+
   const textVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -573,45 +584,62 @@ function ManifestoSection() {
     }
   };
 
+  const labelVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 0.9, 
+      transition: { delay: 0.45, duration: 0.4 } 
+    }
+  };
+
   return (
     <motion.section 
-      className="manifesto-section"
+      className="biodata-manifesto-section"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="manifesto-text-wrap">
-        {lines.map((line, i) => (
-          <motion.div key={i} className="manifesto-line-wrap" variants={{}}>
-            {/* The sliding reveal box */}
-            <motion.div 
-              className="manifesto-reveal-box"
-              variants={boxVariants}
-            />
-            {/* The text itself */}
-            <motion.div
-              className={`manifesto-line ${line.highlight ? 'is-highlight-text' : ''}`}
-              variants={textVariants}
-            >
-              {line.text}
+      <div className="biodata-manifesto-grid">
+        
+        {/* Left Column: Biodata (Right-Aligned, slides Right-To-Left) */}
+        <div className="biodata-manifesto-col align-right">
+          <motion.h3 className="biodata-manifesto-title" variants={labelVariants}>PERSONAL INTEL</motion.h3>
+          {biodataLines.map((line, i) => (
+            <motion.div key={i} className="biodata-item-wrap align-right" variants={{}}>
+              <motion.span className="biodata-manifesto-label" variants={labelVariants}>{line.label}</motion.span>
+              <motion.div className="manifesto-line-wrap" variants={{}}>
+                <motion.div className="manifesto-reveal-box" variants={boxVariantsRTL} />
+                <motion.div
+                  className={`manifesto-line biodata-manifesto-text ${line.highlight ? 'is-highlight-text' : ''}`}
+                  variants={textVariants}
+                >
+                  {line.text}
+                </motion.div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <SplitText
-        text="REKAYASA PERANGKAT LUNAK  ·  SMKN 1 CIAMIS  ·  INDONESIA"
-        className="manifesto-sub"
-        delay={30}
-        duration={0.8}
-        ease="power3.out"
-        splitType="chars"
-        from={{ opacity: 0, y: 20 }}
-        to={{ opacity: 1, y: 0 }}
-        threshold={0.1}
-        textAlign="center"
-      />
+        {/* Right Column: Skills (Left-Aligned, slides Left-To-Right) */}
+        <div className="biodata-manifesto-col">
+          <motion.h3 className="biodata-manifesto-title" variants={labelVariants}>CORE COMPETENCIES</motion.h3>
+          <div className="biodata-skills-wrap">
+            {skillLines.map((line, i) => (
+              <motion.div key={i} className="manifesto-line-wrap" variants={{}}>
+                <motion.div className="manifesto-reveal-box" variants={boxVariantsLTR} />
+                <motion.div
+                  className={`manifesto-line biodata-manifesto-text ${line.highlight ? 'is-highlight-text' : ''}`}
+                  variants={textVariants}
+                >
+                  {line.text}
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+      </div>
     </motion.section>
   );
 }
@@ -689,20 +717,20 @@ function Showcase() {
   // Three-phase x:
   // 0 → ~9%: photos slide in from 75vw (3/4 position like reference), not full off-screen
   // ~9% → 100%: horizontal pan (section is now sticky)
-  const x = useTransform(smoothProgress, [0, 0.09, 1], ['calc(0% + 75vw)', 'calc(0% + 0vw)', 'calc(-100% + 100vw)']);
+  const x = useTransform(smoothProgress, [0, 0.25, 1], ['calc(0% + 30vw)', 'calc(0% + 0vw)', 'calc(-100% + 100vw)']);
 
   // Expanded to 10 items for a richer, denser layout
   const showcaseItems = [
-    { title: "Fintech Dashboard", year: "2024", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" },
-    { title: "Mobile Wallet", year: "2023", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop" },
-    { title: "Brand Identity", year: "2023", img: "https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=1200&auto=format&fit=crop" },
-    { title: "Web3 Platform", year: "2024", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1200&auto=format&fit=crop" },
-    { title: "AI Analytics Suite", year: "2025", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop" },
-    { title: "Admin Portal", year: "2024", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" },
-    { title: "Trading App", year: "2025", img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1200&auto=format&fit=crop" },
-    { title: "Health Tracker", year: "2026", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop" },
-    { title: "Crypto Exchange", year: "2025", img: "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1200&auto=format&fit=crop" },
-    { title: "SaaS CRM", year: "2024", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" },
+    { title: "AI Ready ASEAN", year: "Certification", img: "/assets/licenses-&-certifications/ai-ready-asean.jpg" },
+    { title: "Data Science & Analytics", year: "Certification", img: "/assets/licenses-&-certifications/data-science-&-analytics.jpg" },
+    { title: "Data Science Methodology", year: "Certification", img: "/assets/licenses-&-certifications/data-science-methodology.jpg" },
+    { title: "Digital Marketing", year: "Certification", img: "/assets/licenses-&-certifications/digital-marketing.jpg" },
+    { title: "Frontend Dev", year: "Certification", img: "/assets/licenses-&-certifications/introduction-to-frontend-dev.jpg" },
+    { title: "MS Excel", year: "Certification", img: "/assets/licenses-&-certifications/introduction-to-ms-excel.jpg" },
+    { title: "Cybersecurity", year: "Certification", img: "/assets/licenses-&-certifications/professional-cybersecurity.jpg" },
+    { title: "Python 101", year: "Certification", img: "/assets/licenses-&-certifications/python-101-for-data-science.jpg" },
+    { title: "SQL Database", year: "Certification", img: "/assets/licenses-&-certifications/sql-and-relational-database.jpg" },
+    { title: "KREAI Finalist", year: "Award", img: "/assets/licenses-&-certifications/top-10-finalist-kreai.jpg" },
   ];
 
   return (
@@ -712,6 +740,19 @@ function Showcase() {
       style={{ color: textColor }}
     >
       <div className="showcase-sticky">
+        <div className="showcase-title-wrap">
+          <SplitText
+            text="LICENSES & CERTIFICATIONS"
+            className="showcase-main-title"
+            delay={30}
+            duration={0.8}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 20 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+          />
+        </div>
         <motion.div className="showcase-track" style={{ x }}>
           {showcaseItems.map((item, i) => (
             <div key={i} className={`showcase-item showcase-item-${i}`}>
@@ -738,36 +779,132 @@ function Showcase() {
 const PROJECTS = [
   {
     num: '01',
-    title: 'CosmicShop E-Commerce Platform',
-    desc: 'Next.js 14 fullstack platform dengan Stripe, inventory realtime, dan admin dashboard.',
-    tech: ['Next.js 14', 'TypeScript', 'PostgreSQL', 'Stripe', 'TailwindCSS'],
-    year: '2026',
-    link: 'https://github.com',
+    title: 'MAS-PKL — Student Administration Monitoring System for PKL',
+    desc: 'A web-based application to help schools monitor student activities during Field Work Practice (PKL), from attendance to activity journals and PKL location information.',
+    tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Bootstrap/Tailwind CSS'],
+    year: '2024',
+    image: '/assets/projects/mas-pkl.png',
   },
   {
     num: '02',
-    title: 'DevCollab Realtime Hub',
-    desc: 'Platform kolaborasi developer dengan instant code sharing, chat WebSockets, dan kanban board.',
-    tech: ['React 19', 'Node.js', 'Socket.io', 'MongoDB', 'Redis'],
-    year: '2025',
-    link: 'https://github.com',
+    title: 'ASIGN — Teacher Attendance & Morning Roll Call System',
+    desc: 'An application to assist in recording and monitoring teacher attendance during morning roll calls. The system is designed to simplify attendance administration and provide monitoring data for schools.',
+    tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
+    year: '2024',
+    image: '/assets/projects/asign.png',
   },
   {
     num: '03',
-    title: 'CloudDash Visual Analytics',
-    desc: 'Interactive business intelligence dashboard dengan D3.js data visualization dan microservices API.',
-    tech: ['React', 'D3.js', 'Python FastAPI', 'Docker', 'AWS'],
-    year: '2025',
-    link: 'https://github.com',
+    title: 'KOPDES — Village Cooperative ERP',
+    desc: 'A web-based ERP system to integrate the operational management of Village Cooperatives, particularly HR management, attendance, work schedules, permits, as well as monitoring.',
+    tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
+    year: '2023',
+    image: '/assets/projects/kopdes.png',
   },
   {
     num: '04',
-    title: 'TaskFlow Microservice Engine',
-    desc: 'RESTful API gateway & queue processing engine dengan JWT auth & Swagger docs.',
-    tech: ['Node.js', 'Express', 'Redis Queue', 'PostgreSQL', 'Docker'],
-    year: '2024',
-    link: 'https://github.com',
+    title: 'PIXELCAM — Interactive Web Photobooth',
+    desc: 'A web-based photobooth application that allows users to take photos directly through a browser with various templates, effects, and photo strip concepts that can be selected according to needs.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'Web Camera API'],
+    year: '2023',
+    image: '/assets/projects/pixelcam.png',
   },
+  {
+    num: '05',
+    title: 'BLUD SMKN 1 Ciamis — Teaching Factory Service Platform',
+    desc: 'This website serves as the central information and service hub for the Teaching Factory (TEFA) for all departments at SMKN 1 Ciamis. Visitors can learn about available services.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'PHP/Laravel'],
+    year: '2023',
+    image: '/assets/projects/bludsmkn1ciamis.png',
+  },
+  {
+    num: '06',
+    title: 'NexaPOS – Point of Sale Management System',
+    desc: 'NexaPOS is a web-based Point of Sale (POS) application designed to help process transactions and product management simply and efficiently.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2023',
+    image: '/assets/projects/nexapos-drivethru.png',
+  },
+  {
+    num: '07',
+    title: 'Stayora – Hotel Reservation & Booking Platform',
+    desc: 'Stayora is a web-based hotel reservation app designed to help users find and select accommodations more easily. Users can search for hotels by location, specify check-in and check-out dates.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2023',
+    image: '/assets/projects/stayora-staycation.png',
+  },
+  {
+    num: '08',
+    title: 'Garasi Rental – Vehicle Rental & Reservation Platform',
+    desc: 'Garasi Rental is a web-based car rental application designed to help users search, select, and reserve vehicles more practically.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2022',
+    image: '/assets/projects/garasirentalcms.png',
+  },
+  {
+    num: '09',
+    title: 'Our Screen – Cinema Ticket Reservation Platform',
+    desc: 'Layar Kita is a web-based application designed to help users find currently showing films and conveniently book cinema tickets. Users can select the cinema, viewing date, film format, and film title.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2022',
+    image: '/assets/projects/layarkita.png',
+  },
+  {
+    num: '10',
+    title: 'HEXAPY – MUSIC STREAMING DASHBOARD',
+    desc: 'Hexapy is a web-based music streaming app with a modern, dark design. It\'s designed as a platform for discovering songs.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2022',
+    image: '/assets/projects/hexamusicpy.png',
+  },
+  {
+    num: '11',
+    title: 'LIBRAZE – Library Management & Book Lending System',
+    desc: 'A web-based library management application designed to simplify book collection management, borrowing and returning activities, and member administration through a clean and centralized dashboard.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2022',
+    image: '/assets/projects/libraze.png',
+  },
+  {
+    num: '12',
+    title: 'VOLTRIX – Laptop Marketplace & Product Discovery',
+    desc: 'A web-based laptop marketplace designed to help users discover and compare laptops based on specifications, performance, and price through a clean and organized shopping experience.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2022',
+    image: '/assets/projects/voltrix-tech.png',
+  },
+  {
+    num: '13',
+    title: 'EDUTRACK – Teacher Academic Management Platform',
+    desc: 'A web-based platform designed to help teachers manage their daily academic activities, monitor student progress, organize assignments, record attendance, and review class performance through a centralized dashboard.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    year: '2021',
+    image: '/assets/projects/edutrack-edu.png',
+  },
+  {
+    num: '14',
+    title: 'WILDORA – Animal Collection & Minigames Platform',
+    desc: 'An interactive application platform that allows users to collect various types of animals through minigames.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'React', 'Backend API', 'Database'],
+    year: '2021',
+    image: '/assets/projects/wildora.png',
+  },
+  {
+    num: '15',
+    title: 'EcoVision AI – Smart Waste Classification Platform',
+    desc: 'A web-based platform developed using React to help users identify and classify waste types through a scanning process. The system will analyze the scanned waste.',
+    tech: ['React', 'JavaScript', 'AI / Machine Learning', 'API', 'CSS'],
+    year: '2021',
+    image: '/assets/projects/ecovision-ai.png',
+  },
+  {
+    num: '16',
+    title: 'DieTrack – Diecast Collection Management Platform',
+    desc: 'A web-based platform designed to help diecast collectors manage and monitor their collections in a more organized manner.',
+    tech: ['React', 'JavaScript', 'CSS', 'API', 'Database'],
+    year: '2021',
+    image: '/assets/projects/dietrack.png',
+  }
 ];
 
 function IdeSection() {
@@ -940,7 +1077,7 @@ function IdeSection() {
                 top: '35%',
                 left: '34%',
                 transform: 'translateY(-50%)',
-                fontSize: 'clamp(0.6rem, 1.1vw, 1.4rem)',
+                fontSize: 'clamp(0.5rem, 0.9vw, 1.1rem)',
                 fontFamily: 'var(--font-display)',
                 fontWeight: '900',
                 letterSpacing: '0.05em',
@@ -1095,7 +1232,7 @@ function Projects() {
             <div>Project & Specs</div>
             <div>Technologies</div>
             <div>Year</div>
-            <div>Action</div>
+            <div>Photo</div>
           </div>
 
           {PROJECTS.map((p) => (
@@ -1114,15 +1251,7 @@ function Projects() {
               </div>
               <div className="proj-year">{p.year}</div>
               <div>
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="proj-action-btn"
-                  aria-label="View Project"
-                >
-                  <ArrowUpRight size={18} />
-                </a>
+                <img src={p.image} alt={p.title} className="proj-action-photo" />
               </div>
             </div>
           ))}
@@ -1143,6 +1272,7 @@ const GEAR_STACK = [
     desc: 'Merancang antarmuka reaktif dan cepat menggunakan React 19, Next.js App Router, TypeScript, dan TailwindCSS.',
     tags: ['React 19', 'Next.js 14', 'TypeScript', 'TailwindCSS', 'Framer Motion'],
     wide: true,
+    bgImage: '/assets/tech-stack-gear/ui-modern.png'
   },
   {
     icon: <Server size={26} />,
@@ -1151,6 +1281,7 @@ const GEAR_STACK = [
     desc: 'Membangun backend microservices & RESTful API dengan Node.js, Express, dan Python FastAPI.',
     tags: ['Node.js', 'Express', 'Python FastAPI', 'REST', 'GraphQL'],
     wide: false,
+    bgImage: '/assets/tech-stack-gear/data-analytics.png'
   },
   {
     icon: <Database size={26} />,
@@ -1159,6 +1290,7 @@ const GEAR_STACK = [
     desc: 'Mengoptimalkan query database relasional maupun NoSQL dengan caching layer berkecepatan tinggi.',
     tags: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM'],
     wide: false,
+    bgImage: '/assets/tech-stack-gear/database-management.png'
   },
   {
     icon: <Cpu size={26} />,
@@ -1167,6 +1299,7 @@ const GEAR_STACK = [
     desc: 'Otomatisasi deployment dengan Docker containerization dan cloud service management AWS & Vercel.',
     tags: ['Docker', 'Kubernetes', 'AWS', 'Vercel', 'CI/CD Pipelines'],
     wide: true,
+    bgImage: '/assets/tech-stack-gear/deployemnt-vercel.png'
   },
 ];
 
@@ -1182,22 +1315,28 @@ function TechStack() {
 
         <div className="masonry-grid" data-reveal>
           {GEAR_STACK.map((item) => (
-            <div key={item.title} className={`gear-card ${item.wide ? 'wide' : ''}`}>
-              <div>
-                <div className="gear-card-top">
-                  <div className="gear-icon-box">{item.icon}</div>
-                  <span className="gear-tag">{item.tag}</span>
+            <div 
+              key={item.title} 
+              className={`gear-card ${item.wide ? 'wide' : ''} gear-card-img-bg`}
+              style={{ backgroundImage: `url(${item.bgImage})` }}
+            >
+              <div className="gear-card-content">
+                <div>
+                  <div className="gear-card-top">
+                    <div className="gear-icon-box">{item.icon}</div>
+                    <span className="gear-tag">{item.tag}</span>
+                  </div>
+                  <h3 className="gear-title">{item.title}</h3>
+                  <p className="gear-desc">{item.desc}</p>
                 </div>
-                <h3 className="gear-title">{item.title}</h3>
-                <p className="gear-desc">{item.desc}</p>
-              </div>
 
-              <div className="gear-tags-wrap">
-                {item.tags.map((t) => (
-                  <span key={t} className="tech-pill">
-                    {t}
-                  </span>
-                ))}
+                <div className="gear-tags-wrap">
+                  {item.tags.map((t) => (
+                    <span key={t} className="tech-pill">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
@@ -1333,6 +1472,7 @@ export default function App() {
       history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
+    setTimeout(() => window.scrollTo(0, 0), 50); // Fallback for some browsers to ensure it stays at top
   }, []);
 
   // GUARANTEED SCROLL REVEAL EFFECT (RUNS AFTER LOADED === TRUE)
@@ -1466,7 +1606,7 @@ export default function App() {
               loop={true} 
               loopDelay={3} 
               tag="span" 
-              shuffleDirection="right"
+              shuffleDirection="down"
               animationMode="evenodd"
               duration={0.3}
               stagger={0.05}
@@ -1475,7 +1615,7 @@ export default function App() {
 
           <main>
             <Hero loaded={loaded} />
-            <ManifestoSection />
+            <BiodataSection />
             <Marquee />
             <Showcase />
             <IdeSection />

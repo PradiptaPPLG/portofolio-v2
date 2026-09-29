@@ -810,7 +810,87 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   z-index: 2;
 }
 
+/* ============================================================
+   BIODATA MANIFESTO LAYOUT (2 Columns)
+   ============================================================ */
+.biodata-manifesto-section {
+  position: relative;
+  width: 100%;
+  padding: 10vh 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
 
+.biodata-manifesto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  width: 100%;
+  max-width: 1300px;
+}
+
+.biodata-manifesto-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.biodata-manifesto-col.align-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.biodata-item-wrap.align-right {
+  align-items: flex-end;
+}
+
+.biodata-manifesto-title {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent-bright);
+  letter-spacing: 0.25em;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.biodata-item-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.biodata-manifesto-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  opacity: 0.9;
+}
+
+.biodata-skills-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Override manifesto-line size for this section */
+.biodata-manifesto-text {
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .biodata-manifesto-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
 
 /* ============================================================
    HERO LAYOUT (LANDO NORRIS STYLE: TEXT BEHIND PORTRAIT)
@@ -1231,7 +1311,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
    ============================================================ */
 .showcase-section {
   position: relative;
-  height: 1000vh; /* Extremely long scroll to slow down the effect */
+  height: 400vh; /* Shorter scroll height to speed up the effect */
   width: 100%;
 }
 
@@ -1263,73 +1343,73 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 }
 
 /* Reference Exact Scatter Layout */
-/* Item 0: Top Left (like Golfing) */
+/* Item 0: Top Left */
 .showcase-item-0 { 
   align-self: flex-start; 
   margin-top: 10vh;
 }
-.showcase-item-0 .showcase-img-wrap { width: 22vw; max-width: 350px; aspect-ratio: 4/5; }
+.showcase-item-0 .showcase-img-wrap { width: 16vw; max-width: 280px; }
 
-/* Item 1: Bottom Left (like Helmet) */
+/* Item 1: Bottom Left */
 .showcase-item-1 { 
   align-self: flex-end; 
   margin-bottom: 15vh;
 }
-.showcase-item-1 .showcase-img-wrap { width: 25vw; max-width: 400px; aspect-ratio: 1/1; }
+.showcase-item-1 .showcase-img-wrap { width: 18vw; max-width: 300px; }
 
-/* Item 2: Top Middle (like Suit Guy) */
+/* Item 2: Top Middle */
 .showcase-item-2 { 
   align-self: flex-start; 
   margin-top: 22vh;
 }
-.showcase-item-2 .showcase-img-wrap { width: 16vw; max-width: 250px; aspect-ratio: 3/4; }
+.showcase-item-2 .showcase-img-wrap { width: 14vw; max-width: 250px; }
 
-/* Item 3: Bottom Middle (like Dog Guy) */
+/* Item 3: Bottom Middle */
 .showcase-item-3 { 
   align-self: flex-end; 
   margin-bottom: 5vh;
 }
-.showcase-item-3 .showcase-img-wrap { width: 22vw; max-width: 350px; aspect-ratio: 4/5; }
+.showcase-item-3 .showcase-img-wrap { width: 16vw; max-width: 280px; }
 
-/* Item 4: Center Right (Huge Camera Guy) */
+/* Item 4: Center Right */
 .showcase-item-4 { 
   align-self: center; 
 }
-.showcase-item-4 .showcase-img-wrap { width: 42vw; max-width: 800px; aspect-ratio: 16/10; }
+.showcase-item-4 .showcase-img-wrap { width: 22vw; max-width: 350px; }
 
-/* Item 5: Top Far Right (like Trophy Guy) */
+/* Item 5: Top Far Right */
 .showcase-item-5 { 
   align-self: flex-start; 
   margin-top: 25vh;
 }
-.showcase-item-5 .showcase-img-wrap { width: 18vw; max-width: 280px; aspect-ratio: 4/5; }
+.showcase-item-5 .showcase-img-wrap { width: 14vw; max-width: 250px; }
 
-/* Item 6: Bottom Far Right (like 2nd Helmet) */
+/* Item 6: Bottom Far Right */
 .showcase-item-6 { 
   align-self: flex-end; 
   margin-bottom: 12vh;
 }
-.showcase-item-6 .showcase-img-wrap { width: 25vw; max-width: 400px; aspect-ratio: 1/1; }
+.showcase-item-6 .showcase-img-wrap { width: 18vw; max-width: 300px; }
 
 /* Item 7: Top Left */
 .showcase-item-7 { 
   align-self: flex-start; 
   margin-top: 15vh;
 }
-.showcase-item-7 .showcase-img-wrap { width: 22vw; max-width: 350px; aspect-ratio: 3/4; }
+.showcase-item-7 .showcase-img-wrap { width: 16vw; max-width: 280px; }
 
 /* Item 8: Bottom */
 .showcase-item-8 { 
   align-self: flex-end; 
   margin-bottom: 10vh;
 }
-.showcase-item-8 .showcase-img-wrap { width: 40vw; max-width: 600px; aspect-ratio: 16/9; }
+.showcase-item-8 .showcase-img-wrap { width: 20vw; max-width: 320px; }
 
 /* Item 9: Center Right */
 .showcase-item-9 { 
   align-self: center; 
 }
-.showcase-item-9 .showcase-img-wrap { width: 18vw; max-width: 300px; aspect-ratio: 1/1; }
+.showcase-item-9 .showcase-img-wrap { width: 14vw; max-width: 250px; }
 
 .showcase-item-inner {
   display: flex;
@@ -1337,16 +1417,32 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 }
 
 .showcase-img-wrap {
-  overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);
 }
 
 .showcase-img-wrap img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-title-wrap {
+  position: absolute;
+  top: 4vh;
+  left: 4vw;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.showcase-main-title {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: inherit;
 }
 
 .showcase-item:hover .showcase-img-wrap img {
@@ -1386,7 +1482,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .table-row-head {
   display: grid;
-  grid-template-columns: 80px 2.5fr 2fr 1fr 120px;
+  grid-template-columns: 80px 2.5fr 2fr 1fr 200px;
   padding: 1.25rem 2.5rem;
   background: var(--surface-2);
   border-bottom: 1px solid var(--border);
@@ -1400,7 +1496,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .table-row-item {
   display: grid;
-  grid-template-columns: 80px 2.5fr 2fr 1fr 120px;
+  grid-template-columns: 80px 2.5fr 2fr 1fr 200px;
   align-items: center;
   padding: 2rem 2.5rem;
   border-bottom: 1px solid var(--border);
@@ -1490,6 +1586,24 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   color: #fff;
 }
 
+.proj-action-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
+  filter: grayscale(40%) brightness(0.9);
+}
+
+.table-row-item:hover .proj-action-photo {
+  transform: scale(1.05) rotate(-2deg);
+  border-color: var(--purple);
+  filter: grayscale(0%) brightness(1.1);
+  box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2);
+}
+
 /* ============================================================
    TECH STACK & GEAR MASONRY (LANDO MERCH GRID STYLE)
    ============================================================ */
@@ -1515,6 +1629,61 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .gear-card.wide {
   grid-column: span 2;
+}
+
+.gear-card-img-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid var(--border);
+}
+
+.gear-card-img-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 5, 20, 0.55);
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.gear-card-img-bg:hover::before {
+  opacity: 0;
+}
+
+.gear-card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.gear-card-img-bg:hover .gear-card-content {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Force text to be white on image backgrounds */
+.gear-card-img-bg .gear-title,
+.gear-card-img-bg .gear-desc {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.gear-card-img-bg .gear-tag {
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.gear-card-img-bg .tech-pill {
+  color: #ffffff;
+  background: rgba(168, 85, 247, 0.25);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
 
 .gear-card:hover {

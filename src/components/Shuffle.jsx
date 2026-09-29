@@ -172,7 +172,8 @@ const Shuffle = ({
           const parent = ch.parentElement;
           if (!parent) return;
 
-          const w = ch.getBoundingClientRect().width;
+          // Add 2px to prevent clipping of wide/italic characters in some fonts
+          const w = ch.getBoundingClientRect().width + 2;
           const h = ch.getBoundingClientRect().height;
           if (!w) return;
 
