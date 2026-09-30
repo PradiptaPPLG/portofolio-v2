@@ -564,8 +564,8 @@ function Hero({ loaded }) {
                   <StrokeText
                     text="PRADIPTA"
                     strokeColor="#c084fc"
-                    fillColor="#f3f4f6"
-                    strokeWidth={1.5}
+                    fillColor="transparent"
+                    strokeWidth={1.2}
                     drawDuration={1.8}
                     fillDelay={0.3}
                     stagger={0.1}
@@ -579,8 +579,8 @@ function Hero({ loaded }) {
                   <StrokeText
                     text="ENDRA"
                     strokeColor="#c084fc"
-                    fillColor="#f3f4f6"
-                    strokeWidth={1.5}
+                    fillColor="transparent"
+                    strokeWidth={1.2}
                     drawDuration={1.8}
                     fillDelay={0.3}
                     stagger={0.1}
@@ -594,8 +594,8 @@ function Hero({ loaded }) {
                   <StrokeText
                     text="MAULANA"
                     strokeColor="#a855f7"
-                    fillColor="#c084fc"
-                    strokeWidth={1.5}
+                    fillColor="transparent"
+                    strokeWidth={1.2}
                     drawDuration={1.8}
                     fillDelay={0.3}
                     stagger={0.1}
