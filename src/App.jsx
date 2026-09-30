@@ -637,21 +637,7 @@ function Hero({ loaded }) {
         </motion.div>
 
         {/* LAYER 2.5: Giant Signature Overlay (Outside the shrinking front layer so it doesn't scale down) */}
-        <motion.div 
-          style={{ 
-          position: 'absolute', 
-          top: '50%', 
-          left: '50%', 
-          transform: 'translate(-50%, -50%)', 
-          width: '55vw', 
-          maxWidth: '800px', 
-          height: '90vh', 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          pointerEvents: 'none', 
-          zIndex: 50 
-        }}>
+        <motion.div className="hero-signature-wrapper">
           <Signature color="url(#cosmicGradient)" strokeWidth={5} progress={scrollYProgress} />
         </motion.div>
 
@@ -2064,7 +2050,7 @@ export default function App() {
       <div style={{ opacity: loaded ? 1 : 1 }}>
         <>
           {/* Global Topography background - two layers crossfade smoothly */}
-          <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -5, pointerEvents: 'none' }}>
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: -5, pointerEvents: 'none' }}>
             {/* Dark layer (purple) */}
             <div style={{
               position: 'absolute', inset: 0,
