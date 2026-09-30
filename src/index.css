@@ -2941,8 +2941,8 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
     padding: 0 1.5rem !important; 
     gap: 3rem !important; 
   }
-  .showcase-item { align-self: center !important; margin: 0 !important; width: 100% !important; }
-  .showcase-img-wrap { width: 100% !important; max-width: 100% !important; }
+  
+  
   .showcase-img-wrap img { transform: none !important; } /* Disable hover zoom on mobile if buggy */
   
   /* SIDE-BY-SIDE SOCIAL (ON/OFF TRACK STYLE) */
@@ -3029,10 +3029,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
     align-items: center !important;
   }
   
-  .showcase-item {
-    width: 100% !important;
-    margin-bottom: 2rem !important;
-  }
+  
 
   /* Ensure long text breaks properly instead of pushing layout */
   .hero-title-bg, .section-title, .biodata-manifesto-text, .footer-big-brand {
@@ -3224,4 +3221,28 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   .hero-velocity-text {
     font-size: clamp(3rem, 15vw, 5rem) !important;
   }
+}
+
+@media (max-width: 768px) {
+
+  /* Mobile Scatter Layout for Certificates */
+  .showcase-item {
+    margin-bottom: 3rem !important;
+  }
+  .showcase-item-0 { align-self: flex-start !important; margin-left: 5vw !important; width: 75vw !important; margin-top: 2vh !important; }
+  .showcase-item-1 { align-self: flex-end !important; margin-right: 5vw !important; width: 85vw !important; margin-top: -3vh !important; }
+  .showcase-item-2 { align-self: flex-start !important; margin-left: 10vw !important; width: 70vw !important; margin-top: 4vh !important; }
+  .showcase-item-3 { align-self: flex-end !important; margin-right: 8vw !important; width: 80vw !important; margin-top: 2vh !important; }
+  .showcase-item-4 { align-self: center !important; width: 90vw !important; margin-top: 5vh !important; }
+  .showcase-item-5 { align-self: flex-start !important; margin-left: 5vw !important; width: 75vw !important; margin-top: 4vh !important; }
+  .showcase-item-6 { align-self: flex-end !important; margin-right: 5vw !important; width: 85vw !important; margin-top: -2vh !important; }
+  .showcase-item-7 { align-self: flex-start !important; margin-left: 12vw !important; width: 75vw !important; margin-top: 6vh !important; }
+  .showcase-item-8 { align-self: center !important; width: 85vw !important; margin-top: 2vh !important; }
+  .showcase-item-9 { align-self: flex-end !important; margin-right: 8vw !important; width: 80vw !important; margin-top: 5vh !important; }
+  
+  .showcase-item .showcase-img-wrap {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
 }
