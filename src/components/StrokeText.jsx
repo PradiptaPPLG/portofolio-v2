@@ -192,7 +192,9 @@ const StrokeText = ({
     };
   }, [box, dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse]);
 
-  const viewBox = box ? `${box.x} ${box.y} ${box.width} ${box.height}` : `0 ${-fontSize} 600 ${fontSize * 1.3}`;
+  // Robust fallback width estimation based on character count and font size
+  const fallbackWidth = characters.length * fontSize * 0.75; 
+  const viewBox = box ? `${box.x} ${box.y} ${box.width} ${box.height}` : `0 ${-fontSize} ${fallbackWidth} ${fontSize * 1.3}`;
 
   return (
     <span
@@ -201,7 +203,7 @@ const StrokeText = ({
       style={{ 
         ...style, 
         '--stroke-text-height': `${Math.round(fontSize * 1.3)}px`,
-        width: box ? `${box.width}px` : 'max-content'
+        width: box ? `${box.width}px` : `${fallbackWidth}px`
       }}
       role="img"
       aria-label={String(text ?? '')}
