@@ -34,8 +34,8 @@ const StrokeText = ({
 
   const [box, setBox] = useState(null);
 
-  const rawId = useId();
-  const wipeId = `stroke-text-wipe-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+  const [rawId] = useState(() => Math.random().toString(36).substring(2, 9));
+  const wipeId = `stroke-text-wipe-${rawId}`;
 
   const characters = useMemo(() => Array.from(String(text ?? '')), [text]);
 
