@@ -511,14 +511,13 @@ function Hero({ loaded }) {
     offset: ['start start', 'end end'],
   });
 
-  // Responsive font size for StrokeText
-  const [vw, setVw] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const [responsiveFontSize, setResponsiveFontSize] = useState(150);
   useEffect(() => {
-    const handleResize = () => setVw(window.innerWidth);
+    const handleResize = () => setResponsiveFontSize(window.innerWidth > 768 ? 150 : 80);
+    handleResize(); // set initially
     window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const responsiveFontSize = Math.min(Math.max(vw * 0.11, 60), 160);
 
   // Portrait scale: shrinks to a smaller size continuously until the end of the section
   const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
