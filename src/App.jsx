@@ -511,19 +511,7 @@ function Hero({ loaded }) {
     offset: ['start start', 'end end'],
   });
 
-  const [responsiveFontSize, setResponsiveFontSize] = useState(100);
-  useEffect(() => {
-    const handleResize = () => {
-      // Bikin ukuran font-nya lebih kecil di desktop (max 100) biar nggak keliatan raksasa
-      const vw = window.innerWidth;
-      const size = vw > 768 ? Math.min(vw * 0.07, 100) : 60;
-      setResponsiveFontSize(size);
-    };
-    handleResize(); // set initially
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
+  // Removed responsiveFontSize hook since it's inherited from CSS now
   // Portrait scale: shrinks to a smaller size continuously until the end of the section
   const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
   
@@ -584,7 +572,6 @@ function Hero({ loaded }) {
                     ease="power2.out"
                     trigger="mount"
                     fillMode="wipe"
-                    fontSize={responsiveFontSize}
                     fontWeight={900}
                   />
                 </div>
@@ -600,7 +587,6 @@ function Hero({ loaded }) {
                     ease="power2.out"
                     trigger="mount"
                     fillMode="wipe"
-                    fontSize={responsiveFontSize}
                     fontWeight={900}
                   />
                 </div>
@@ -616,7 +602,6 @@ function Hero({ loaded }) {
                     ease="power2.out"
                     trigger="mount"
                     fillMode="wipe"
-                    fontSize={responsiveFontSize}
                     fontWeight={900}
                   />
                 </div>

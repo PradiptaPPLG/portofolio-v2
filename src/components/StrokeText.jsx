@@ -154,9 +154,9 @@ const StrokeText = ({
       <span style={{
         opacity: 0,
         pointerEvents: 'none',
-        fontSize: `${fontSize}px`,
+        fontSize: fontSize ? `${fontSize}px` : undefined,
         fontWeight,
-        letterSpacing: `${letterSpacing}px`
+        letterSpacing: letterSpacing ? `${letterSpacing}px` : undefined
       }}>
         {text}
       </span>
@@ -192,9 +192,9 @@ const StrokeText = ({
           strokeLinejoin="round"
           strokeLinecap="round"
           style={{
-            fontSize: `${fontSize}px`,
+            fontSize: fontSize ? `${fontSize}px` : undefined,
             fontWeight,
-            letterSpacing: `${letterSpacing}px`
+            letterSpacing: letterSpacing ? `${letterSpacing}px` : undefined
           }}
         >
           {characters.map((char, index) => (
@@ -213,9 +213,9 @@ const StrokeText = ({
           fill={fillColor}
           stroke="none"
           style={{
-            fontSize: `${fontSize}px`,
+            fontSize: fontSize ? `${fontSize}px` : undefined,
             fontWeight,
-            letterSpacing: `${letterSpacing}px`
+            letterSpacing: letterSpacing ? `${letterSpacing}px` : undefined
           }}
           clipPath={fillMode === 'wipe' ? `url(#${wipeId})` : undefined}
         >
