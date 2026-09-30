@@ -1341,43 +1341,71 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 /* Reference Exact Scatter Layout */
 /* Item 0: Top Left */
-.showcase-item-0 { align-self: flex-start !important; margin-left: 10vw !important; width: 55vw !important; margin-top: 5vh !important; }
+.showcase-item-0 { 
+  align-self: flex-start; 
+  margin-top: 10vh;
+}
 .showcase-item-0 .showcase-img-wrap { width: 16vw; max-width: 280px; }
 
 /* Item 1: Bottom Left */
-.showcase-item-1 { align-self: flex-end !important; margin-right: 5vw !important; width: 65vw !important; margin-top: 2vh !important; }
+.showcase-item-1 { 
+  align-self: flex-end; 
+  margin-bottom: 15vh;
+}
 .showcase-item-1 .showcase-img-wrap { width: 18vw; max-width: 300px; }
 
 /* Item 2: Top Middle */
-.showcase-item-2 { align-self: flex-start !important; margin-left: 20vw !important; width: 45vw !important; margin-top: 8vh !important; }
+.showcase-item-2 { 
+  align-self: flex-start; 
+  margin-top: 22vh;
+}
 .showcase-item-2 .showcase-img-wrap { width: 14vw; max-width: 250px; }
 
 /* Item 3: Bottom Middle */
-.showcase-item-3 { align-self: flex-end !important; margin-right: 15vw !important; width: 55vw !important; margin-top: 2vh !important; }
+.showcase-item-3 { 
+  align-self: flex-end; 
+  margin-bottom: 5vh;
+}
 .showcase-item-3 .showcase-img-wrap { width: 16vw; max-width: 280px; }
 
 /* Item 4: Center Right */
-.showcase-item-4 { align-self: center !important; width: 80vw !important; margin-top: 10vh !important; }
+.showcase-item-4 { 
+  align-self: center; 
+}
 .showcase-item-4 .showcase-img-wrap { width: 22vw; max-width: 350px; }
 
 /* Item 5: Top Far Right */
-.showcase-item-5 { align-self: flex-start !important; margin-left: 5vw !important; width: 60vw !important; margin-top: 4vh !important; }
+.showcase-item-5 { 
+  align-self: flex-start; 
+  margin-top: 25vh;
+}
 .showcase-item-5 .showcase-img-wrap { width: 14vw; max-width: 250px; }
 
 /* Item 6: Bottom Far Right */
-.showcase-item-6 { align-self: flex-end !important; margin-right: 10vw !important; width: 50vw !important; margin-top: 6vh !important; }
+.showcase-item-6 { 
+  align-self: flex-end; 
+  margin-bottom: 12vh;
+}
 .showcase-item-6 .showcase-img-wrap { width: 18vw; max-width: 300px; }
 
 /* Item 7: Top Left */
-.showcase-item-7 { align-self: flex-start !important; margin-left: 15vw !important; width: 65vw !important; margin-top: 8vh !important; }
+.showcase-item-7 { 
+  align-self: flex-start; 
+  margin-top: 15vh;
+}
 .showcase-item-7 .showcase-img-wrap { width: 16vw; max-width: 280px; }
 
 /* Item 8: Bottom */
-.showcase-item-8 { align-self: center !important; width: 70vw !important; margin-top: 2vh !important; }
+.showcase-item-8 { 
+  align-self: flex-end; 
+  margin-bottom: 10vh;
+}
 .showcase-item-8 .showcase-img-wrap { width: 20vw; max-width: 320px; }
 
 /* Item 9: Center Right */
-.showcase-item-9 { align-self: flex-end !important; margin-right: 5vw !important; width: 55vw !important; margin-top: 12vh !important; }
+.showcase-item-9 { 
+  align-self: center; 
+}
 .showcase-item-9 .showcase-img-wrap { width: 14vw; max-width: 250px; }
 
 .showcase-item-inner {
@@ -2913,9 +2941,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
     padding: 0 1.5rem !important; 
     gap: 3rem !important; 
   }
-  
-  
-  .showcase-img-wrap img { transform: none !important; } /* Disable hover zoom on mobile if buggy */
+  /* Removed full-width override */
   
   /* SIDE-BY-SIDE SOCIAL (ON/OFF TRACK STYLE) */
   .social-split-container { 
@@ -3001,7 +3027,37 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
     align-items: center !important;
   }
   
+  /* Mobile Scatter Layout for Certificates (Lando Norris style) - EVEN SMALLER */
+  .showcase-item-0 { align-self: flex-start !important; margin-left: 10vw !important; width: 45vw !important; margin-top: 5vh !important; }
+  .showcase-item-1 { align-self: flex-end !important; margin-right: 5vw !important; width: 55vw !important; margin-top: 2vh !important; }
+  .showcase-item-2 { align-self: flex-start !important; margin-left: 20vw !important; width: 35vw !important; margin-top: 8vh !important; }
+  .showcase-item-3 { align-self: flex-end !important; margin-right: 15vw !important; width: 45vw !important; margin-top: 2vh !important; }
+  .showcase-item-4 { align-self: center !important; width: 65vw !important; margin-top: 10vh !important; }
+  .showcase-item-5 { align-self: flex-start !important; margin-left: 5vw !important; width: 50vw !important; margin-top: 4vh !important; }
+  .showcase-item-6 { align-self: flex-end !important; margin-right: 10vw !important; width: 40vw !important; margin-top: 6vh !important; }
+  .showcase-item-7 { align-self: flex-start !important; margin-left: 15vw !important; width: 55vw !important; margin-top: 8vh !important; }
+  .showcase-item-8 { align-self: center !important; width: 60vw !important; margin-top: 2vh !important; }
+  .showcase-item-9 { align-self: flex-end !important; margin-right: 5vw !important; width: 45vw !important; margin-top: 12vh !important; }
   
+  .showcase-item {
+    margin-bottom: 2rem !important;
+  }
+  
+  .showcase-item .showcase-img-wrap {
+    width: 100% !important;
+    max-width: none !important;
+  }
+  
+  .showcase-item .showcase-img-wrap img {
+    width: 100% !important;
+  }
+  
+  .showcase-item .showcase-meta {
+    justify-content: flex-start !important;
+    gap: 1rem !important;
+    font-size: 0.65rem !important;
+    margin-bottom: 0.5rem !important;
+  }
 
   /* Ensure long text breaks properly instead of pushing layout */
   .hero-title-bg, .section-title, .biodata-manifesto-text, .footer-big-brand {
@@ -3193,36 +3249,4 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   .hero-velocity-text {
     font-size: clamp(3rem, 15vw, 5rem) !important;
   }
-}
-
-@media (max-width: 768px) {
-
-  /* Mobile Scatter Layout for Certificates */
-  .showcase-item {
-    margin-bottom: 3rem !important;
-  }
-  .showcase-item-0 { align-self: flex-start !important; margin-left: 10vw !important; width: 55vw !important; margin-top: 5vh !important; }
-  .showcase-item-1 { align-self: flex-end !important; margin-right: 5vw !important; width: 65vw !important; margin-top: 2vh !important; }
-  .showcase-item-2 { align-self: flex-start !important; margin-left: 20vw !important; width: 45vw !important; margin-top: 8vh !important; }
-  .showcase-item-3 { align-self: flex-end !important; margin-right: 15vw !important; width: 55vw !important; margin-top: 2vh !important; }
-  .showcase-item-4 { align-self: center !important; width: 80vw !important; margin-top: 10vh !important; }
-  .showcase-item-5 { align-self: flex-start !important; margin-left: 5vw !important; width: 60vw !important; margin-top: 4vh !important; }
-  .showcase-item-6 { align-self: flex-end !important; margin-right: 10vw !important; width: 50vw !important; margin-top: 6vh !important; }
-  .showcase-item-7 { align-self: flex-start !important; margin-left: 15vw !important; width: 65vw !important; margin-top: 8vh !important; }
-  .showcase-item-8 { align-self: center !important; width: 70vw !important; margin-top: 2vh !important; }
-  .showcase-item-9 { align-self: flex-end !important; margin-right: 5vw !important; width: 55vw !important; margin-top: 12vh !important; }
-  
-  .showcase-item .showcase-img-wrap {
-    width: 100% !important;
-    max-width: none !important;
-  }
-
-  .showcase-item .showcase-meta {
-    justify-content: flex-start !important;
-    gap: 1rem !important;
-    font-size: 0.6rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-
 }
