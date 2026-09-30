@@ -1439,7 +1439,7 @@ function IdeSection() {
                 top: '35%',
                 left: '34%',
                 transform: 'translateY(-50%)',
-                fontSize: 'clamp(0.5rem, 0.81vw, 1.1rem)',
+                fontSize: 'clamp(0.5rem, 0.76vw,  1.1rem)',
                 fontFamily: 'var(--font-display)',
                 fontWeight: '900',
                 letterSpacing: '0.05em',
@@ -1609,10 +1609,10 @@ function Achievements() {
         enabled
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', textAlign: 'center', width: '100%', alignItems: 'center', padding: '2rem' }}>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5.4vw, 5rem)', margin: 0, fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.1, color: '#ffffff', textShadow: '0 4px 24px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,1)', letterSpacing: '-0.02em', fontFamily: 'var(--font-sans)' }}>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 5.1vw,  5rem)', margin: 0, fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.1, color: '#ffffff', textShadow: '0 4px 24px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,1)', letterSpacing: '-0.02em', fontFamily: 'var(--font-sans)' }}>
             LKS AI Jabar Exhibition
           </h2>
-          <h3 style={{ fontSize: 'clamp(1.5rem, 3.6vw, 3rem)', margin: 0, color: '#ffffff', fontWeight: 800, textShadow: '0 4px 24px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,1)', fontFamily: 'var(--font-sans)' }}>
+          <h3 style={{ fontSize: 'clamp(1.5rem, 3.4vw,  3rem)', margin: 0, color: '#ffffff', fontWeight: 800, textShadow: '0 4px 24px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,1)', fontFamily: 'var(--font-sans)' }}>
             <span style={{ color: 'var(--accent-bright)' }}>1st Place</span> Code & Share UBSI
           </h3>
         </div>
