@@ -29,74 +29,16 @@ const StrokeText = ({
   style = {}
 }) => {
   const rootRef = useRef(null);
-  const strokeTextRef = useRef(null);
   const wipeRectRef = useRef(null);
-
-  const [box, setBox] = useState(null);
-
   const [rawId] = useState(() => Math.random().toString(36).substring(2, 9));
   const wipeId = `stroke-text-wipe-${rawId}`;
 
   const characters = useMemo(() => Array.from(String(text ?? '')), [text]);
-
-  const dash = Math.max(fontSize * 7, 200);
-
-  const fontStyle = useMemo(
-    () => ({
-      fontSize: `${fontSize}px`,
-      fontWeight,
-      letterSpacing: `${letterSpacing}px`
-    }),
-    [fontSize, fontWeight, letterSpacing]
-  );
-
-  useLayoutEffect(() => {
-    const node = strokeTextRef.current;
-    if (!node) return undefined;
-
-    let cancelled = false;
-
-    const measure = () => {
-      if (cancelled || !strokeTextRef.current) return;
-      let bbox;
-      try {
-        bbox = strokeTextRef.current.getBBox();
-      } catch {
-        return;
-      }
-      if (!bbox || !bbox.width) return;
-
-      const pad = Math.max(Number(strokeWidth) || 1, fontSize * 0.1);
-      const next = {
-        x: bbox.x - pad,
-        y: bbox.y - pad,
-        width: bbox.width + pad * 2,
-        height: bbox.height + pad * 2
-      };
-
-      setBox(prev =>
-        prev &&
-        Math.abs(prev.x - next.x) < 0.5 &&
-        Math.abs(prev.width - next.width) < 0.5 &&
-        Math.abs(prev.y - next.y) < 0.5
-          ? prev
-          : next
-      );
-    };
-
-    measure();
-    if (typeof document !== 'undefined' && document.fonts?.ready) {
-      document.fonts.ready.then(measure).catch(() => {});
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, [characters, fontSize, fontWeight, letterSpacing, strokeWidth]);
+  const dash = 1000; // Large enough dash for any font size
 
   useEffect(() => {
     const root = rootRef.current;
-    if (typeof window === 'undefined' || !root || !box) return undefined;
+    if (typeof window === 'undefined' || !root) return undefined;
 
     const strokes = gsap.utils.toArray(root.querySelectorAll('[data-stroke-char]'));
     const fills = gsap.utils.toArray(root.querySelectorAll('[data-fill-char]'));
@@ -120,7 +62,7 @@ const StrokeText = ({
       gsap.killTweensOf(targets);
       gsap.set(strokes, { strokeDasharray: dash, strokeDashoffset: 0 });
       gsap.set(fills, { opacity: fillEnabled ? 1 : 0 });
-      if (wipe) gsap.set(wipe, { attr: { width: fillEnabled ? box.width : 0 } });
+      if (wipe) gsap.set(wipe, { attr: { width: 1 } }); // objectBoundingBox max is 1
     };
 
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -143,7 +85,7 @@ const StrokeText = ({
       if (useWipe && wipe) {
         tl.to(
           wipe,
-          { attr: { width: box.width }, duration: fillDuration, ease: 'power2.inOut' },
+          { attr: { width: 1 }, duration: fillDuration, ease: 'power2.inOut' },
           drawDuration + fillDelay
         );
       } else if (fillEnabled) {
@@ -190,49 +132,70 @@ const StrokeText = ({
       timeline?.kill();
       gsap.killTweensOf(targets);
     };
-  }, [box, dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse]);
-
-  // Robust fallback width estimation based on character count and font size
-  const fallbackWidth = characters.length * fontSize * 0.75; 
-  const viewBox = box ? `${box.x} ${box.y} ${box.width} ${box.height}` : `0 ${-fontSize} ${fallbackWidth} ${fontSize * 1.3}`;
+  }, [dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse]);
 
   return (
     <span
       ref={rootRef}
       className={`stroke-text ${trigger === 'hover' ? 'stroke-text--hover' : ''} ${className}`.trim()}
       style={{ 
-        ...style, 
-        '--stroke-text-height': `${Math.round(fontSize * 1.3)}px`,
-        width: box ? `${box.width}px` : `${fallbackWidth}px`
+        ...style,
+        position: 'relative',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        whiteSpace: 'nowrap',
+        lineHeight: 1
       }}
       role="img"
       aria-label={String(text ?? '')}
     >
+      {/* Invisible HTML text to force the container to the EXACT correct size without JS measurement */}
+      <span style={{
+        opacity: 0,
+        pointerEvents: 'none',
+        fontSize: `${fontSize}px`,
+        fontWeight,
+        letterSpacing: `${letterSpacing}px`
+      }}>
+        {text}
+      </span>
+
       <svg 
         className="stroke-text__svg" 
-        viewBox={viewBox} 
-        preserveAspectRatio="xMidYMid meet" 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          overflow: 'visible'
+        }}
         aria-hidden="true"
       >
-        {fillMode === 'wipe' && box && (
+        {fillMode === 'wipe' && (
           <defs>
-            <clipPath id={wipeId} clipPathUnits="userSpaceOnUse">
-              <rect ref={wipeRectRef} x={box.x} y={box.y} width="0" height={box.height} />
+            <clipPath id={wipeId} clipPathUnits="objectBoundingBox">
+              <rect ref={wipeRectRef} x="0" y="-0.5" width="0" height="2" />
             </clipPath>
           </defs>
         )}
 
         <text
-          ref={strokeTextRef}
           className="stroke-text__stroke"
-          x="0"
-          y="0"
+          x="50%"
+          y="50%"
+          dominantBaseline="central"
+          textAnchor="middle"
           fill="none"
           stroke={strokeColor}
           strokeWidth={strokeWidth}
           strokeLinejoin="round"
           strokeLinecap="round"
-          style={fontStyle}
+          style={{
+            fontSize: `${fontSize}px`,
+            fontWeight,
+            letterSpacing: `${letterSpacing}px`
+          }}
         >
           {characters.map((char, index) => (
             <tspan data-stroke-char key={`s-${index}`}>
@@ -243,12 +206,18 @@ const StrokeText = ({
 
         <text
           className="stroke-text__fill"
-          x="0"
-          y="0"
+          x="50%"
+          y="50%"
+          dominantBaseline="central"
+          textAnchor="middle"
           fill={fillColor}
           stroke="none"
-          style={fontStyle}
-          clipPath={fillMode === 'wipe' && box ? `url(#${wipeId})` : undefined}
+          style={{
+            fontSize: `${fontSize}px`,
+            fontWeight,
+            letterSpacing: `${letterSpacing}px`
+          }}
+          clipPath={fillMode === 'wipe' ? `url(#${wipeId})` : undefined}
         >
           {characters.map((char, index) => (
             <tspan data-fill-char key={`f-${index}`}>
