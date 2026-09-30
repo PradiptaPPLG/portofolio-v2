@@ -3137,14 +3137,22 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 @media (max-width: 768px) {
   /* Fix the REAL root cause of horizontal scrolling and clipping: Canvas window had 500px min-width! */
+  .ide-section {
+    padding: 3rem 1rem !important;
+  }
   .ide-section .container {
     flex-wrap: wrap !important;
+    width: 100% !important;
   }
   .ide-window, .ide-content, .canvas-window {
     min-width: 0 !important;
     width: 100% !important;
     flex: 1 1 100% !important;
     box-sizing: border-box !important;
+  }
+  
+  .ide-window {
+    min-height: 300px !important; /* Ensure enough height for the terminal to show properly on mobile */
   }
 
   /* Scale down manifesto and biodata text for mobile */
