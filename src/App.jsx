@@ -1526,10 +1526,10 @@ function SocialLinks() {
             style={{
               position: 'absolute',
               top: '-10px',
-              left: '-20px',
+              left: '10px',
               y: parallaxY,
-              width: '110%',
-              minWidth: '350px',
+              width: '90%',
+              minWidth: '280px',
               zIndex: 50,
               pointerEvents: 'none',
               rotate: -5
