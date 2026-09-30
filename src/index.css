@@ -1208,11 +1208,9 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
    ============================================================ */
 .marquee-section {
   position: relative;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%;
+  left: 0;
+  right: 0;
   background: var(--grad-primary);
   padding: 1.1rem 0;
   overflow: hidden;
@@ -3160,3 +3158,11 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   .hero-scroll-outer { max-width: 100vw !important; /* overflow-x removed to fix sticky bug */ }
 }
 
+
+/* Desktop only horizontal scrollbar prevention */
+@media (min-width: 769px) {
+  html, body, #root {
+    overflow-x: clip !important;
+    max-width: 100vw !important;
+  }
+}
