@@ -66,7 +66,8 @@
 }
 
 html {
-  font-size: 14.4px;
+  font-size: 16px;
+  zoom: 0.9;
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--purple) var(--bg-2);
@@ -232,7 +233,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-mono);
-  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+  font-size: clamp(0.6rem, 1vw, 0.78rem);
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -406,7 +407,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   align-items: baseline;
   gap: 1.5rem;
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5.42vw, 5.5rem);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
   font-weight: 900;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -553,7 +554,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .hero-name-word {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6.32vw, 6rem); /* Reduced significantly */
+  font-size: clamp(3rem, 7vw, 6rem); /* Reduced significantly */
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.85;
@@ -654,7 +655,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .hero-velocity-text {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 9.03vw, 9rem);
+  font-size: clamp(4rem, 10vw, 9rem);
   font-weight: 900;
   color: #c084fc; /* Neon purple accent for the first line */
   text-transform: uppercase;
@@ -723,7 +724,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .manifesto-block-1 {
   width: 40%;
-  height: clamp(1.5rem, 3.61vw, 3.5rem);
+  height: clamp(1.5rem, 4vw, 3.5rem);
   top: 35%;
   right: -5%;
   opacity: 0.85;
@@ -731,7 +732,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .manifesto-block-2 {
   width: 30%;
-  height: clamp(1.5rem, 3.61vw, 3.5rem);
+  height: clamp(1.5rem, 4vw, 3.5rem);
   top: 55%;
   left: -5%;
   opacity: 0.85;
@@ -739,7 +740,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .manifesto-block-3 {
   width: 25%;
-  height: clamp(1.5rem, 3.61vw, 3.5rem);
+  height: clamp(1.5rem, 4vw, 3.5rem);
   top: 70%;
   right: 5%;
   opacity: 0.85;
@@ -781,7 +782,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 /* Text line */
 .manifesto-line {
   font-family: var(--font-display);
-  font-size: clamp(1rem, 3.61vw, 3.5rem);
+  font-size: clamp(1rem, 4vw, 3.5rem);
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -799,7 +800,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 /* Sub caption below text */
 .manifesto-sub {
   font-family: var(--font-mono);
-  font-size: clamp(0.65rem, 0.99vw, 0.85rem);
+  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -880,7 +881,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 /* Override manifesto-line size for this section */
 .biodata-manifesto-text {
-  font-size: clamp(1rem, 1.62vw, 1.4rem);
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
   text-transform: uppercase;
 }
 
@@ -910,7 +911,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   padding: 0 2rem;
   text-align: center;
   font-family: var(--font-display);
-  font-size: clamp(4rem, 9.47vw, 11rem);
+  font-size: clamp(4rem, 10.5vw, 11rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.88;
@@ -1100,7 +1101,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 }
 
 .hero-desc {
-  font-size: clamp(0.95rem, 1.17vw, 1.1rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
   line-height: 1.65;
   color: var(--text-muted);
   max-width: 580px;
@@ -1186,7 +1187,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .float-stat-val {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 2.71vw, 2.6rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 900;
   line-height: 1;
   background: var(--grad-primary);
@@ -1223,7 +1224,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .marquee-velocity-text {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.51vw, 4rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 900;
   text-transform: uppercase;
   color: #f3f4f6;
@@ -1268,7 +1269,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4.96vw, 5rem);
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: -0.03em;
@@ -1437,7 +1438,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .showcase-main-title {
   font-family: var(--font-mono);
-  font-size: clamp(0.9rem, 1.35vw, 1.2rem);
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1838,7 +1839,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .contact-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 7.22vw, 7.5rem);
+  font-size: clamp(3rem, 8vw, 7.5rem);
   font-weight: 900;
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -1865,7 +1866,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 .contact-email-btn {
   display: inline-block;
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.61vw, 3.5rem);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
   font-weight: 900;
   color: var(--text);
   padding-bottom: 0.25rem;
@@ -1894,7 +1895,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
 .footer-big-brand {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 9.93vw, 10.5rem);
+  font-size: clamp(4rem, 11vw, 10.5rem);
   font-weight: 900;
   letter-spacing: -0.05em;
   text-transform: uppercase;
@@ -1941,7 +1942,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   .nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
   .hero { padding: 5.5rem 1.5rem 2rem; min-height: 100svh; }
-  .hero-title-bg { font-size: clamp(2.8rem, 10.83vw, 4.5rem); }
+  .hero-title-bg { font-size: clamp(2.8rem, 12vw, 4.5rem); }
   .hero-status-badge { left: 1.5rem; top: 5.5rem; }
   .hero-stats-grid { grid-template-columns: 1fr; }
   .section { padding: 4rem 1.5rem; }
@@ -2381,7 +2382,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 }
 
 .social-title {
-  font-size: clamp(4rem, 7.22vw, 10rem);
+  font-size: clamp(4rem, 8vw, 10rem);
   font-family: var(--font-heading);
   text-transform: uppercase;
   line-height: 0.85;
