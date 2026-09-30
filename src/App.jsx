@@ -511,9 +511,14 @@ function Hero({ loaded }) {
     offset: ['start start', 'end end'],
   });
 
-  const [responsiveFontSize, setResponsiveFontSize] = useState(150);
+  const [responsiveFontSize, setResponsiveFontSize] = useState(100);
   useEffect(() => {
-    const handleResize = () => setResponsiveFontSize(window.innerWidth > 768 ? 150 : 80);
+    const handleResize = () => {
+      // Bikin ukuran font-nya lebih kecil di desktop (max 100) biar nggak keliatan raksasa
+      const vw = window.innerWidth;
+      const size = vw > 768 ? Math.min(vw * 0.07, 100) : 60;
+      setResponsiveFontSize(size);
+    };
     handleResize(); // set initially
     window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
