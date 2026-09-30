@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionTemplate, useMotionValueEvent } from 'framer-motion';
-import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2, Command, Search, User, Folder, Award, Briefcase, Phone, X, Download, Eye, FileText, ExternalLink, Copy, MapPin } from 'lucide-react';
 import StrokeText from './components/StrokeText';
 import SplitText from './components/SplitText';
 import TextType from './components/TextType';
@@ -8,9 +9,17 @@ import Shuffle from './components/Shuffle';
 import Topography from './components/Topography';
 import ScrollVelocity from './components/ScrollVelocity';
 import Signature from './components/Signature';
+import CatchMeOnSignature from './components/CatchMeOnSignature';
 import RotatingText from './components/RotatingText';
 import { SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiPostgresql, SiPrisma, SiDocker, SiKubernetes } from 'react-icons/si';
 import { FaAws } from 'react-icons/fa';
+import GlideSelect from './components/GlideSelect';
+import ScrollExpand from './components/ScrollExpand';
+import AnimatedList from './components/AnimatedList';
+import PlaygroundCard from './components/PlaygroundCard';
+import TechText from './components/TechText';
+import PaperCrumple from './components/PaperCrumple';
+import BellToggle from './components/BellToggle';
 import './index.css';
 
 /* ============================================================
@@ -144,7 +153,7 @@ function Loader({ onDone }) {
     const t1 = setTimeout(() => setExiting(true), 3000);
     const t2 = setTimeout(() => onDone(),          3800);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, [onDone]);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -170,6 +179,7 @@ function Loader({ onDone }) {
               muted 
               loop 
               playsInline
+              preload="auto"
               style={{ width: '100%', height: '100%', objectFit: 'contain' }}
             />
           </motion.div>
@@ -204,6 +214,137 @@ function Loader({ onDone }) {
    ============================================================ */
 const MENU_ITEMS = ['Home', 'About', 'Projects', 'Stack', 'Experience', 'Contact'];
 const STACK_TAGS = ['React 19', 'Next.js 14', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'GraphQL'];
+
+/* ============================================================
+   COMMAND PALETTE
+   ============================================================ */
+function CommandPalette({ open, onClose }) {
+  const [search, setSearch] = useState('');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+      setSearch('');
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && open) onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [open, onClose]);
+
+  const [hoverRect, setHoverRect] = useState(null);
+
+  if (!open) return null;
+
+  const commands = [
+    { section: 'NAVIGATE', label: 'Go to Hero', icon: <User size={16} />, action: () => { window.scrollTo({ top: 0, behavior: 'smooth' }); onClose(); } },
+    { section: 'NAVIGATE', label: 'Go to Projects', icon: <Folder size={16} />, action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
+    { section: 'NAVIGATE', label: 'Go to Tech Stack', icon: <Cpu size={16} />, action: () => { document.getElementById('stack')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
+    { section: 'NAVIGATE', label: 'Go to Experience', icon: <Briefcase size={16} />, action: () => { document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
+    { section: 'CONTACT', label: 'Copy Email — pradipta@maulana.dev', icon: <Mail size={16} />, action: () => { navigator.clipboard.writeText('pradipta@maulana.dev'); alert('Email copied!'); onClose(); } },
+    { section: 'CONTACT', label: 'Copy Phone — +62 838 4055 9238', icon: <Phone size={16} />, action: () => { navigator.clipboard.writeText('+62 838 4055 9238'); alert('Phone copied!'); onClose(); } },
+    { section: 'SOCIAL', label: 'GitHub', icon: <GitBranch size={16} />, action: () => { window.open('https://github.com', '_blank'); onClose(); } },
+    { section: 'SOCIAL', label: 'LinkedIn', icon: <Link2 size={16} />, action: () => { window.open('https://linkedin.com', '_blank'); onClose(); } }
+  ];
+
+  const filtered = commands.filter(c => c.label.toLowerCase().includes(search.toLowerCase()));
+
+  const grouped = filtered.reduce((acc, curr) => {
+    if (!acc[curr.section]) acc[curr.section] = [];
+    acc[curr.section].push(curr);
+    return acc;
+  }, {});
+
+  const handlePointerMove = (e) => {
+    const btn = e.target.closest('.cmd-item');
+    if (btn) {
+      setHoverRect({
+        top: btn.offsetTop,
+        height: btn.offsetHeight,
+        opacity: 1
+      });
+    } else {
+      setHoverRect(prev => prev ? { ...prev, opacity: 0 } : null);
+    }
+  };
+
+  const handlePointerLeave = () => {
+    setHoverRect(prev => prev ? { ...prev, opacity: 0 } : null);
+  };
+
+  return (
+    <div className="cmd-backdrop" onClick={onClose}>
+      <motion.div 
+        className="cmd-modal"
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ duration: 0.2 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="cmd-header">
+          <Search size={18} className="cmd-search-icon" />
+          <input 
+            ref={inputRef}
+            type="text" 
+            placeholder="Search commands, projects, contacts..." 
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="cmd-input"
+          />
+          <button className="cmd-close" onClick={onClose}><X size={18} /></button>
+        </div>
+        
+        <div className="cmd-body" onPointerMove={handlePointerMove} onPointerLeave={handlePointerLeave}>
+          <div 
+            className="cmd-glide-pill"
+            style={{
+              opacity: hoverRect ? hoverRect.opacity : 0,
+              transform: hoverRect ? `translateY(${hoverRect.top}px)` : 'translateY(0)',
+              height: hoverRect ? `${hoverRect.height}px` : '40px',
+            }}
+          />
+          {Object.entries(grouped).length === 0 && (
+            <div className="cmd-empty">No results found.</div>
+          )}
+          {Object.entries(grouped).map(([section, items]) => (
+            <div key={section} className="cmd-group">
+              <div className="cmd-group-label">{section}</div>
+              {items.map(item => (
+                <button key={item.label} className="cmd-item" onClick={item.action}>
+                  <div className="cmd-item-left">
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+        
+        <div className="cmd-footer">
+          <div className="cmd-footer-hints">
+            <span><kbd>↑↓</kbd> navigate</span>
+            <span><kbd>↵</kbd> select</span>
+            <span><kbd>esc</kbd> close</span>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 function MenuOverlay({ open, onClose }) {
   return (
@@ -535,12 +676,20 @@ function Hero({ loaded }) {
 /* ============================================================
    MANIFESTO SECTION
    ============================================================ */
-function BiodataSection() {
+function BiodataSection({ showRecruiterModal, setShowRecruiterModal }) {
+  const [showCvModal, setShowCvModal] = useState(false);
+  const [copiedField, setCopiedField] = useState(null);
+
+  const handleCopy = (text, field) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
   const biodataLines = [
     { label: 'FULL NAME', text: 'Pradipta Endra Maulana', highlight: true },
-    { label: 'NISN / ID', text: '0099206823 / 242510639', highlight: false },
-    { label: 'BORN', text: 'Ciamis, 2 Maret 2009', highlight: false },
-    { label: 'INTERESTS', text: 'Fullstack Web, UI/UX, Data Science', highlight: true },
+    { label: 'BIO INTEL', text: '17 y.o. Systems & Web Architect building high-throughput apps & interactive tools.', highlight: true },
+    { label: 'BORN', text: 'Ciamis, March 2, 2009', highlight: false },
+    { label: 'INTERESTS', text: 'Fullstack Web, UI/UX, Data Science', highlight: false },
   ];
 
   const skillLines = [
@@ -554,7 +703,7 @@ function BiodataSection() {
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+      transition: { delayChildren: 0.1 }
     }
   };
 
@@ -619,6 +768,18 @@ function BiodataSection() {
               </motion.div>
             </motion.div>
           ))}
+          
+          <motion.div className="cv-buttons-wrap" variants={textVariants}>
+            <a href="/assets/Pradipta_Endra_Maulana_CV.pdf" download="Pradipta_Endra_Maulana_CV.pdf" className="cv-btn">
+              <Download size={18} /> Download CV
+            </a>
+            <button onClick={() => setShowCvModal(true)} className="cv-btn icon-only">
+              <Eye size={18} />
+            </button>
+            <button onClick={() => setShowRecruiterModal(true)} className="cv-btn recruiter-btn">
+              For recruiters &rarr;
+            </button>
+          </motion.div>
         </div>
 
         {/* Right Column: Skills (Left-Aligned, slides Left-To-Right) */}
@@ -640,6 +801,218 @@ function BiodataSection() {
         </div>
 
       </div>
+
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {showCvModal && (
+            <motion.div 
+              className="cv-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowCvModal(false)}
+            >
+              <motion.div 
+                className="cv-modal"
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="cv-modal-header">
+                  <div className="cv-modal-title">
+                    <FileText size={20} style={{ color: 'var(--accent-bright)' }} />
+                    Curriculum Vitae
+                  </div>
+                  <div className="cv-modal-actions">
+                    <a href="/assets/Pradipta_Endra_Maulana_CV.pdf" download="Pradipta_Endra_Maulana_CV.pdf" className="cv-modal-download">
+                      <Download size={16} /> Download
+                    </a>
+                    <a href="/assets/Pradipta_Endra_Maulana_CV.pdf" target="_blank" rel="noopener noreferrer" className="cv-modal-icon-btn">
+                      <ExternalLink size={20} />
+                    </a>
+                    <button onClick={() => setShowCvModal(false)} className="cv-modal-icon-btn">
+                      <X size={20} />
+                    </button>
+                  </div>
+                </div>
+                <div className="cv-modal-body">
+                  <iframe src="/assets/Pradipta_Endra_Maulana_CV.pdf#toolbar=0" title="CV Preview"></iframe>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {showRecruiterModal && (
+            <motion.div 
+              className="recruiter-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowRecruiterModal(false)}
+            >
+              <motion.div 
+                className="recruiter-modal"
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="recruiter-header">
+                  <div className="rm-subtitle">RECRUITER SUMMARY</div>
+                  <div className="rm-title-row">
+                    <h2>60-second overview</h2>
+                    <button onClick={() => setShowRecruiterModal(false)} className="rm-close-btn">
+                      <X size={20} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="recruiter-body">
+                  <div className="rm-profile">
+                    <h3>Pradipta Endra Maulana</h3>
+                    <p className="rm-role">Systems & Web Architect | High-Impact Builder</p>
+                    <div className="rm-status-badge">
+                      <div className="rm-status-dot"></div>
+                      Open for Industrial Internship / Full-time roles
+                    </div>
+                  </div>
+
+                  <div className="rm-contact-grid">
+                    <div className="rm-contact-card" onClick={() => handleCopy('pradipta02032009@gmail.com', 'email')}>
+                      <Mail size={18} className="rm-c-icon" />
+                      <div className="rm-c-info">
+                        <span className="rm-c-label">Email</span>
+                        <span className="rm-c-value">pradipta02032009@gmail.com</span>
+                      </div>
+                      {copiedField === 'email' ? <CheckCircle2 size={16} className="rm-copy-icon success" /> : <Copy size={16} className="rm-copy-icon" />}
+                    </div>
+
+                    <div className="rm-contact-card" onClick={() => handleCopy('+62 852 1958 3336', 'phone')}>
+                      <Phone size={18} className="rm-c-icon" />
+                      <div className="rm-c-info">
+                        <span className="rm-c-label">WhatsApp</span>
+                        <span className="rm-c-value">+62 852 1958 3336</span>
+                      </div>
+                      {copiedField === 'phone' ? <CheckCircle2 size={16} className="rm-copy-icon success" /> : <Copy size={16} className="rm-copy-icon" />}
+                    </div>
+
+                    <div className="rm-contact-card">
+                      <MapPin size={18} className="rm-c-icon" />
+                      <div className="rm-c-info">
+                        <span className="rm-c-label">Location</span>
+                        <span className="rm-c-value">Ciamis, West Java, Indonesia</span>
+                      </div>
+                    </div>
+
+                    <a href="https://instagram.com/massdiipp" target="_blank" rel="noopener noreferrer" className="rm-contact-card link">
+                      <User size={18} className="rm-c-icon" />
+                      <div className="rm-c-info">
+                        <span className="rm-c-label">Instagram</span>
+                        <span className="rm-c-value">@massdiipp</span>
+                      </div>
+                      <ExternalLink size={16} className="rm-copy-icon" />
+                    </a>
+                  </div>
+
+                  <div className="rm-stats-grid">
+                    <div className="rm-stat-card">
+                      <div className="rm-s-val">15+</div>
+                      <div className="rm-s-label">Projects</div>
+                    </div>
+                    <div className="rm-stat-card">
+                      <div className="rm-s-val">2+</div>
+                      <div className="rm-s-label">Years Exp.</div>
+                    </div>
+                    <div className="rm-stat-card">
+                      <div className="rm-s-val">WEB</div>
+                      <div className="rm-s-label">Fullstack</div>
+                    </div>
+                    <div className="rm-stat-card">
+                      <div className="rm-s-val">UI/UX</div>
+                      <div className="rm-s-label">Design</div>
+                    </div>
+                  </div>
+
+                  <div className="rm-tech-stack">
+                    <h4>Technical stack</h4>
+                    <div className="rm-tech-row">
+                      <span className="rm-t-cat">Programming Language</span>
+                      <div className="rm-t-tags">
+                        <span>HTML</span><span>JavaScript</span><span>Python</span><span>Java</span>
+                      </div>
+                    </div>
+                    <div className="rm-tech-row">
+                      <span className="rm-t-cat">Backend</span>
+                      <div className="rm-t-tags">
+                        <span>NodeJS</span><span>Express</span>
+                      </div>
+                    </div>
+                    <div className="rm-tech-row">
+                      <span className="rm-t-cat">Frontend</span>
+                      <div className="rm-t-tags">
+                        <span>React</span><span>Next.js</span><span>Tailwind CSS</span>
+                      </div>
+                    </div>
+                    <div className="rm-tech-row">
+                      <span className="rm-t-cat">Database</span>
+                      <div className="rm-t-tags">
+                        <span>PostgreSQL</span><span>MySQL</span>
+                      </div>
+                    </div>
+                    <div className="rm-tech-row">
+                      <span className="rm-t-cat">Tools</span>
+                      <div className="rm-t-tags">
+                        <span>Figma</span><span>Git</span><span>Github</span><span>VS Code</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rm-cards-row">
+                    <div className="rm-edu-card">
+                      <Briefcase size={16} className="rm-ec-icon" />
+                      <div className="rm-ec-content">
+                        <h5>Education</h5>
+                        <p className="rm-ec-title">SMK Negeri 1 Ciamis</p>
+                        <p className="rm-ec-sub">Software Engineering (PPLG)</p>
+                        <p className="rm-ec-date">2024 - 2027</p>
+                      </div>
+                    </div>
+                    <div className="rm-edu-card">
+                      <User size={16} className="rm-ec-icon" />
+                      <div className="rm-ec-content">
+                        <h5>Current Role</h5>
+                        <p className="rm-ec-title">Freelance Developer</p>
+                        <p className="rm-ec-sub">Fullstack & Design</p>
+                        <p className="rm-ec-date">2023 - Present</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rm-actions">
+                    <a href="/assets/Pradipta_Endra_Maulana_CV.pdf" download="Pradipta_Endra_Maulana_CV.pdf" className="rm-btn-primary">
+                      <Download size={18} /> Download CV (PDF)
+                    </a>
+                    <button onClick={() => { setShowRecruiterModal(false); setShowCvModal(true); }} className="rm-btn-icon">
+                      <Eye size={18} />
+                    </button>
+                    <a href="https://wa.me/6285219583336" target="_blank" rel="noopener noreferrer" className="rm-btn-secondary">
+                      <Phone size={18} /> WhatsApp Chat
+                    </a>
+                  </div>
+
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </motion.section>
   );
 }
@@ -652,7 +1025,7 @@ function Marquee() {
     <div className="marquee-section" style={{ padding: '1.2rem 0', overflow: 'hidden' }}>
       <ScrollVelocity
         texts={[
-          'FULLSTACK WEB DEVELOPER • REACT & NEXT.JS 14 • NODE.JS & EXPRESS • POSTGRESQL & PRISMA • DOCKER & KUBERNETES • AWS CLOUD INFRASTRUCTURE • ',
+          'SYSTEMS & WEB ARCHITECT • HIGH-THROUGHPUT APPS • REACT & NEXT.JS 14 • NODE.JS & EXPRESS • POSTGRESQL & PRISMA • DOCKER & KUBERNETES • AWS CLOUD INFRASTRUCTURE • ',
           <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center', padding: '0 1.5rem', fontSize: '2.5rem' }}>
             <SiReact />
             <SiNextdotjs />
@@ -1008,7 +1381,7 @@ function IdeSection() {
                 {termPhase >= 0.5 && (
                   <div className="code-line">
                     <TextType 
-                      text="print('Aku suka coding')" 
+                      text="print('I love coding')" 
                       typingSpeed={40}
                       startOnVisible={true}
                       onSentenceComplete={handleCodeComplete2}
@@ -1055,7 +1428,7 @@ function IdeSection() {
                     {termPhase >= 4 && (
                       <>
                         <div className="term-output">Hello World!</div>
-                        <div className="term-output">Aku suka coding</div>
+                        <div className="term-output">I love coding</div>
                         <div className="term-line">
                           <span className="term-path">~/Projects/portofolio-v2 $</span> <span className="term-cursor">_</span>
                         </div>
@@ -1122,6 +1495,19 @@ function IdeSection() {
 }
 
 function SocialLinks() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+
+  const leftX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [-200, 0, 0, -200]);
+  const leftOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  
+  const rightX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [200, 0, 0, 200]);
+  const rightOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+
   const LeftCurvyArrow = () => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
       <path d="M18 5v6a6 6 0 0 1-6 6H5" />
@@ -1137,26 +1523,39 @@ function SocialLinks() {
   );
 
   return (
-    <section className="section social-links-section" style={{ position: 'relative' }}>
-
+    <section ref={containerRef} className="section social-links-section" style={{ position: 'relative' }}>
 
       <div className="social-split-container">
         
         {/* LINKEDIN (Slides from Left, Rata Kiri) */}
         <motion.div 
           className="social-block left"
-          initial={{ x: -100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ position: 'relative', x: leftX, opacity: leftOpacity }}
         >
+          {/* Animated Catch Me On Signature Overlay */}
+          <motion.div 
+            style={{
+              position: 'absolute',
+              top: '-10px',
+              left: '-20px',
+              y: parallaxY,
+              width: '110%',
+              minWidth: '350px',
+              zIndex: 50,
+              pointerEvents: 'none',
+              rotate: -5
+            }}
+          >
+            <CatchMeOnSignature color="#ccff00" strokeWidth={5} progress={scrollYProgress} />
+          </motion.div>
+
           <h2 className="social-title">
             <span style={{ fontSize: '0.45em', display: 'block', marginBottom: '-0.3em', opacity: 0.8 }}>MY</span>
             LINKEDIN
           </h2>
           <div className="social-desc">
             <SplitText 
-              text="Semua pencapaian, sertifikat, dan informasi profesional tentang perjalanan karir saya."
+              text="All achievements, certificates, and professional information about my career journey."
               splitType="words, chars"
               delay={20}
               duration={0.6}
@@ -1173,10 +1572,7 @@ function SocialLinks() {
         {/* GITHUB (Slides from Right, Rata Kanan) */}
         <motion.div 
           className="social-block right"
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ x: rightX, opacity: rightOpacity }}
         >
           <h2 className="social-title">
             <span style={{ fontSize: '0.45em', display: 'block', marginBottom: '-0.3em', opacity: 0.8 }}>MY</span>
@@ -1184,7 +1580,7 @@ function SocialLinks() {
           </h2>
           <div className="social-desc">
             <SplitText 
-              text="Semua repository saya, mulai dari tugas, project pribadi, hingga eksperimen kode."
+              text="All my repositories, ranging from assignments and personal projects to code experiments."
               splitType="words, chars"
               delay={20}
               duration={0.6}
@@ -1203,27 +1599,148 @@ function SocialLinks() {
   );
 }
 
+function Achievements() {
+  return (
+    <section className="section" id="achievements" style={{ padding: 0 }}>
+      <ScrollExpand
+        src="/assets/pencapaian.png"
+        alt="Pradipta's Achievements"
+        title="Achievements & Rewards"
+        scrollHint="Scroll to Expand"
+        useWindowScroll
+        mediaZoom={1.35}
+        startWidth={42}
+        startHeight={58}
+        startRadius={24}
+        endRadius={0}
+        scrollDistance={1.2}
+        holdDistance={0.35}
+        smoothing={0.1}
+        overlayScrim={0.6}
+        enabled
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', textAlign: 'center', width: '100%', alignItems: 'center', padding: '2rem' }}>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', margin: 0, fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.1, color: '#ffffff', textShadow: '0 4px 24px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,1)', letterSpacing: '-0.02em', fontFamily: 'var(--font-sans)' }}>
+            LKS AI Jabar Exhibition
+          </h2>
+          <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)', margin: 0, color: '#ffffff', fontWeight: 800, textShadow: '0 4px 24px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,1)', fontFamily: 'var(--font-sans)' }}>
+            <span style={{ color: 'var(--accent-bright)' }}>1st Place</span> Code & Share UBSI
+          </h3>
+        </div>
+      </ScrollExpand>
+    </section>
+  );
+}
+
+function UiCraftSection() {
+  return (
+    <section className="section" id="uicraft">
+      <div className="section-content">
+        <div className="section-tag" data-reveal>Lab</div>
+        <h2 className="section-title" data-reveal>
+          UI CRAFT <span style={{ color: 'var(--accent-bright)' }}>& EXPERIMENTS</span>
+        </h2>
+        <p className="section-subtitle" data-reveal style={{ marginBottom: '3rem' }}>
+          An interactive showcase of experimental UI components and high-performance animations. Hover to trigger.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+          
+          <PlaygroundCard title="Interactive Tech Text" category="Text Animations">
+              <TechText
+                text="PRODIGY"
+                fontWeight={700}
+                fontSize={90}
+                reveal="letter"
+                dashLength={4}
+                dashGap={2}
+                specks={15}
+                color="#f4f0ff"
+                accentColor="#ccff00"
+                softness={0.7}
+                strokeWidth={1.5}
+                speed={1}
+                lineStyle="dashed"
+                selection
+                labels
+                draggable
+                sweep
+                style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+              />
+          </PlaygroundCard>
+
+          <PlaygroundCard title="Paper Crumple" category="3D Interactions">
+                <PaperCrumple 
+                  src="/assets/paper.png" 
+                  alt="Hero Image" 
+                  paperColor="#1f1f1f" 
+                  shadow={true}
+                  shadowOpacity={0.5}
+                />
+          </PlaygroundCard>
+
+          <PlaygroundCard title="Bell Toggle" category="Microinteractions">
+               <BellToggle 
+                 onBackground="#ccff00" 
+                 onColor="#120c27" 
+                 background="#27272a" 
+                 color="#f5f5f5" 
+                 count={3}
+               />
+          </PlaygroundCard>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Projects() {
   return (
     <section className="section section-alt" id="projects">
       <div className="container">
-        <div className="projects-header">
+        <div className="projects-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <div className="section-tag" data-reveal>Hasil Karya</div>
+            <div className="section-tag" data-reveal>Portfolio</div>
             <h2 className="section-title" data-reveal>
               Featured<br />
               <em>Projects</em>
             </h2>
           </div>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-outline"
-            data-reveal
-          >
-            All Repositories <ArrowUpRight size={16} />
-          </a>
+          <div data-reveal style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <GlideSelect
+              options={[
+                { value: 'all', label: 'All Projects', tag: '8' },
+                { value: 'web', label: 'Web Apps', tag: '6' },
+                { value: 'mobile', label: 'Mobile Apps', tag: '2' },
+                { value: 'ui', label: 'UI/UX', tag: 'New' }
+              ]}
+              defaultValue="all"
+              onChange={(value, option) => console.log('Selected category:', value)}
+              ariaLabel="Filter category"
+              showTags
+              accentColor="#a855f7"
+              surfaceColor="var(--surface-2)"
+              highlightColor="var(--border)"
+              textColor="var(--text)"
+              size="md"
+              radius={8}
+              menuWidth={180}
+              placement="bottom"
+              align="right"
+              popDuration={180}
+              glideDuration={220}
+              rememberPosition
+            />
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-outline"
+            >
+              All Repositories <ArrowUpRight size={16} />
+            </a>
+          </div>
         </div>
 
         <div className="race-table-container" data-reveal>
@@ -1235,26 +1752,28 @@ function Projects() {
             <div>Photo</div>
           </div>
 
-          {PROJECTS.map((p) => (
-            <div key={p.num} className="table-row-item">
-              <div className="proj-num">{p.num}</div>
-              <div className="proj-title-wrap">
-                <div className="proj-main-title">{p.title}</div>
-                <div className="proj-sub-desc">{p.desc}</div>
+          <AnimatedList displayScrollbar={false} showGradients={false}>
+            {PROJECTS.map((p) => (
+              <div key={p.num} className="table-row-item">
+                <div className="proj-num">{p.num}</div>
+                <div className="proj-title-wrap">
+                  <div className="proj-main-title">{p.title}</div>
+                  <div className="proj-sub-desc">{p.desc}</div>
+                </div>
+                <div className="proj-tech-pills">
+                  {p.tech.map((t) => (
+                    <span key={t} className="tech-pill">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="proj-year">{p.year}</div>
+                <div>
+                  <img src={p.image} alt={p.title} className="proj-action-photo" />
+                </div>
               </div>
-              <div className="proj-tech-pills">
-                {p.tech.map((t) => (
-                  <span key={t} className="tech-pill">
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="proj-year">{p.year}</div>
-              <div>
-                <img src={p.image} alt={p.title} className="proj-action-photo" />
-              </div>
-            </div>
-          ))}
+            ))}
+          </AnimatedList>
         </div>
       </div>
     </section>
@@ -1269,17 +1788,17 @@ const GEAR_STACK = [
     icon: <Code2 size={26} />,
     tag: 'FRONTEND ARCHITECTURE',
     title: 'Modern UI & Web Apps',
-    desc: 'Merancang antarmuka reaktif dan cepat menggunakan React 19, Next.js App Router, TypeScript, dan TailwindCSS.',
+    desc: 'Designing fast and reactive interfaces using React 19, Next.js App Router, TypeScript, and TailwindCSS.',
     tags: ['React 19', 'Next.js 14', 'TypeScript', 'TailwindCSS', 'Framer Motion'],
     wide: true,
     bgImage: '/assets/tech-stack-gear/ui-modern.png'
   },
   {
-    icon: <Server size={26} />,
-    tag: 'BACKEND SERVICES',
-    title: 'Scalable APIs & Services',
-    desc: 'Membangun backend microservices & RESTful API dengan Node.js, Express, dan Python FastAPI.',
-    tags: ['Node.js', 'Express', 'Python FastAPI', 'REST', 'GraphQL'],
+    icon: <Database size={26} />,
+    tag: 'DATA ANALYTICS',
+    title: 'Data Science & Analytics',
+    desc: 'Analyzing data, building predictive models, and visualizing insights interactively.',
+    tags: ['Python', 'Pandas', 'Jupyter', 'Tableau', 'Scikit-Learn'],
     wide: false,
     bgImage: '/assets/tech-stack-gear/data-analytics.png'
   },
@@ -1287,7 +1806,7 @@ const GEAR_STACK = [
     icon: <Database size={26} />,
     tag: 'DATABASE & CACHE',
     title: 'Data Management',
-    desc: 'Mengoptimalkan query database relasional maupun NoSQL dengan caching layer berkecepatan tinggi.',
+    desc: 'Optimizing relational and NoSQL database queries with high-speed caching layers.',
     tags: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM'],
     wide: false,
     bgImage: '/assets/tech-stack-gear/database-management.png'
@@ -1296,7 +1815,7 @@ const GEAR_STACK = [
     icon: <Cpu size={26} />,
     tag: 'DEVOPS & CLOUD',
     title: 'Deployment & Infrastructure',
-    desc: 'Otomatisasi deployment dengan Docker containerization dan cloud service management AWS & Vercel.',
+    desc: 'Automating deployments with Docker containerization and cloud service management on AWS & Vercel.',
     tags: ['Docker', 'Kubernetes', 'AWS', 'Vercel', 'CI/CD Pipelines'],
     wide: true,
     bgImage: '/assets/tech-stack-gear/deployemnt-vercel.png'
@@ -1307,7 +1826,7 @@ function TechStack() {
   return (
     <section className="section" id="stack">
       <div className="container">
-        <div className="section-tag" data-reveal>Keahlian Teknikal</div>
+        <div className="section-tag" data-reveal>Technical Expertise</div>
         <h2 className="section-title" data-reveal>
           Tech<br />
           <em>Stack & Gear</em>
@@ -1352,24 +1871,24 @@ function TechStack() {
 const EXPERIENCE_ITEMS = [
   {
     date: '2024 — PRESENT',
-    role: 'Senior Fullstack Engineer',
+    role: 'Founding Engineer / Systems Architect',
     company: 'TechStartup Indonesia',
-    desc: 'Memimpin arsitektur platform SaaS berbasis Next.js & Microservices. Mengelola tim 5 developer, mengoptimalkan query database, dan meningkatkan kecepatan muat halaman sebesar 45%.',
+    desc: 'Architected a scalable Next.js & Microservices platform from the ground up. Spearheaded technical direction, optimized complex database schemas, and achieved a 45% improvement in core rendering speeds.',
     tags: ['Next.js 14', 'TypeScript', 'AWS', 'PostgreSQL'],
   },
   {
     date: '2022 — 2024',
-    role: 'Fullstack Web Developer',
+    role: 'Lead Developer / Core Contributor',
     company: 'Digital Creative Agency',
-    desc: 'Mengembangkan 15+ aplikasi web custom untuk berbagai instansi & perusahaan global dengan stack React, Node.js, dan MongoDB.',
+    desc: 'Led the development of 15+ custom, high-performance web applications and interactive tools for various global agencies utilizing a modern React and Node.js ecosystem.',
     tags: ['React', 'Node.js', 'MongoDB', 'TailwindCSS'],
   },
   {
     date: '2021 — 2022',
-    role: 'Frontend Engineer',
-    company: 'Software House',
-    desc: 'Fokus pada UI/UX development, pembuatan reusable component library internal, dan integrasi REST API backend.',
-    tags: ['React', 'JavaScript ES6+', 'CSS Modules'],
+    role: 'Independent Frontend Developer',
+    company: 'Freelance & Open Source',
+    desc: 'Built deep expertise in UI/UX and motion design by creating advanced reusable component libraries and integrating REST APIs for interactive web experiences.',
+    tags: ['React', 'JavaScript ES6+', 'Framer Motion'],
   },
 ];
 
@@ -1377,7 +1896,7 @@ function Experience() {
   return (
     <section className="section section-alt" id="experience">
       <div className="container">
-        <div className="section-tag" data-reveal>Karir & Pengalaman</div>
+        <div className="section-tag" data-reveal>Career & Experience</div>
         <h2 className="section-title" data-reveal>
           Career<br />
           <em>Milestones</em>
@@ -1461,19 +1980,37 @@ function Footer() {
 /* ============================================================
    ROOT APP COMPONENT
    ============================================================ */
+
+if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cmdOpen, setCmdOpen] = useState(false);
+  const [showRecruiterModal, setShowRecruiterModal] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Force scroll to top on page load/refresh
   useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
-    setTimeout(() => window.scrollTo(0, 0), 50); // Fallback for some browsers to ensure it stays at top
   }, []);
+
+  useEffect(() => {
+    const down = (e) => {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setCmdOpen((open) => !open);
+      }
+    };
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, []);
+
+
 
   // GUARANTEED SCROLL REVEAL EFFECT (RUNS AFTER LOADED === TRUE)
   useEffect(() => {
@@ -1599,28 +2136,35 @@ export default function App() {
           <Starfield />
           <Cursor />
           <ScrollProgress />
-          
-          <a href="#contact" className="floating-cosmic-btn">
-            <Shuffle 
-              text="HIRE ME" 
-              loop={true} 
-              loopDelay={3} 
-              tag="span" 
-              shuffleDirection="down"
-              animationMode="evenodd"
-              duration={0.3}
-              stagger={0.05}
-            />
-          </a>
+          <div className="floating-header-group">
+            <button onClick={() => setShowRecruiterModal(true)} className="floating-cosmic-btn" style={{ background: 'transparent', border: '2px solid var(--purple)' }}>
+              <Shuffle 
+                text="HIRE ME" 
+                loop={true} 
+                loopDelay={3} 
+                tag="span" 
+                shuffleDirection="down"
+                animationMode="evenodd"
+                duration={0.3}
+                stagger={0.05}
+              />
+            </button>
+            <button className="floating-cmd-trigger" onClick={() => setCmdOpen(true)} title="Search commands (Cmd+K)">
+              <Search size={18} />
+            </button>
+          </div>
+          <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
 
           <main>
             <Hero loaded={loaded} />
-            <BiodataSection />
+            <BiodataSection showRecruiterModal={showRecruiterModal} setShowRecruiterModal={setShowRecruiterModal} />
             <Marquee />
             <Showcase />
             <IdeSection />
             <SocialLinks />
             <Projects />
+            <UiCraftSection />
+            <Achievements />
             <TechStack />
             <Experience />
             <Contact />
