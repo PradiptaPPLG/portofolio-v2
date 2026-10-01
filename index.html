@@ -9,7 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,700;1,9..40,900&family=Syne:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="preload" href="/assets/intro-logo.mp4" as="video" type="video/mp4" />
     <title>portofolio-v2</title>
-  </head>
+    <script>
+    window.addEventListener('error', function(e) {
+      if (e.message && (e.message.includes('ResizeObserver loop limit') || e.message.includes('ResizeObserver loop completed'))) {
+        e.stopImmediatePropagation();
+      }
+    });
+  </script>
+</head>
   <body>
     <div id="error-overlay" style="position: fixed; top: 0; left: 0; right: 0; background: red; color: white; padding: 20px; z-index: 99999; display: none; font-family: monospace; white-space: pre-wrap;"></div>
     <script>

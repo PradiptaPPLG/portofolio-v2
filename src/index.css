@@ -2959,3 +2959,42 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   .social-link-btn { width: 40px !important; height: 40px !important; }
   .social-link-btn svg { width: 20px !important; height: 20px !important; }
 }
+
+@media (max-width: 768px) {
+  .hero-title-bg {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    padding: 0 1rem !important;
+  }
+  
+  .biodata-manifesto-section {
+    padding: 10vh 20px !important;
+  }
+  .biodata-manifesto-col.align-right {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+  .biodata-item-wrap.align-right {
+    align-items: flex-start !important;
+  }
+  
+  .showcase-track {
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    padding: 0 20px !important;
+    max-width: 100vw !important;
+  }
+  .showcase-item {
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
+  }
+  .showcase-item-inner {
+    max-width: 100% !important;
+  }
+  .showcase-img-wrap {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
