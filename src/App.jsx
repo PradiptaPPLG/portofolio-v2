@@ -1525,11 +1525,11 @@ function SocialLinks() {
           <motion.div 
             style={{
               position: 'absolute',
-              top: '-10px',
+              top: '5px',
               left: '20%',
               y: parallaxY,
-              width: '80%',
-              minWidth: '280px',
+              width: '95%',
+              minWidth: '320px',
               zIndex: 50,
               pointerEvents: 'none',
               rotate: -5
