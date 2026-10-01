@@ -3073,3 +3073,20 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
     padding: 4rem 1.5rem !important;
   }
 }
+
+@media (max-width: 768px) {
+  /* Fix the root cause of horizontal scrolling and clipping: IDE section inline styles! */
+  .ide-section .container {
+    flex-wrap: wrap !important;
+  }
+  .ide-window, .ide-content {
+    min-width: 0 !important;
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+
+  /* Revert the loader video scale so it doesn't clip on the edges */
+  .ln-loader-logo-video {
+    transform: none !important;
+  }
+}
