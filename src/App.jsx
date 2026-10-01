@@ -757,18 +757,6 @@ function BiodataSection({ showRecruiterModal, setShowRecruiterModal }) {
               </motion.div>
             </motion.div>
           ))}
-          
-          <motion.div className="cv-buttons-wrap" variants={textVariants}>
-            <a href="/assets/Pradipta_Endra_Maulana_CV.pdf" download="Pradipta_Endra_Maulana_CV.pdf" className="cv-btn">
-              <Download size={18} /> Download CV
-            </a>
-            <button onClick={() => setShowCvModal(true)} className="cv-btn icon-only">
-              <Eye size={18} />
-            </button>
-            <button onClick={() => setShowRecruiterModal(true)} className="cv-btn recruiter-btn">
-              For recruiters &rarr;
-            </button>
-          </motion.div>
         </div>
 
         {/* Right Column: Skills (Left-Aligned, slides Left-To-Right) */}
@@ -787,6 +775,18 @@ function BiodataSection({ showRecruiterModal, setShowRecruiterModal }) {
               </motion.div>
             ))}
           </div>
+          
+          <motion.div className="cv-buttons-wrap" variants={textVariants}>
+            <a href="/assets/Pradipta_Endra_Maulana_CV.pdf" download="Pradipta_Endra_Maulana_CV.pdf" className="cv-btn">
+              <Download size={18} /> Download CV
+            </a>
+            <button onClick={() => setShowCvModal(true)} className="cv-btn icon-only">
+              <Eye size={18} />
+            </button>
+            <button onClick={() => setShowRecruiterModal(true)} className="cv-btn recruiter-btn">
+              For recruiters &rarr;
+            </button>
+          </motion.div>
         </div>
 
       </div>
