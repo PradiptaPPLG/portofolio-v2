@@ -81,7 +81,7 @@ body {
   font-family: var(--font-body);
   background: transparent;
   color: var(--text);
-  overflow-x: hidden;
+  
   line-height: 1.5;
   cursor: none;
   transition: background-color 0.8s ease, color 0.8s ease;
@@ -3004,7 +3004,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   html, body, #root {
     width: 100%;
     max-width: 100%;
-    overflow-x: clip !important;
+    
   }
 
   /* Move HIRE ME button to the left so it doesn't overlap right-aligned text */
@@ -3153,7 +3153,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 
   /* Make doubly sure nothing overflows the body */
   html, body {
-    overflow-x: hidden !important;
+    
   }
   
   /* Make sure the hero container isn't pushing bounds */
