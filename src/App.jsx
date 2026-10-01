@@ -1526,9 +1526,9 @@ function SocialLinks() {
             style={{
               position: 'absolute',
               top: '-10px',
-              left: '10px',
+              left: '20%',
               y: parallaxY,
-              width: '90%',
+              width: '80%',
               minWidth: '280px',
               zIndex: 50,
               pointerEvents: 'none',
