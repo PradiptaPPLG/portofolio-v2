@@ -253,7 +253,7 @@ function CommandPalette({ open, onClose }) {
     { section: 'NAVIGATE', label: 'Go to Projects', icon: <Folder size={16} />, action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Tech Stack', icon: <Cpu size={16} />, action: () => { document.getElementById('stack')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Experience', icon: <Briefcase size={16} />, action: () => { document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
-    { section: 'CONTACT', label: 'Copy Email — pradipta@maulana.dev', icon: <Mail size={16} />, action: () => { navigator.clipboard.writeText('pradipta@maulana.dev'); alert('Email copied!'); onClose(); } },
+    { section: 'CONTACT', label: 'Copy Email — pradipta02032009@gmail.com', icon: <Mail size={16} />, action: () => { navigator.clipboard.writeText('pradipta02032009@gmail.com'); alert('Email copied!'); onClose(); } },
     { section: 'CONTACT', label: 'Copy Phone — +62 838 4055 9238', icon: <Phone size={16} />, action: () => { navigator.clipboard.writeText('+62 838 4055 9238'); alert('Phone copied!'); onClose(); } },
     { section: 'SOCIAL', label: 'GitHub', icon: <GitBranch size={16} />, action: () => { window.open('https://github.com', '_blank'); onClose(); } },
     { section: 'SOCIAL', label: 'LinkedIn', icon: <Link2 size={16} />, action: () => { window.open('https://linkedin.com', '_blank'); onClose(); } }
@@ -393,7 +393,7 @@ function MenuOverlay({ open, onClose }) {
               <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="menu-social-link">
                 LinkedIn
               </a>
-              <a href="mailto:pradipta@maulana.dev" className="menu-social-link">
+              <a href="mailto:pradipta02032009@gmail.com" className="menu-social-link">
                 Email
               </a>
             </div>
@@ -1933,8 +1933,8 @@ function Contact() {
           Punya ide project hebat atau ingin memperkuat tim engineering Anda? 
           Saya siap berdiskusi dan merealisasikannya.
         </p>
-        <a href="mailto:pradipta@maulana.dev" className="contact-email-btn">
-          pradipta@maulana.dev
+        <a href="mailto:pradipta02032009@gmail.com" className="contact-email-btn">
+          pradipta02032009@gmail.com
         </a>
         <div className="social-btns-row">
           <a href="https://github.com" target="_blank" rel="noreferrer" className="btn-outline">
@@ -1943,7 +1943,7 @@ function Contact() {
           <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-outline">
             <Link2 size={16} /> LinkedIn
           </a>
-          <a href="mailto:pradipta@maulana.dev" className="btn-outline">
+          <a href="mailto:pradipta02032009@gmail.com" className="btn-outline">
             <Mail size={16} /> Send Mail
           </a>
         </div>
