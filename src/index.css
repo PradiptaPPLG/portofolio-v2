@@ -2926,3 +2926,36 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   .rm-btn-primary { min-width: 100%; }
 }
 
+
+/* ============================================================
+   MOBILE OVERRIDES (LANDO NORRIS STYLE)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* VERTICAL SHOWCASE */
+  .showcase-section { height: auto !important; padding: 4rem 0 !important; }
+  .showcase-sticky { position: relative !important; height: auto !important; overflow: visible !important; display: block !important; }
+  .showcase-title-wrap { position: relative !important; top: 0 !important; left: 0 !important; margin-bottom: 2rem !important; padding: 0 1.5rem !important; }
+  .showcase-track { 
+    transform: none !important; 
+    flex-direction: column !important; 
+    width: 100% !important; 
+    height: auto !important; 
+    padding: 0 1.5rem !important; 
+    gap: 3rem !important; 
+  }
+  .showcase-item { align-self: center !important; margin: 0 !important; width: 100% !important; }
+  .showcase-img-wrap { width: 100% !important; max-width: 100% !important; }
+  .showcase-img-wrap img { transform: none !important; } /* Disable hover zoom on mobile if buggy */
+  
+  /* SIDE-BY-SIDE SOCIAL (ON/OFF TRACK STYLE) */
+  .social-split-container { 
+    flex-direction: row !important; 
+    gap: 1rem !important; 
+    align-items: flex-start !important;
+  }
+  .social-block { padding: 2rem 1rem !important; }
+  .social-title { font-size: clamp(1.5rem, 6vw, 3rem) !important; }
+  .social-desc { font-size: 0.7rem !important; }
+  .social-link-btn { width: 40px !important; height: 40px !important; }
+  .social-link-btn svg { width: 20px !important; height: 20px !important; }
+}
