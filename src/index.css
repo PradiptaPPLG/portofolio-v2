@@ -2428,7 +2428,10 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   }
 }
 /* CV BUTTONS & MODAL */
--content: flex-start;
+.cv-buttons-wrap {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: flex-start;
   gap: 0.8rem;
   align-items: center;
 }
