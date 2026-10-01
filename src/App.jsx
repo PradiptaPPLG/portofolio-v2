@@ -641,8 +641,8 @@ function Hero({ loaded }) {
           top: '50%', 
           left: '50%', 
           transform: 'translate(-50%, -50%)', 
-          width: '45vw', 
-          maxWidth: '600px', 
+          width: '30vw', 
+          maxWidth: '400px', 
           height: '90vh', 
           display: 'flex', 
           justifyContent: 'center', 
@@ -650,7 +650,7 @@ function Hero({ loaded }) {
           pointerEvents: 'none', 
           zIndex: 50 
         }}>
-          <Signature color="url(#cosmicGradient)" strokeWidth={6} progress={scrollYProgress} />
+          <Signature color="url(#cosmicGradient)" strokeWidth={3} progress={scrollYProgress} />
         </motion.div>
 
         {/* LAYER 3: Widgets & Info */}
