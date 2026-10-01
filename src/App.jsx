@@ -512,14 +512,16 @@ function Hero({ loaded }) {
   });
 
   // Removed responsiveFontSize hook since it's inherited from CSS now
-  // Portrait scale: shrinks to a smaller size continuously until the end of the section
-  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+  // Lando Norris style: frame closes in to become a square (or smaller rectangle)
+  // We animate clip-path inset instead of scale, so the image inside doesn't shrink, it just gets cropped!
+  const portraitClipPath = useTransform(
+    scrollYProgress, 
+    [0, 1], 
+    ['inset(0% 0% 0% 0% round 0px)', 'inset(25% 10% 25% 10% round 24px)']
+  );
   
-  // Portrait stays centered while scaling
+  // Portrait stays centered
   const portraitY = useTransform(scrollYProgress, [0, 1], ['0%', '0%']);
-
-  // Border radius grows as portrait shrinks
-  const portraitBorderRadius = useTransform(scrollYProgress, [0, 1], ['0px', '24px']);
 
   // Dark overlay fades in gradually until the end
   const portraitOverlayOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.85]);
@@ -549,10 +551,10 @@ function Hero({ loaded }) {
           />
         </div>
 
-        {/* LAYER 2: Front Layer — white background that shrinks on scroll */}
+        {/* LAYER 2: Front Layer — white background that gets cropped into a square on scroll */}
         <motion.div 
           className="hero-front-layer"
-          style={{ scale: portraitScale, y: portraitY, borderRadius: portraitBorderRadius }}
+          style={{ clipPath: portraitClipPath, y: portraitY, WebkitClipPath: portraitClipPath }}
         >
 
 

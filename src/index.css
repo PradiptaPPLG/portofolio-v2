@@ -3157,8 +3157,5 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   }
   
   /* Make sure the hero container isn't pushing bounds */
-  .hero-scroll-outer {
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-  }
+  .hero-scroll-outer { max-width: 100vw !important; /* overflow-x removed to fix sticky bug */ }
 }
