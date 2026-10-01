@@ -641,8 +641,8 @@ function Hero({ loaded }) {
           top: '50%', 
           left: '50%', 
           transform: 'translate(-50%, -50%)', 
-          width: '55vw', 
-          maxWidth: '800px', 
+          width: '85vw', 
+          maxWidth: '1200px', 
           height: '90vh', 
           display: 'flex', 
           justifyContent: 'center', 
@@ -1525,11 +1525,11 @@ function SocialLinks() {
           <motion.div 
             style={{
               position: 'absolute',
-              top: '5px',
-              left: '20%',
+              top: '35px',
+              left: '30%',
               y: parallaxY,
-              width: '95%',
-              minWidth: '320px',
+              width: '130%',
+              minWidth: '400px',
               zIndex: 50,
               pointerEvents: 'none',
               rotate: -5
