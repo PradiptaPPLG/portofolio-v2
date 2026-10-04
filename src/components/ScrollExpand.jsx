@@ -13,6 +13,7 @@ const smoothstep = (edge0, edge1, x) => {
 
 const ScrollExpand = ({
   src = '',
+  mobileSrc = '',
   mediaType = 'image',
   poster = '',
   alt = '',
@@ -200,7 +201,14 @@ const ScrollExpand = ({
         playsInline
       />
     ) : (
-      <img ref={mediaRef} className="scroll-expand__media" src={src} alt={alt} draggable={false} />
+      mobileSrc ? (
+        <picture>
+          <source media="(max-width: 768px)" srcSet={mobileSrc} />
+          <img ref={mediaRef} className="scroll-expand__media" src={src} alt={alt} draggable={false} />
+        </picture>
+      ) : (
+        <img ref={mediaRef} className="scroll-expand__media" src={src} alt={alt} draggable={false} />
+      )
     );
 
   return (

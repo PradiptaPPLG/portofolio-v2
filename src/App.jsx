@@ -20,6 +20,7 @@ import PlaygroundCard from './components/PlaygroundCard';
 import TechText from './components/TechText';
 import PaperCrumple from './components/PaperCrumple';
 import BellToggle from './components/BellToggle';
+import TechStackMarquee from './components/TechStackMarquee';
 import './index.css';
 
 /* ============================================================
@@ -513,12 +514,9 @@ function Hero({ loaded }) {
 
   // Removed responsiveFontSize hook since it's inherited from CSS now
   // Lando Norris style: frame closes in to become a square (or smaller rectangle)
-  // We animate clip-path inset instead of scale, so the image inside doesn't shrink, it just gets cropped!
-  const portraitClipPath = useTransform(
-    scrollYProgress, 
-    [0, 1], 
-    ['inset(0% 0% 0% 0% round 0px)', 'inset(25% 10% 25% 10% round 24px)']
-  );
+  // Reverting to scaling down so the portrait shrinks along with the frame
+  const layerScale = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
+  const layerBorderRadius = useTransform(scrollYProgress, [0, 1], ['0px', '48px']);
   
   // Portrait stays centered
   const portraitY = useTransform(scrollYProgress, [0, 1], ['0%', '0%']);
@@ -551,10 +549,14 @@ function Hero({ loaded }) {
           />
         </div>
 
-        {/* LAYER 2: Front Layer — white background that gets cropped into a square on scroll */}
         <motion.div 
           className="hero-front-layer"
-          style={{ clipPath: portraitClipPath, y: portraitY, WebkitClipPath: portraitClipPath }}
+          style={{ 
+            scale: layerScale, 
+            y: portraitY, 
+            borderRadius: layerBorderRadius,
+            overflow: 'hidden'
+          }}
         >
 
 
@@ -919,33 +921,27 @@ function BiodataSection({ showRecruiterModal, setShowRecruiterModal }) {
                   <div className="rm-tech-stack">
                     <h4>Technical stack</h4>
                     <div className="rm-tech-row">
-                      <span className="rm-t-cat">Programming Language</span>
+                      <span className="rm-t-cat">Languages</span>
                       <div className="rm-t-tags">
-                        <span>HTML</span><span>JavaScript</span><span>Python</span><span>Java</span>
+                        <span>PHP</span><span>JavaScript</span><span>TypeScript</span><span>Python</span><span>Java</span><span>C/C++</span><span>Kotlin</span><span>Dart</span><span>SQL</span>
                       </div>
                     </div>
                     <div className="rm-tech-row">
-                      <span className="rm-t-cat">Backend</span>
+                      <span className="rm-t-cat">Frontend & UI</span>
                       <div className="rm-t-tags">
-                        <span>NodeJS</span><span>Express</span>
+                        <span>HTML5/CSS3</span><span>React.js</span><span>Next.js</span><span>Tailwind CSS</span><span>Bootstrap</span><span>PWA</span>
                       </div>
                     </div>
                     <div className="rm-tech-row">
-                      <span className="rm-t-cat">Frontend</span>
+                      <span className="rm-t-cat">Backend & Arch</span>
                       <div className="rm-t-tags">
-                        <span>React</span><span>Next.js</span><span>Tailwind CSS</span>
+                        <span>Laravel</span><span>Node.js</span><span>REST API</span><span>MVC</span><span>CRUD</span><span>Auth & Middleware</span>
                       </div>
                     </div>
                     <div className="rm-tech-row">
-                      <span className="rm-t-cat">Database</span>
+                      <span className="rm-t-cat">Tools & VCS</span>
                       <div className="rm-t-tags">
-                        <span>PostgreSQL</span><span>MySQL</span>
-                      </div>
-                    </div>
-                    <div className="rm-tech-row">
-                      <span className="rm-t-cat">Tools</span>
-                      <div className="rm-t-tags">
-                        <span>Figma</span><span>Git</span><span>Github</span><span>VS Code</span>
+                        <span>Git/GitHub/GitLab</span><span>GitHub Actions</span><span>Composer</span><span>Figma</span>
                       </div>
                     </div>
                   </div>
@@ -1511,13 +1507,13 @@ function SocialLinks() {
         >
           {/* Animated Catch Me On Signature Overlay */}
           <motion.div 
+            className="catch-me-signature-overlay"
             style={{
               position: 'absolute',
               top: '35px',
-              left: '30%',
+              left: 'clamp(20%, 30%, 40%)',
               y: parallaxY,
-              width: '130%',
-              minWidth: '400px',
+              width: 'clamp(400px, 55vw, 1000px)',
               zIndex: 50,
               pointerEvents: 'none',
               rotate: -5
@@ -1581,6 +1577,7 @@ function Achievements() {
     <section className="section" id="achievements" style={{ padding: 0 }}>
       <ScrollExpand
         src="/assets/pencapaian.png"
+        mobileSrc="/assets/pencapaian-mobile-version.png"
         alt="Pradipta's Achievements"
         title="Achievements & Rewards"
         scrollHint="Scroll to Expand"
@@ -2135,6 +2132,7 @@ export default function App() {
           <main>
             <Hero loaded={loaded} />
             <BiodataSection showRecruiterModal={showRecruiterModal} setShowRecruiterModal={setShowRecruiterModal} />
+            <TechStackMarquee />
             <Marquee />
             <Showcase />
             <IdeSection />

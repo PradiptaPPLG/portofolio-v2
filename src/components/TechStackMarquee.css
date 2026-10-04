@@ -1,0 +1,123 @@
+.tech-marquee-section {
+  position: relative;
+  width: 100%;
+  padding: 6rem 0;
+  background: transparent;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.tech-marquee-sticky-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-marquee-center-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tech-flicker-text {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #fbbf24;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.7), 0 0 40px rgba(251, 191, 36, 0.3);
+  white-space: nowrap;
+}
+
+
+
+.tech-marquee-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.mask-reveal {
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.tech-marquee-row {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  padding-left: 3rem; /* Small offset so there's no gap when looping */
+}
+
+.tech-marquee-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.tech-marquee-card:hover {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+  transform: translateY(-5px);
+}
+
+.tech-marquee-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.tech-marquee-name {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .tech-marquee-section {
+    padding: 4rem 0;
+  }
+  .tech-marquee-row {
+    gap: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .tech-marquee-card {
+    min-width: 90px;
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+  .tech-marquee-name {
+    font-size: 0.85rem;
+  }
+  .tech-marquee-img {
+    width: 36px;
+    height: 36px;
+  }
+}
