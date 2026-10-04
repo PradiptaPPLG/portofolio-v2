@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ReactLenis } from 'lenis/react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionTemplate, useMotionValueEvent } from 'framer-motion';
 import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2, Command, Search, User, Folder, Award, Briefcase, Phone, X, Download, Eye, FileText, ExternalLink, Copy, MapPin } from 'lucide-react';
@@ -2040,7 +2041,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <ReactLenis root options={{ lerp: 0.07, duration: 1.5, smoothWheel: true }}>
       <Loader onDone={() => setLoaded(true)} />
 
       {/* Render main app immediately behind loader to prevent black flash on reveal */}
@@ -2147,7 +2148,7 @@ export default function App() {
           </main>
         </>
       </div>
-    </>
+    </ReactLenis>
   );
 }
 // Trigger Vercel Deploy
