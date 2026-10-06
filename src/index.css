@@ -2235,6 +2235,7 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 }
 
 .ide-window {
+  position: relative;
   background: #1e1e1e;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
