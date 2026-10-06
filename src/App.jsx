@@ -463,9 +463,9 @@ function SpotlightReveal() {
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {/* Background Image: transisi02.png (Astronaut) - ONLY visible inside the circle */}
+      {/* Background Image: transisi02.webp (Astronaut) - ONLY visible inside the circle */}
       <motion.img 
-        src="/assets/transisi02.png" 
+        src="/assets/transisi02.webp" 
         alt="Hover Portrait" 
         className="spotlight-hover-img" 
         style={{ 
@@ -476,9 +476,9 @@ function SpotlightReveal() {
         }} 
       />
 
-      {/* Foreground Image: transisi01.png (Suit) - has a hole revealing the astronaut */}
+      {/* Foreground Image: transisi01.webp (Suit) - has a hole revealing the astronaut */}
       <motion.img 
-        src="/assets/transisi01.png" 
+        src="/assets/transisi01.webp" 
         alt="Base Portrait" 
         className="spotlight-base" 
         style={{
@@ -1068,16 +1068,16 @@ function Showcase() {
 
   // Expanded to 10 items for a richer, denser layout
   const showcaseItems = [
-    { title: "AI Ready ASEAN", year: "Certification", img: "/assets/licenses-&-certifications/ai-ready-asean.jpg" },
-    { title: "Data Science & Analytics", year: "Certification", img: "/assets/licenses-&-certifications/data-science-&-analytics.jpg" },
-    { title: "Data Science Methodology", year: "Certification", img: "/assets/licenses-&-certifications/data-science-methodology.jpg" },
-    { title: "Digital Marketing", year: "Certification", img: "/assets/licenses-&-certifications/digital-marketing.jpg" },
-    { title: "Frontend Dev", year: "Certification", img: "/assets/licenses-&-certifications/introduction-to-frontend-dev.jpg" },
-    { title: "MS Excel", year: "Certification", img: "/assets/licenses-&-certifications/introduction-to-ms-excel.jpg" },
-    { title: "Cybersecurity", year: "Certification", img: "/assets/licenses-&-certifications/professional-cybersecurity.jpg" },
-    { title: "Python 101", year: "Certification", img: "/assets/licenses-&-certifications/python-101-for-data-science.jpg" },
-    { title: "SQL Database", year: "Certification", img: "/assets/licenses-&-certifications/sql-and-relational-database.jpg" },
-    { title: "KREAI Finalist", year: "Award", img: "/assets/licenses-&-certifications/top-10-finalist-kreai.jpg" },
+    { title: "AI Ready ASEAN", year: "Certification", img: "/assets/licenses-&-certifications/ai-ready-asean.webp" },
+    { title: "Data Science & Analytics", year: "Certification", img: "/assets/licenses-&-certifications/data-science-&-analytics.webp" },
+    { title: "Data Science Methodology", year: "Certification", img: "/assets/licenses-&-certifications/data-science-methodology.webp" },
+    { title: "Digital Marketing", year: "Certification", img: "/assets/licenses-&-certifications/digital-marketing.webp" },
+    { title: "Frontend Dev", year: "Certification", img: "/assets/licenses-&-certifications/introduction-to-frontend-dev.webp" },
+    { title: "MS Excel", year: "Certification", img: "/assets/licenses-&-certifications/introduction-to-ms-excel.webp" },
+    { title: "Cybersecurity", year: "Certification", img: "/assets/licenses-&-certifications/professional-cybersecurity.webp" },
+    { title: "Python 101", year: "Certification", img: "/assets/licenses-&-certifications/python-101-for-data-science.webp" },
+    { title: "SQL Database", year: "Certification", img: "/assets/licenses-&-certifications/sql-and-relational-database.webp" },
+    { title: "KREAI Finalist", year: "Award", img: "/assets/licenses-&-certifications/top-10-finalist-kreai.webp" },
   ];
 
   return (
@@ -1130,7 +1130,7 @@ const PROJECTS = [
     desc: 'A web-based application to help schools monitor student activities during Field Work Practice (PKL), from attendance to activity journals and PKL location information.',
     tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Bootstrap/Tailwind CSS'],
     year: '2024',
-    image: '/assets/projects/mas-pkl.png',
+    image: '/assets/projects/mas-pkl.webp',
   },
   {
     num: '02',
@@ -1138,7 +1138,7 @@ const PROJECTS = [
     desc: 'An application to assist in recording and monitoring teacher attendance during morning roll calls. The system is designed to simplify attendance administration and provide monitoring data for schools.',
     tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
     year: '2024',
-    image: '/assets/projects/asign.png',
+    image: '/assets/projects/asign.webp',
   },
   {
     num: '03',
@@ -1146,7 +1146,7 @@ const PROJECTS = [
     desc: 'A web-based ERP system to integrate the operational management of Village Cooperatives, particularly HR management, attendance, work schedules, permits, as well as monitoring.',
     tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript'],
     year: '2023',
-    image: '/assets/projects/kopdes.png',
+    image: '/assets/projects/kopdes.webp',
   },
   {
     num: '04',
@@ -1154,7 +1154,7 @@ const PROJECTS = [
     desc: 'A web-based photobooth application that allows users to take photos directly through a browser with various templates, effects, and photo strip concepts that can be selected according to needs.',
     tech: ['HTML', 'CSS', 'JavaScript', 'Web Camera API'],
     year: '2023',
-    image: '/assets/projects/pixelcam.png',
+    image: '/assets/projects/pixelcam.webp',
   },
   {
     num: '05',
@@ -1162,7 +1162,7 @@ const PROJECTS = [
     desc: 'This website serves as the central information and service hub for the Teaching Factory (TEFA) for all departments at SMKN 1 Ciamis. Visitors can learn about available services.',
     tech: ['HTML', 'CSS', 'JavaScript', 'PHP/Laravel'],
     year: '2023',
-    image: '/assets/projects/bludsmkn1ciamis.png',
+    image: '/assets/projects/bludsmkn1ciamis.webp',
   },
   {
     num: '06',
@@ -1170,7 +1170,7 @@ const PROJECTS = [
     desc: 'NexaPOS is a web-based Point of Sale (POS) application designed to help process transactions and product management simply and efficiently.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2023',
-    image: '/assets/projects/nexapos-drivethru.png',
+    image: '/assets/projects/nexapos-drivethru.webp',
   },
   {
     num: '07',
@@ -1178,7 +1178,7 @@ const PROJECTS = [
     desc: 'Stayora is a web-based hotel reservation app designed to help users find and select accommodations more easily. Users can search for hotels by location, specify check-in and check-out dates.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2023',
-    image: '/assets/projects/stayora-staycation.png',
+    image: '/assets/projects/stayora-staycation.webp',
   },
   {
     num: '08',
@@ -1186,7 +1186,7 @@ const PROJECTS = [
     desc: 'Garasi Rental is a web-based car rental application designed to help users search, select, and reserve vehicles more practically.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2022',
-    image: '/assets/projects/garasirentalcms.png',
+    image: '/assets/projects/garasirentalcms.webp',
   },
   {
     num: '09',
@@ -1194,7 +1194,7 @@ const PROJECTS = [
     desc: 'Layar Kita is a web-based application designed to help users find currently showing films and conveniently book cinema tickets. Users can select the cinema, viewing date, film format, and film title.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2022',
-    image: '/assets/projects/layarkita.png',
+    image: '/assets/projects/layarkita.webp',
   },
   {
     num: '10',
@@ -1202,7 +1202,7 @@ const PROJECTS = [
     desc: 'Hexapy is a web-based music streaming app with a modern, dark design. It\'s designed as a platform for discovering songs.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2022',
-    image: '/assets/projects/hexamusicpy.png',
+    image: '/assets/projects/hexamusicpy.webp',
   },
   {
     num: '11',
@@ -1210,7 +1210,7 @@ const PROJECTS = [
     desc: 'A web-based library management application designed to simplify book collection management, borrowing and returning activities, and member administration through a clean and centralized dashboard.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2022',
-    image: '/assets/projects/libraze.png',
+    image: '/assets/projects/libraze.webp',
   },
   {
     num: '12',
@@ -1218,7 +1218,7 @@ const PROJECTS = [
     desc: 'A web-based laptop marketplace designed to help users discover and compare laptops based on specifications, performance, and price through a clean and organized shopping experience.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2022',
-    image: '/assets/projects/voltrix-tech.png',
+    image: '/assets/projects/voltrix-tech.webp',
   },
   {
     num: '13',
@@ -1226,7 +1226,7 @@ const PROJECTS = [
     desc: 'A web-based platform designed to help teachers manage their daily academic activities, monitor student progress, organize assignments, record attendance, and review class performance through a centralized dashboard.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     year: '2021',
-    image: '/assets/projects/edutrack-edu.png',
+    image: '/assets/projects/edutrack-edu.webp',
   },
   {
     num: '14',
@@ -1234,7 +1234,7 @@ const PROJECTS = [
     desc: 'An interactive application platform that allows users to collect various types of animals through minigames.',
     tech: ['HTML', 'CSS', 'JavaScript', 'React', 'Backend API', 'Database'],
     year: '2021',
-    image: '/assets/projects/wildora.png',
+    image: '/assets/projects/wildora.webp',
   },
   {
     num: '15',
@@ -1242,7 +1242,7 @@ const PROJECTS = [
     desc: 'A web-based platform developed using React to help users identify and classify waste types through a scanning process. The system will analyze the scanned waste.',
     tech: ['React', 'JavaScript', 'AI / Machine Learning', 'API', 'CSS'],
     year: '2021',
-    image: '/assets/projects/ecovision-ai.png',
+    image: '/assets/projects/ecovision-ai.webp',
   },
   {
     num: '16',
@@ -1250,7 +1250,7 @@ const PROJECTS = [
     desc: 'A web-based platform designed to help diecast collectors manage and monitor their collections in a more organized manner.',
     tech: ['React', 'JavaScript', 'CSS', 'API', 'Database'],
     year: '2021',
-    image: '/assets/projects/dietrack.png',
+    image: '/assets/projects/dietrack.webp',
   }
 ];
 
@@ -1418,7 +1418,7 @@ function IdeSection() {
         {/* RIGHT: Adobe Canvas text-rotate */}
         <div className="canvas-window" style={{ flex: '1 1 55%', minWidth: '500px', position: 'relative', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
           <div style={{ position: 'relative', width: '100%' }}>
-            <img src="/assets/adobecanvas.png" alt="Adobe Canvas" style={{ width: '100%', height: 'auto', borderRadius: '12px', display: 'block' }} />
+            <img src="/assets/adobecanvas.webp" alt="Adobe Canvas" style={{ width: '100%', height: 'auto', borderRadius: '12px', display: 'block' }} />
               <div style={{
                 position: 'absolute',
                 top: '35%',
@@ -1577,8 +1577,8 @@ function Achievements() {
   return (
     <section className="section" id="achievements" style={{ padding: 0 }}>
       <ScrollExpand
-        src="/assets/pencapaian.png"
-        mobileSrc="/assets/pencapaian-mobile-version.png"
+        src="/assets/pencapaian.webp"
+        mobileSrc="/assets/pencapaian-mobile-version.webp"
         alt="Pradipta's Achievements"
         title="Achievements & Rewards"
         scrollHint="Scroll to Expand"
@@ -1646,7 +1646,7 @@ function UiCraftSection() {
 
           <PlaygroundCard title="Paper Crumple" category="3D Interactions">
                 <PaperCrumple 
-                  src="/assets/paper.png" 
+                  src="/assets/paper.webp" 
                   alt="Hero Image" 
                   paperColor="#1f1f1f" 
                   shadow={true}
@@ -1766,7 +1766,7 @@ const GEAR_STACK = [
     desc: 'Designing fast and reactive interfaces using React 19, Next.js App Router, TypeScript, and TailwindCSS.',
     tags: ['React 19', 'Next.js 14', 'TypeScript', 'TailwindCSS', 'Framer Motion'],
     wide: true,
-    bgImage: '/assets/tech-stack-gear/ui-modern.png'
+    bgImage: '/assets/tech-stack-gear/ui-modern.webp'
   },
   {
     icon: <Database size={26} />,
@@ -1775,7 +1775,7 @@ const GEAR_STACK = [
     desc: 'Analyzing data, building predictive models, and visualizing insights interactively.',
     tags: ['Python', 'Pandas', 'Jupyter', 'Tableau', 'Scikit-Learn'],
     wide: false,
-    bgImage: '/assets/tech-stack-gear/data-analytics.png'
+    bgImage: '/assets/tech-stack-gear/data-analytics.webp'
   },
   {
     icon: <Database size={26} />,
@@ -1784,7 +1784,7 @@ const GEAR_STACK = [
     desc: 'Optimizing relational and NoSQL database queries with high-speed caching layers.',
     tags: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma ORM'],
     wide: false,
-    bgImage: '/assets/tech-stack-gear/database-management.png'
+    bgImage: '/assets/tech-stack-gear/database-management.webp'
   },
   {
     icon: <Cpu size={26} />,
@@ -1793,7 +1793,7 @@ const GEAR_STACK = [
     desc: 'Automating deployments with Docker containerization and cloud service management on AWS & Vercel.',
     tags: ['Docker', 'Kubernetes', 'AWS', 'Vercel', 'CI/CD Pipelines'],
     wide: true,
-    bgImage: '/assets/tech-stack-gear/deployemnt-vercel.png'
+    bgImage: '/assets/tech-stack-gear/deployemnt-vercel.webp'
   },
 ];
 
