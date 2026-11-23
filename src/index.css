@@ -1620,6 +1620,196 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 }
 
 /* ============================================================
+   ACTIVE PROJECTS TABLE STYLES
+   ============================================================ */
+.active-live-badge-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #34d399;
+}
+
+.active-table-container {
+  border: 1px solid var(--border-bright);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.active-table-head {
+  display: grid;
+  grid-template-columns: 80px 2.5fr 2fr 1.2fr 200px;
+  padding: 1.25rem 2.5rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.active-table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.active-table-row {
+  display: grid;
+  grid-template-columns: 80px 2.5fr 2fr 1.2fr 200px;
+  align-items: center;
+  padding: 2rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  gap: 1.5rem;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.active-table-row:last-child {
+  border-bottom: none;
+}
+
+.active-table-row:hover {
+  background: var(--surface-hover);
+}
+
+.active-table-row:hover .proj-main-title {
+  color: var(--accent-bright);
+  transform: translateX(6px);
+}
+
+.active-row-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.active-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.active-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.active-highlight-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #c084fc;
+}
+
+.active-visits-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+}
+
+.active-visits-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 100px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.active-visits-icon {
+  color: #38bdf8;
+}
+
+.active-visits-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.active-action-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 200px;
+}
+
+.active-photo-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.active-table-row:hover .proj-action-photo {
+  transform: scale(1.05) rotate(-2deg);
+  border-color: var(--purple);
+  filter: grayscale(0%) brightness(1.1);
+  box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2);
+}
+
+.active-visit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ============================================================
    TECH STACK & GEAR MASONRY (LANDO MERCH GRID STYLE)
    ============================================================ */
 .masonry-grid {
@@ -1961,13 +2151,16 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   .hero-status-badge { left: 1.5rem; top: 5.5rem; }
   .hero-stats-grid { grid-template-columns: 1fr; }
   .section { padding: 4rem 1.5rem; }
-  .table-row-head { display: none; }
-  .table-row-item { 
+  .table-row-head, .active-table-head { display: none; }
+  .table-row-item, .active-table-row { 
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    padding: 1rem 0.75rem !important;
-    gap: 0.5rem !important;
+    padding: 1.25rem 0.95rem !important;
+    gap: 0.75rem !important;
+  }
+  .active-action-col {
+    width: 100% !important;
   }
   .proj-num { font-size: 0.9rem !important; margin-bottom: -0.3rem !important; }
   .proj-main-title { font-size: 0.95rem !important; }

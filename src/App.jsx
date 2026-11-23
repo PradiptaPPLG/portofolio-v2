@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionTemplate, useMotionValueEvent } from 'framer-motion';
-import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2, Command, Search, User, Folder, Award, Briefcase, Phone, X, Download, Eye, FileText, ExternalLink, Copy, MapPin, Gamepad2 } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2, Command, Search, User, Folder, Award, Briefcase, Phone, X, Download, Eye, FileText, ExternalLink, Copy, MapPin, Gamepad2, TrendingUp, Globe, Flame } from 'lucide-react';
 import StrokeText from './components/StrokeText';
 import SplitText from './components/SplitText';
 import TextType from './components/TextType';
@@ -215,7 +215,7 @@ function Loader({ onDone }) {
 /* ============================================================
    FULLSCREEN MENU OVERLAY
    ============================================================ */
-const MENU_ITEMS = ['Home', 'About', 'Projects', 'Games', 'Stack', 'Experience', 'Contact'];
+const MENU_ITEMS = ['Home', 'About', 'Projects', 'History', 'Games', 'Stack', 'Experience', 'Contact'];
 const STACK_TAGS = ['React 19', 'Next.js 14', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'GraphQL'];
 
 /* ============================================================
@@ -253,7 +253,8 @@ function CommandPalette({ open, onClose }) {
 
   const commands = [
     { section: 'NAVIGATE', label: 'Go to Hero', icon: <User size={16} />, action: () => { window.scrollTo({ top: 0, behavior: 'smooth' }); onClose(); } },
-    { section: 'NAVIGATE', label: 'Go to Projects', icon: <Folder size={16} />, action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
+    { section: 'NAVIGATE', label: 'Go to Active Projects', icon: <Folder size={16} />, action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
+    { section: 'NAVIGATE', label: 'Go to Project History', icon: <Briefcase size={16} />, action: () => { document.getElementById('history')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Game Corner', icon: <Gamepad2 size={16} />, action: () => { document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Tech Stack', icon: <Cpu size={16} />, action: () => { document.getElementById('stack')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Experience', icon: <Briefcase size={16} />, action: () => { document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
@@ -1123,9 +1124,59 @@ function Showcase() {
 }
 
 /* ============================================================
-   PROJECTS SHOWCASE (RACE TABLE STYLE - LANDO NORRIS)
+   ACTIVE PROJECTS (HIGH-IMPACT PRODUCTION APPS & LIVE DEPLOYS)
    ============================================================ */
-const PROJECTS = [
+const ACTIVE_PROJECTS = [
+  {
+    num: '01',
+    title: 'LayMockup × PixelCam — 3D Isometric Mockup Studio',
+    desc: 'An interactive browser-based 3D isometric mockup studio collaboration. Transform product UI screenshots into world-class 3D isometric mockups with 15 exclusive templates, zero cropping, and 4K ultra-high resolution export.',
+    tech: ['HTML5 Canvas', 'JavaScript', 'CSS3 3D', 'Web Camera API'],
+    visits: '253K Visits',
+    liveUrl: 'https://laymockup.vercel.app/',
+    image: '/assets/projects/laymockup.webp',
+    status: 'Live & Active',
+    badge: 'Popular'
+  },
+  {
+    num: '02',
+    title: 'PIXELCAM — Interactive Web Photobooth',
+    desc: 'A viral web-based photobooth application that allows users to take photos directly through a browser with various templates, retro effects, and instant photo strip downloads.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'Web Camera API', 'Canvas API'],
+    visits: '149K Visits',
+    liveUrl: 'https://pixelcam-flame.vercel.app/',
+    image: '/assets/projects/pixelcam.webp',
+    status: 'Live & Active',
+    badge: 'Trending'
+  },
+  {
+    num: '03',
+    title: 'BLUD SMKN 1 Ciamis — Teaching Factory Service Platform',
+    desc: 'This website serves as the central digital information and public service hub for the Teaching Factory (TEFA) for all departments at SMKN 1 Ciamis. Visitors can learn about available services and submit orders.',
+    tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Tailwind CSS'],
+    visits: '3.8K Visits',
+    liveUrl: 'https://blud.smkn1ciamis.id/',
+    image: '/assets/projects/bludsmkn1ciamis.webp',
+    status: 'Live & Active',
+    badge: 'Production'
+  },
+  {
+    num: '04',
+    title: 'NECTOR.UI — Ready-to-Use Website Template Gallery',
+    desc: 'A curated collection of production-ready website templates and UI themes for MSMEs, modern cafes, studios, and digital archives with standalone source code, live responsive inspection, and color palette extraction.',
+    tech: ['React 19', 'TypeScript', 'Vite', 'Lucide Icons', 'CSS Variables'],
+    visits: '42.1K Visits',
+    liveUrl: 'https://nector-ui.vercel.app/',
+    image: '/assets/projects/nector-ui.webp',
+    status: 'Live & Active',
+    badge: 'New'
+  }
+];
+
+/* ============================================================
+   HISTORY PROJECTS (ARCHIVED COMMERCIAL & EARLIER WORKS)
+   ============================================================ */
+const HISTORY_PROJECTS = [
   {
     num: '01',
     title: 'MAS-PKL — Student Administration Monitoring System for PKL',
@@ -1152,22 +1203,6 @@ const PROJECTS = [
   },
   {
     num: '04',
-    title: 'PIXELCAM — Interactive Web Photobooth',
-    desc: 'A web-based photobooth application that allows users to take photos directly through a browser with various templates, effects, and photo strip concepts that can be selected according to needs.',
-    tech: ['HTML', 'CSS', 'JavaScript', 'Web Camera API'],
-    year: '2023',
-    image: '/assets/projects/pixelcam.webp',
-  },
-  {
-    num: '05',
-    title: 'BLUD SMKN 1 Ciamis — Teaching Factory Service Platform',
-    desc: 'This website serves as the central information and service hub for the Teaching Factory (TEFA) for all departments at SMKN 1 Ciamis. Visitors can learn about available services.',
-    tech: ['HTML', 'CSS', 'JavaScript', 'PHP/Laravel'],
-    year: '2023',
-    image: '/assets/projects/bludsmkn1ciamis.webp',
-  },
-  {
-    num: '06',
     title: 'NexaPOS – Point of Sale Management System',
     desc: 'NexaPOS is a web-based Point of Sale (POS) application designed to help process transactions and product management simply and efficiently.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1175,7 +1210,7 @@ const PROJECTS = [
     image: '/assets/projects/nexapos-drivethru.webp',
   },
   {
-    num: '07',
+    num: '05',
     title: 'Stayora – Hotel Reservation & Booking Platform',
     desc: 'Stayora is a web-based hotel reservation app designed to help users find and select accommodations more easily. Users can search for hotels by location, specify check-in and check-out dates.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1183,7 +1218,7 @@ const PROJECTS = [
     image: '/assets/projects/stayora-staycation.webp',
   },
   {
-    num: '08',
+    num: '06',
     title: 'Garasi Rental – Vehicle Rental & Reservation Platform',
     desc: 'Garasi Rental is a web-based car rental application designed to help users search, select, and reserve vehicles more practically.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1191,7 +1226,7 @@ const PROJECTS = [
     image: '/assets/projects/garasirentalcms.webp',
   },
   {
-    num: '09',
+    num: '07',
     title: 'Our Screen – Cinema Ticket Reservation Platform',
     desc: 'Layar Kita is a web-based application designed to help users find currently showing films and conveniently book cinema tickets. Users can select the cinema, viewing date, film format, and film title.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1199,7 +1234,7 @@ const PROJECTS = [
     image: '/assets/projects/layarkita.webp',
   },
   {
-    num: '10',
+    num: '08',
     title: 'HEXAPY – MUSIC STREAMING DASHBOARD',
     desc: 'Hexapy is a web-based music streaming app with a modern, dark design. It\'s designed as a platform for discovering songs.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1207,7 +1242,7 @@ const PROJECTS = [
     image: '/assets/projects/hexamusicpy.webp',
   },
   {
-    num: '11',
+    num: '09',
     title: 'LIBRAZE – Library Management & Book Lending System',
     desc: 'A web-based library management application designed to simplify book collection management, borrowing and returning activities, and member administration through a clean and centralized dashboard.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1215,7 +1250,7 @@ const PROJECTS = [
     image: '/assets/projects/libraze.webp',
   },
   {
-    num: '12',
+    num: '10',
     title: 'VOLTRIX – Laptop Marketplace & Product Discovery',
     desc: 'A web-based laptop marketplace designed to help users discover and compare laptops based on specifications, performance, and price through a clean and organized shopping experience.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1223,7 +1258,7 @@ const PROJECTS = [
     image: '/assets/projects/voltrix-tech.webp',
   },
   {
-    num: '13',
+    num: '11',
     title: 'EDUTRACK – Teacher Academic Management Platform',
     desc: 'A web-based platform designed to help teachers manage their daily academic activities, monitor student progress, organize assignments, record attendance, and review class performance through a centralized dashboard.',
     tech: ['HTML', 'CSS', 'JavaScript'],
@@ -1231,7 +1266,7 @@ const PROJECTS = [
     image: '/assets/projects/edutrack-edu.webp',
   },
   {
-    num: '14',
+    num: '12',
     title: 'WILDORA – Animal Collection & Minigames Platform',
     desc: 'An interactive application platform that allows users to collect various types of animals through minigames.',
     tech: ['HTML', 'CSS', 'JavaScript', 'React', 'Backend API', 'Database'],
@@ -1239,7 +1274,7 @@ const PROJECTS = [
     image: '/assets/projects/wildora.webp',
   },
   {
-    num: '15',
+    num: '13',
     title: 'EcoVision AI – Smart Waste Classification Platform',
     desc: 'A web-based platform developed using React to help users identify and classify waste types through a scanning process. The system will analyze the scanned waste.',
     tech: ['React', 'JavaScript', 'AI / Machine Learning', 'API', 'CSS'],
@@ -1247,7 +1282,7 @@ const PROJECTS = [
     image: '/assets/projects/ecovision-ai.webp',
   },
   {
-    num: '16',
+    num: '14',
     title: 'DieTrack – Diecast Collection Management Platform',
     desc: 'A web-based platform designed to help diecast collectors manage and monitor their collections in a more organized manner.',
     tech: ['React', 'JavaScript', 'CSS', 'API', 'Database'],
@@ -1672,25 +1707,133 @@ function UiCraftSection() {
   );
 }
 
-function Projects() {
+/* ============================================================
+   ACTIVE & PRODUCTION PROJECTS (HIGH-TRAFFIC LIVE DEPLOYS)
+   ============================================================ */
+function ActiveProjects() {
   return (
     <section className="section section-alt" id="projects">
       <div className="container">
-        <div className="projects-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
+        <div className="projects-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '3rem' }}>
           <div>
-            <div className="section-tag" data-reveal>Portfolio</div>
-            <h2 className="section-title" data-reveal>
-              Featured<br />
+            <div className="section-tag" data-reveal>
+              <Sparkles size={14} style={{ color: 'var(--accent-bright)' }} />
+              <span>Live In Production</span>
+            </div>
+            <h2 className="section-title" data-reveal style={{ marginBottom: '1rem' }}>
+              Active<br />
               <em>Projects</em>
             </h2>
+            <p className="section-subtitle" style={{ maxWidth: '640px', margin: 0, color: 'var(--text-muted)' }} data-reveal>
+              High-impact web applications, creative tools, and institutional platforms actively running in production with verified global user visits.
+            </p>
+          </div>
+          <div data-reveal style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
+            <span className="active-live-badge-top">
+              <span className="game-status-dot" />
+              <span>4 Live Applications</span>
+            </span>
+          </div>
+        </div>
+
+        <div className="active-table-container" data-reveal>
+          <div className="active-table-head">
+            <div>No</div>
+            <div>Active Project & Specs</div>
+            <div>Technologies</div>
+            <div>Traffic & Visits</div>
+            <div>Live Link & Photo</div>
+          </div>
+
+          <div className="active-table-body">
+            {ACTIVE_PROJECTS.map((p) => (
+              <div
+                key={p.num}
+                className="active-table-row"
+                onClick={() => window.open(p.liveUrl, '_blank', 'noopener,noreferrer')}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="proj-num">{p.num}</div>
+                <div className="proj-title-wrap">
+                  <div className="active-row-badges">
+                    <span className="active-status-tag">
+                      <span className="active-status-dot" />
+                      {p.status}
+                    </span>
+                    {p.badge && (
+                      <span className="active-highlight-tag">{p.badge}</span>
+                    )}
+                  </div>
+                  <div className="proj-main-title">{p.title}</div>
+                  <div className="proj-sub-desc">{p.desc}</div>
+                </div>
+
+                <div className="proj-tech-pills">
+                  {p.tech.map((t) => (
+                    <span key={t} className="tech-pill">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="active-visits-col">
+                  <div className="active-visits-chip">
+                    <TrendingUp size={14} className="active-visits-icon" />
+                    <strong>{p.visits}</strong>
+                  </div>
+                  <span className="active-visits-sub">Verified Visitors</span>
+                </div>
+
+                <div className="active-action-col">
+                  <div className="active-photo-wrap">
+                    <img src={p.image} alt={p.title} className="proj-action-photo" />
+                  </div>
+                  <a
+                    href={p.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-grad active-visit-btn"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span>Visit Site</span>
+                    <ExternalLink size={12} />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   HISTORY PROJECTS (ARCHIVED COMMERCIAL & EARLIER WORKS)
+   ============================================================ */
+function HistoryProjects() {
+  return (
+    <section className="section section-alt" id="history">
+      <div className="container">
+        <div className="projects-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
+          <div>
+            <div className="section-tag" data-reveal>Archive</div>
+            <h2 className="section-title" data-reveal style={{ marginBottom: '1rem' }}>
+              History<br />
+              <em>Projects</em>
+            </h2>
+            <p className="section-subtitle" style={{ maxWidth: '640px', margin: 0, color: 'var(--text-muted)' }} data-reveal>
+              A chronological archive of commercial management systems, enterprise portals, and earlier web development milestones.
+            </p>
           </div>
           <div data-reveal style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <GlideSelect
               options={[
-                { value: 'all', label: 'All Projects', tag: '8' },
-                { value: 'web', label: 'Web Apps', tag: '6' },
+                { value: 'all', label: 'All Projects', tag: '14' },
+                { value: 'web', label: 'Web Apps', tag: '12' },
                 { value: 'mobile', label: 'Mobile Apps', tag: '2' },
-                { value: 'ui', label: 'UI/UX', tag: 'New' }
+                { value: 'ui', label: 'UI/UX', tag: 'Archive' }
               ]}
               defaultValue="all"
               onChange={(value, option) => console.log('Selected category:', value)}
@@ -1710,7 +1853,7 @@ function Projects() {
               rememberPosition
             />
             <a
-              href="https://github.com"
+              href="https://github.com/PradiptaPPLG"
               target="_blank"
               rel="noreferrer"
               className="btn-outline"
@@ -1730,7 +1873,7 @@ function Projects() {
           </div>
 
           <AnimatedList displayScrollbar={false} showGradients={false}>
-            {PROJECTS.map((p) => (
+            {HISTORY_PROJECTS.map((p) => (
               <div key={p.num} className="table-row-item">
                 <div className="proj-num">{p.num}</div>
                 <div className="proj-title-wrap">
@@ -2150,7 +2293,8 @@ export default function App() {
             <Showcase />
             <IdeSection />
             <SocialLinks />
-            <Projects />
+            <ActiveProjects />
+            <HistoryProjects />
             <GameCorner />
             <UiCraftSection />
             <Achievements />
