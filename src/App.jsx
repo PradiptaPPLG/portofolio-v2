@@ -1134,6 +1134,7 @@ const ACTIVE_PROJECTS = [
     tech: ['HTML5 Canvas', 'JavaScript', 'CSS3 3D', 'Web Camera API'],
     visits: '253K Visits',
     liveUrl: 'https://laymockup.vercel.app/',
+    githubUrl: 'https://github.com/PradiptaPPLG/laymockup.git',
     image: '/assets/projects/laymockup.webp',
     status: 'Live & Active',
     badge: 'Popular'
@@ -1145,31 +1146,46 @@ const ACTIVE_PROJECTS = [
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Web Camera API', 'Canvas API'],
     visits: '149K Visits',
     liveUrl: 'https://pixelcam-flame.vercel.app/',
+    githubUrl: 'https://github.com/PradiptaPPLG/pixelcam.git',
     image: '/assets/projects/pixelcam.webp',
     status: 'Live & Active',
     badge: 'Trending'
   },
   {
     num: '03',
-    title: 'BLUD SMKN 1 Ciamis — Teaching Factory Service Platform',
-    desc: 'This website serves as the central digital information and public service hub for the Teaching Factory (TEFA) for all departments at SMKN 1 Ciamis. Visitors can learn about available services and submit orders.',
-    tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Tailwind CSS'],
-    visits: '3.8K Visits',
-    liveUrl: 'https://blud.smkn1ciamis.id/',
-    image: '/assets/projects/bludsmkn1ciamis.webp',
-    status: 'Live & Active',
-    badge: 'Production'
-  },
-  {
-    num: '04',
     title: 'NECTOR.UI — Ready-to-Use Website Template Gallery',
     desc: 'A curated collection of production-ready website templates and UI themes for MSMEs, modern cafes, studios, and digital archives with standalone source code, live responsive inspection, and color palette extraction.',
     tech: ['React 19', 'TypeScript', 'Vite', 'Lucide Icons', 'CSS Variables'],
     visits: '42.1K Visits',
     liveUrl: 'https://nector-ui.vercel.app/',
+    githubUrl: 'https://github.com/PradiptaPPLG/NECTOR.UI.git',
     image: '/assets/projects/nector-ui.webp',
     status: 'Live & Active',
-    badge: 'New'
+    badge: 'Curated'
+  },
+  {
+    num: '04',
+    title: 'BLUD SMKN 1 Ciamis — Teaching Factory Service Platform',
+    desc: 'This website serves as the central digital information and public service hub for the Teaching Factory (TEFA) for all departments at SMKN 1 Ciamis. Visitors can learn about available services and submit orders.',
+    tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Tailwind CSS'],
+    visits: '3.8K Visits',
+    liveUrl: 'https://blud.smkn1ciamis.id/',
+    githubUrl: null,
+    image: '/assets/projects/bludsmkn1ciamis.webp',
+    status: 'Live & Active',
+    badge: 'Production'
+  },
+  {
+    num: '05',
+    title: 'APISTACK — Dataset Archive & AI Analytics Hub',
+    desc: 'A public lightweight dataset repository and interactive explorer platform designed for machine learning, data science, and AI model analytics with structured CSV previews and analytical insights.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'CSV Parser', 'Data Analytics', 'Chart Engine'],
+    visits: '2.6K Visits',
+    liveUrl: 'https://pradiptadataset-tau.vercel.app/',
+    githubUrl: 'https://github.com/PradiptaPPLG/apistack.git',
+    image: '/assets/projects/apistack.webp',
+    status: 'Live & Active',
+    badge: 'AI & Data'
   }
 ];
 
@@ -1731,7 +1747,7 @@ function ActiveProjects() {
           <div data-reveal style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
             <span className="active-live-badge-top">
               <span className="game-status-dot" />
-              <span>4 Live Applications</span>
+              <span>5 Live Applications</span>
             </span>
           </div>
         </div>
@@ -1789,16 +1805,31 @@ function ActiveProjects() {
                   <div className="active-photo-wrap">
                     <img src={p.image} alt={p.title} className="proj-action-photo" />
                   </div>
-                  <a
-                    href={p.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-grad active-visit-btn"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <span>Visit Site</span>
-                    <ExternalLink size={12} />
-                  </a>
+                  <div className="active-row-btns">
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-grad active-visit-btn"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span>Visit Site</span>
+                      <ExternalLink size={12} />
+                    </a>
+                    {p.githubUrl && (
+                      <a
+                        href={p.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="active-code-btn"
+                        onClick={(e) => e.stopPropagation()}
+                        title="View Source Code on GitHub"
+                      >
+                        <GitBranch size={12} />
+                        <span>Code</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
