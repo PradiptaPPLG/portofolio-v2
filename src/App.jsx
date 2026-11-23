@@ -1134,7 +1134,6 @@ const ACTIVE_PROJECTS = [
     tech: ['HTML5 Canvas', 'JavaScript', 'CSS3 3D', 'Web Camera API'],
     visits: '253K Visits',
     liveUrl: 'https://laymockup.vercel.app/',
-    githubUrl: 'https://github.com/PradiptaPPLG/laymockup.git',
     image: '/assets/projects/laymockup.webp',
     status: 'Live & Active',
     badge: 'Popular'
@@ -1146,7 +1145,6 @@ const ACTIVE_PROJECTS = [
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Web Camera API', 'Canvas API'],
     visits: '149K Visits',
     liveUrl: 'https://pixelcam-flame.vercel.app/',
-    githubUrl: 'https://github.com/PradiptaPPLG/pixelcam.git',
     image: '/assets/projects/pixelcam.webp',
     status: 'Live & Active',
     badge: 'Trending'
@@ -1158,7 +1156,6 @@ const ACTIVE_PROJECTS = [
     tech: ['React 19', 'TypeScript', 'Vite', 'Lucide Icons', 'CSS Variables'],
     visits: '42.1K Visits',
     liveUrl: 'https://nector-ui.vercel.app/',
-    githubUrl: 'https://github.com/PradiptaPPLG/NECTOR.UI.git',
     image: '/assets/projects/nector-ui.webp',
     status: 'Live & Active',
     badge: 'Curated'
@@ -1170,7 +1167,6 @@ const ACTIVE_PROJECTS = [
     tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Tailwind CSS'],
     visits: '3.8K Visits',
     liveUrl: 'https://blud.smkn1ciamis.id/',
-    githubUrl: null,
     image: '/assets/projects/bludsmkn1ciamis.webp',
     status: 'Live & Active',
     badge: 'Production'
@@ -1182,7 +1178,6 @@ const ACTIVE_PROJECTS = [
     tech: ['HTML5', 'CSS3', 'JavaScript', 'CSV Parser', 'Data Analytics', 'Chart Engine'],
     visits: '2.6K Visits',
     liveUrl: 'https://pradiptadataset-tau.vercel.app/',
-    githubUrl: 'https://github.com/PradiptaPPLG/apistack.git',
     image: '/assets/projects/apistack.webp',
     status: 'Live & Active',
     badge: 'AI & Data'
@@ -1805,31 +1800,16 @@ function ActiveProjects() {
                   <div className="active-photo-wrap">
                     <img src={p.image} alt={p.title} className="proj-action-photo" />
                   </div>
-                  <div className="active-row-btns">
-                    <a
-                      href={p.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-grad active-visit-btn"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <span>Visit Site</span>
-                      <ExternalLink size={12} />
-                    </a>
-                    {p.githubUrl && (
-                      <a
-                        href={p.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="active-code-btn"
-                        onClick={(e) => e.stopPropagation()}
-                        title="View Source Code on GitHub"
-                      >
-                        <GitBranch size={12} />
-                        <span>Code</span>
-                      </a>
-                    )}
-                  </div>
+                  <a
+                    href={p.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-grad active-visit-btn"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span>Visit Site</span>
+                    <ExternalLink size={12} />
+                  </a>
                 </div>
               </div>
             ))}
