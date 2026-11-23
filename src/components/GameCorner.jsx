@@ -1,10 +1,11 @@
 import React from 'react';
-import { Gamepad2, Play, ExternalLink, GitBranch, Sparkles, Trophy, Cpu, Flame, Monitor } from 'lucide-react';
+import { Gamepad2, Play, ExternalLink, GitBranch, Sparkles, Cpu, Flame, Monitor, Smartphone } from 'lucide-react';
 import './GameCorner.css';
 
 const GAMES = [
   {
     id: 'desert-rally-drift-3d',
+    num: '01',
     title: 'DESERT RALLY DRIFT 3D',
     subtitle: 'WebGL Off-Road Racing Game',
     description:
@@ -27,6 +28,7 @@ const GAMES = [
   },
   {
     id: 'delivery-pizza-3d',
+    num: '02',
     title: 'DELIVERY PIZZA 3D',
     subtitle: 'WebGL Courier & Drift Simulator',
     description:
@@ -46,6 +48,29 @@ const GAMES = [
     controls: 'WASD / Arrows • [E] Interact • [P] Engine',
     status: 'Live Demo',
     fps: '80 FPS High Refresh'
+  },
+  {
+    id: 'meowzzle-cat-puzzle',
+    num: '03',
+    title: 'MEOWZZLE',
+    subtitle: 'HTML5 Canvas Polyomino Puzzle',
+    description:
+      'A cozy, tactile browser-based cat polyomino puzzle game combining spatial grid mechanics with procedural feline animations, dual dynamic environments (Sunny Beach & Cozy Living Room), and a zero-dependency procedural Web Audio vocal synthesis engine.',
+    genre: 'Cozy Spatial Puzzle',
+    platform: 'Cross-Platform (Mobile & PC)',
+    image: '/assets/projects/gc3-meowzzle.webp',
+    demoUrl: 'https://meowzzle.vercel.app/',
+    githubUrl: 'https://github.com/PradiptaPPLG/meowzzle.git',
+    technologies: ['HTML5 Canvas', 'JavaScript', 'Web Audio API', 'CSS3', 'Spring Physics', 'Vercel'],
+    features: [
+      '8 handcrafted progressive levels featuring unique feline mechanics & liquid cat morphing',
+      'Zero-dependency procedural Web Audio vocal synthesizer (purrs, meows, squishes, & chimes)',
+      'Dual dynamic environments: Sunny Beach (animated waves & crabs) & Cozy Living Room',
+      'Smooth spring physics & mobile-first touch-lift controls for seamless cross-device play'
+    ],
+    controls: 'Drag & Drop • Tap / [R] Rotate • Double-Tap Morph',
+    status: 'Live Demo',
+    fps: '60 FPS Smooth'
   }
 ];
 
@@ -54,13 +79,12 @@ export default function GameCorner() {
     <section className="section section-alt game-corner-section" id="games">
       <div className="container">
         {/* Section Header */}
-        <div className="section-tag" data-reveal>
-          <Gamepad2 size={15} style={{ color: 'var(--accent-bright)' }} />
-          <span>Interactive 3D Arcade</span>
-        </div>
-
         <div className="game-corner-header" data-reveal>
           <div>
+            <div className="section-tag" style={{ marginBottom: '0.8rem' }}>
+              <Gamepad2 size={15} style={{ color: 'var(--accent-bright)' }} />
+              <span>Interactive 3D Arcade</span>
+            </div>
             <h2 className="section-title" style={{ marginBottom: '1rem' }}>
               Game<br />
               <em>Corner</em>
@@ -69,7 +93,7 @@ export default function GameCorner() {
               className="section-subtitle"
               style={{ maxWidth: '640px', margin: 0, color: 'var(--text-muted)' }}
             >
-              Step inside my interactive browser arcade. High-performance 3D games and WebGL simulations built with Three.js and custom physics — zero install needed, play directly in your browser.
+              Step inside my interactive browser arcade. High-performance 3D games, WebGL simulations, and spatial HTML5 puzzles — zero install needed, play directly in your browser.
             </p>
           </div>
 
@@ -85,110 +109,109 @@ export default function GameCorner() {
           </div>
         </div>
 
-        {/* Games Grid / Cards */}
-        <div className="game-corner-grid" data-reveal>
-          {GAMES.map((game) => (
-            <div key={game.id} className="game-card">
-              <div className="game-card-body">
-                {/* Left: Media Column */}
-                <div className="game-media-col">
-                  <div className="game-media-frame">
-                    <img
-                      src={game.image}
-                      alt={game.title}
-                      className="game-media-img"
-                      loading="lazy"
-                    />
+        {/* Compact Table Container (Matches Commercial Projects Container Style) */}
+        <div className="game-table-container" data-reveal>
+          <div className="game-table-head">
+            <div>No</div>
+            <div>Game & Concept</div>
+            <div>Technologies</div>
+            <div>Platform & Specs</div>
+            <div>Photo & Launch</div>
+          </div>
 
-                    {/* Overlay Badges */}
-                    <div className="game-media-badges">
-                      <span className="game-badge game-badge-genre">
-                        <Flame size={12} />
-                        {game.genre}
+          <div className="game-table-body">
+            {GAMES.map((game) => (
+              <div key={game.id} className="game-table-row">
+                {/* 1. Number */}
+                <div className="game-row-num">{game.num}</div>
+
+                {/* 2. Game Title & Concept */}
+                <div className="game-row-info">
+                  <div className="game-row-badges">
+                    <span className="game-badge game-badge-genre">
+                      <Flame size={11} />
+                      {game.genre}
+                    </span>
+                    <span className="game-badge game-badge-status">
+                      <span className="game-status-dot" />
+                      {game.status}
+                    </span>
+                  </div>
+                  <div className="game-row-title-wrap">
+                    <h3 className="game-row-title">{game.title}</h3>
+                    <span className="game-row-subtitle">{game.subtitle}</span>
+                  </div>
+                  <p className="game-row-desc">{game.description}</p>
+                </div>
+
+                {/* 3. Technologies */}
+                <div className="game-row-tech">
+                  <div className="game-tech-pills">
+                    {game.technologies.map((t) => (
+                      <span key={t} className="game-tech-pill">
+                        {t}
                       </span>
-                      <span className="game-badge game-badge-status">
-                        <span className="game-status-dot" />
-                        {game.status}
-                      </span>
-                      {game.platform && (
-                        <span className="game-badge game-badge-platform">
-                          <Monitor size={12} />
-                          {game.platform}
-                        </span>
-                      )}
+                    ))}
+                  </div>
+                  {game.features && game.features.length > 0 && (
+                    <div className="game-row-feature-preview">
+                      <Sparkles size={11} style={{ color: 'var(--accent-bright)', flexShrink: 0, marginTop: '2px' }} />
+                      <span>{game.features[0]}</span>
                     </div>
+                  )}
+                </div>
 
-                    {/* Controls indicator */}
-                    {game.controls && (
-                      <div className="game-controls-pill">
-                        <span>🎮 Controls:</span>
-                        <strong>{game.controls}</strong>
-                      </div>
+                {/* 4. Platform & Controls */}
+                <div className="game-row-platform">
+                  <div
+                    className={`game-platform-pill ${
+                      game.platform.toLowerCase().includes('cross') || game.platform.toLowerCase().includes('mobile')
+                        ? 'is-cross'
+                        : 'is-pc'
+                    }`}
+                  >
+                    {game.platform.toLowerCase().includes('cross') || game.platform.toLowerCase().includes('mobile') ? (
+                      <Smartphone size={13} />
+                    ) : (
+                      <Monitor size={13} />
                     )}
+                    <span>{game.platform}</span>
                   </div>
 
-                  {/* Media metadata footer */}
-                  <div className="game-media-meta">
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <Cpu size={13} style={{ color: 'var(--accent-bright)' }} />
-                      Hardware Accelerated WebGL
-                    </span>
-                    <span style={{ color: '#fbbf24', fontWeight: 600 }}>{game.fps || '60 FPS Native'}</span>
+                  {game.controls && (
+                    <div className="game-row-controls">
+                      <span>🎮 Controls:</span>
+                      <strong>{game.controls}</strong>
+                    </div>
+                  )}
+
+                  <div className="game-row-fps">
+                    <Cpu size={12} style={{ color: 'var(--accent-bright)' }} />
+                    <span>{game.fps || '60 FPS Native'}</span>
                   </div>
                 </div>
 
-                {/* Right: Info Column */}
-                <div className="game-info-col">
-                  <div>
-                    <span className="game-tagline">{game.subtitle}</span>
-                    <h3 className="game-title">{game.title}</h3>
-                    <p className="game-desc">{game.description}</p>
-
-                    {/* Features Grid */}
-                    {game.features && (
-                      <div className="game-features-wrap">
-                        <div className="game-features-label">
-                          <Trophy size={13} style={{ color: 'var(--accent-bright)' }} />
-                          Key Highlights
-                        </div>
-                        <div className="game-features-grid">
-                          {game.features.map((feat, i) => (
-                            <div key={i} className="game-feature-item">
-                              <Sparkles
-                                size={13}
-                                style={{ color: 'var(--accent-bright)', flexShrink: 0, marginTop: '2px' }}
-                              />
-                              <span>{feat}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Tech Pills */}
-                    <div className="game-tech-wrap">
-                      <div className="game-features-label">Built With</div>
-                      <div className="game-tech-pills">
-                        {game.technologies.map((t) => (
-                          <span key={t} className="game-tech-pill">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                {/* 5. Photo & Launch */}
+                <div className="game-row-action">
+                  <div className="game-row-photo-frame">
+                    <img
+                      src={game.image}
+                      alt={game.title}
+                      className="game-row-photo"
+                      loading="lazy"
+                    />
                   </div>
 
-                  {/* Actions */}
-                  <div className="game-actions-row">
+                  <div className="game-row-btns">
                     <a
                       href={game.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-grad game-btn-play"
+                      className="btn-grad game-row-play-btn"
                     >
-                      <Play size={16} fill="currentColor" />
-                      <span>Play Game Live</span>
-                      <ExternalLink size={14} />
+                      <Play size={13} fill="currentColor" />
+                      <span>Play Live</span>
+                      <ExternalLink size={12} />
                     </a>
 
                     {game.githubUrl && (
@@ -196,28 +219,24 @@ export default function GameCorner() {
                         href={game.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-outline game-btn-code"
+                        className="btn-outline game-row-code-btn"
+                        title="Source Code"
                       >
-                        <GitBranch size={16} />
-                        <span>Source Code</span>
+                        <GitBranch size={13} />
+                        <span>Code</span>
                       </a>
                     )}
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-
-          {/* Teaser for Next Games */}
-          <div className="game-teaser-card">
-            <div className="game-teaser-icon">
-              <Gamepad2 size={26} />
-            </div>
-            <h4>More 3D Web Games in Development</h4>
-            <p>
-              New interactive simulations and browser arcade experiments are currently being engineered using Three.js and WebGL. Have an exciting game concept? Let's connect!
-            </p>
+            ))}
           </div>
+        </div>
+
+        {/* Compact Bottom Teaser Card */}
+        <div className="game-table-teaser" data-reveal>
+          <Gamepad2 size={18} style={{ color: 'var(--accent-bright)' }} />
+          <span>More 3D WebGL and HTML5 Canvas simulations currently in development.</span>
         </div>
       </div>
     </section>
