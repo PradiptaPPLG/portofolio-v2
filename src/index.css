@@ -90,7 +90,6 @@ body {
   color: var(--text);
   
   line-height: 1.5;
-  cursor: none;
   transition: background-color 0.8s ease, color 0.8s ease;
 }
 
@@ -130,7 +129,7 @@ img {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-button { font-family: inherit; cursor: none; border: none; background: none; }
+button { font-family: inherit; border: none; background: none; }
 
 /* Background Starfield Canvas */
 #starfield {
@@ -141,8 +140,14 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
 }
 
 /* ============================================================
-   CUSTOM CURSOR
+   CUSTOM CURSOR (DESKTOP WITH MOUSE ONLY)
    ============================================================ */
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+  body, button {
+    cursor: none;
+  }
+}
+
 .cursor-dot {
   width: 8px;
   height: 8px;
@@ -176,6 +181,23 @@ button { font-family: inherit; cursor: none; border: none; background: none; }
   height: 60px;
   border-color: var(--accent-bright);
   background: rgba(168, 85, 247, 0.12);
+}
+
+/* Disable and hide custom cursor on mobile, touch, or tablet */
+@media (hover: none), (pointer: coarse), (max-width: 1024px) {
+  body, button, a {
+    cursor: auto !important;
+  }
+  .spotlight-reveal-container {
+    cursor: default !important;
+  }
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
 }
 
 /* ============================================================

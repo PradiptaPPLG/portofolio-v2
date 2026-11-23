@@ -84,8 +84,25 @@ function Cursor() {
   const pos = useRef({ x: -100, y: -100 });
   const ring = useRef({ x: -100, y: -100 });
   const [hovered, setHovered] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const checkPointer = () => {
+      setEnabled(mediaQuery.matches && window.innerWidth > 1024);
+    };
+    checkPointer();
+    mediaQuery.addEventListener('change', checkPointer);
+    window.addEventListener('resize', checkPointer);
+    return () => {
+      mediaQuery.removeEventListener('change', checkPointer);
+      window.removeEventListener('resize', checkPointer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+
     const move = (e) => {
       pos.current = { x: e.clientX, y: e.clientY };
     };
@@ -126,7 +143,9 @@ function Cursor() {
       clearInterval(interval);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <>
