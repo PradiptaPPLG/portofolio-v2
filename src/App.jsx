@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionTemplate, useMotionValueEvent } from 'framer-motion';
-import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2, Command, Search, User, Folder, Award, Briefcase, Phone, X, Download, Eye, FileText, ExternalLink, Copy, MapPin } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2, Command, Search, User, Folder, Award, Briefcase, Phone, X, Download, Eye, FileText, ExternalLink, Copy, MapPin, Gamepad2 } from 'lucide-react';
 import StrokeText from './components/StrokeText';
 import SplitText from './components/SplitText';
 import TextType from './components/TextType';
@@ -22,6 +22,7 @@ import TechText from './components/TechText';
 import PaperCrumple from './components/PaperCrumple';
 import BellToggle from './components/BellToggle';
 import TechStackMarquee from './components/TechStackMarquee';
+import GameCorner from './components/GameCorner';
 import './index.css';
 
 /* ============================================================
@@ -214,7 +215,7 @@ function Loader({ onDone }) {
 /* ============================================================
    FULLSCREEN MENU OVERLAY
    ============================================================ */
-const MENU_ITEMS = ['Home', 'About', 'Projects', 'Stack', 'Experience', 'Contact'];
+const MENU_ITEMS = ['Home', 'About', 'Projects', 'Games', 'Stack', 'Experience', 'Contact'];
 const STACK_TAGS = ['React 19', 'Next.js 14', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'GraphQL'];
 
 /* ============================================================
@@ -253,6 +254,7 @@ function CommandPalette({ open, onClose }) {
   const commands = [
     { section: 'NAVIGATE', label: 'Go to Hero', icon: <User size={16} />, action: () => { window.scrollTo({ top: 0, behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Projects', icon: <Folder size={16} />, action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
+    { section: 'NAVIGATE', label: 'Go to Game Corner', icon: <Gamepad2 size={16} />, action: () => { document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Tech Stack', icon: <Cpu size={16} />, action: () => { document.getElementById('stack')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'NAVIGATE', label: 'Go to Experience', icon: <Briefcase size={16} />, action: () => { document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }); onClose(); } },
     { section: 'CONTACT', label: 'Copy Email — pradipta02032009@gmail.com', icon: <Mail size={16} />, action: () => { navigator.clipboard.writeText('pradipta02032009@gmail.com'); alert('Email copied!'); onClose(); } },
@@ -1972,6 +1974,16 @@ export default function App() {
       window.history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
+
+    // Prevent right-click context menu on images
+    const handleContextMenu = (e) => {
+      const target = e.target;
+      if (target && target.tagName && target.tagName.toLowerCase() === 'img') {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener('contextmenu', handleContextMenu);
+    return () => window.removeEventListener('contextmenu', handleContextMenu);
   }, []);
 
   useEffect(() => {
@@ -2139,6 +2151,7 @@ export default function App() {
             <IdeSection />
             <SocialLinks />
             <Projects />
+            <GameCorner />
             <UiCraftSection />
             <Achievements />
             <TechStack />

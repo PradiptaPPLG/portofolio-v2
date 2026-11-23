@@ -1,0 +1,543 @@
+/* ============================================================
+   GAME CORNER STYLES
+   Interactive 3D Arcade & Browser Simulator Showcase
+   ============================================================ */
+
+.game-corner-section {
+  position: relative;
+  padding: 5rem 2.5rem;
+  z-index: 2;
+}
+
+.game-corner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.game-corner-header-actions {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.game-corner-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 1rem;
+}
+
+.game-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.2rem;
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.game-card:hover {
+  border-color: var(--border-bright);
+  box-shadow: 0 16px 50px rgba(168, 85, 247, 0.18), inset 0 0 24px rgba(168, 85, 247, 0.05);
+  transform: translateY(-4px);
+}
+
+.game-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .game-card-body {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 3rem;
+  }
+}
+
+/* Media Viewport */
+.game-media-col {
+  width: 100%;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.game-media-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #05030a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.game-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-media-badges {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.game-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  white-space: nowrap;
+}
+
+.game-badge-genre {
+  background: rgba(15, 10, 30, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.game-badge-status {
+  background: rgba(6, 30, 18, 0.85);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #34d399;
+}
+
+.game-badge-platform {
+  background: rgba(22, 16, 42, 0.88);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+}
+
+.game-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.game-controls-pill {
+  position: absolute;
+  bottom: 0.9rem;
+  left: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(10, 8, 20, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  backdrop-filter: blur(8px);
+  z-index: 3;
+}
+
+.game-controls-pill strong {
+  color: #fbbf24;
+}
+
+.game-media-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  padding: 0 0.3rem;
+}
+
+/* Info Column */
+.game-info-col {
+  width: 100%;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.game-tagline {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: 0.5rem;
+}
+
+.game-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.game-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.4rem;
+}
+
+/* Features Grid */
+.game-features-wrap {
+  margin-bottom: 1.4rem;
+}
+
+.game-features-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.game-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.5rem;
+}
+
+.game-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+}
+
+/* Tech Pills */
+.game-tech-wrap {
+  margin-bottom: 1.8rem;
+}
+
+.game-tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.game-tech-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.game-tech-pill:hover {
+  border-color: var(--accent-bright);
+  color: var(--text);
+}
+
+/* Actions */
+.game-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.game-actions-row .game-btn-play {
+  flex: 1 1 180px;
+  justify-content: center;
+}
+
+.game-actions-row .game-btn-code {
+  flex: 0 1 auto;
+  justify-content: center;
+}
+
+/* Teaser Card */
+.game-teaser-card {
+  border: 1px dashed var(--border-bright);
+  border-radius: 20px;
+  padding: 2.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.game-teaser-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-bright);
+  margin-bottom: 0.4rem;
+}
+
+.game-teaser-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.game-teaser-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE DEVICES)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .game-corner-section {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .game-corner-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .game-corner-header-actions {
+    width: 100%;
+  }
+
+  .game-corner-header-actions .btn-outline {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .game-corner-grid {
+    gap: 1.8rem;
+  }
+
+  .game-card {
+    padding: 1.35rem 1.1rem;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .game-card:hover {
+    transform: none; /* Disable hover movement on mobile for touch stability */
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .game-card-body {
+    gap: 1.4rem;
+  }
+
+  .game-media-frame {
+    border-radius: 14px;
+  }
+
+  .game-media-badges {
+    top: 0.6rem;
+    left: 0.6rem;
+    right: 0.6rem;
+    gap: 0.35rem;
+  }
+
+  .game-badge {
+    padding: 0.22rem 0.55rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+  }
+
+  .game-badge svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  .game-controls-pill {
+    bottom: 0.6rem;
+    left: 0.6rem;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.62rem;
+    max-width: calc(100% - 1.2rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .game-media-meta {
+    font-size: 0.66rem;
+    padding: 0 0.1rem;
+  }
+
+  .game-tagline {
+    font-size: 0.68rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .game-title {
+    font-size: 1.45rem;
+    margin-bottom: 0.65rem;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  .game-desc {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    margin-bottom: 1.1rem;
+  }
+
+  .game-features-wrap {
+    margin-bottom: 1.1rem;
+  }
+
+  .game-features-label {
+    font-size: 0.68rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .game-features-grid {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .game-feature-item {
+    font-size: 0.76rem;
+    padding: 0.45rem 0.65rem;
+    line-height: 1.4;
+  }
+
+  .game-tech-wrap {
+    margin-bottom: 1.25rem;
+  }
+
+  .game-tech-pill {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.55rem;
+  }
+
+  .game-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.65rem;
+    padding-top: 1.1rem;
+  }
+
+  .game-actions-row .game-btn-play,
+  .game-actions-row .game-btn-code {
+    width: 100%;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 0.75rem 1.2rem;
+    font-size: 0.82rem;
+    box-sizing: border-box;
+  }
+
+  .game-teaser-card {
+    padding: 1.6rem 1.1rem;
+    border-radius: 16px;
+  }
+
+  .game-teaser-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .game-teaser-card p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-corner-section {
+    padding: 3rem 0.85rem;
+  }
+
+  .game-card {
+    padding: 1.15rem 0.85rem;
+    border-radius: 16px;
+  }
+
+  .game-card-body {
+    gap: 1.15rem;
+  }
+
+  .game-title {
+    font-size: 1.35rem;
+  }
+
+  .game-media-badges {
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    gap: 0.3rem;
+  }
+
+  .game-badge {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.58rem;
+  }
+
+  .game-controls-pill {
+    bottom: 0.5rem;
+    left: 0.5rem;
+    font-size: 0.58rem;
+    padding: 0.2rem 0.45rem;
+  }
+}
