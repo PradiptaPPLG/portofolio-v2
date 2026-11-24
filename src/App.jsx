@@ -2094,9 +2094,11 @@ function Contact() {
           Punya ide project hebat atau ingin memperkuat tim engineering Anda? 
           Saya siap berdiskusi dan merealisasikannya.
         </p>
-        <a href="mailto:pradipta02032009@gmail.com" className="contact-email-btn">
-          pradipta02032009@gmail.com
-        </a>
+        <div className="contact-email-wrap">
+          <a href="mailto:pradipta02032009@gmail.com" className="contact-email-btn">
+            pradipta02032009@gmail.com
+          </a>
+        </div>
         <div className="social-btns-row">
           <a href="https://github.com" target="_blank" rel="noreferrer" className="btn-outline">
             <GitBranch size={16} /> GitHub
