@@ -1694,7 +1694,13 @@ button { font-family: inherit; border: none; background: none; }
   cursor: pointer;
 }
 
-.active-table-row:last-child {
+.scroll-list > div:not(:last-child) .active-table-row,
+.scroll-list > div:not(:last-child) .table-row-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.scroll-list > div:last-child .active-table-row,
+.scroll-list > div:last-child .table-row-item {
   border-bottom: none;
 }
 

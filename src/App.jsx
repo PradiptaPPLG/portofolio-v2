@@ -1776,7 +1776,7 @@ function ActiveProjects() {
             <div>Live Link & Photo</div>
           </div>
 
-          <div className="active-table-body">
+          <AnimatedList displayScrollbar={false} showGradients={false}>
             {ACTIVE_PROJECTS.map((p) => (
               <div
                 key={p.num}
@@ -1833,7 +1833,7 @@ function ActiveProjects() {
                 </div>
               </div>
             ))}
-          </div>
+          </AnimatedList>
         </div>
       </div>
     </section>

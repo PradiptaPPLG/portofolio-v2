@@ -65,7 +65,11 @@
   position: relative;
 }
 
-.game-table-row:last-child {
+.scroll-list > div:not(:last-child) .game-table-row {
+  border-bottom: 1px solid var(--border);
+}
+
+.scroll-list > div:last-child .game-table-row {
   border-bottom: none;
 }
 

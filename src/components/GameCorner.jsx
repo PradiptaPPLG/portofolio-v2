@@ -1,5 +1,6 @@
 import React from 'react';
 import { Gamepad2, Play, ExternalLink, GitBranch, Sparkles, Cpu, Flame, Monitor, Smartphone } from 'lucide-react';
+import AnimatedList from './AnimatedList';
 import './GameCorner.css';
 
 const GAMES = [
@@ -119,7 +120,7 @@ export default function GameCorner() {
             <div>Photo & Launch</div>
           </div>
 
-          <div className="game-table-body">
+          <AnimatedList displayScrollbar={false} showGradients={false}>
             {GAMES.map((game) => (
               <div key={game.id} className="game-table-row">
                 {/* 1. Number */}
@@ -230,7 +231,7 @@ export default function GameCorner() {
                 </div>
               </div>
             ))}
-          </div>
+          </AnimatedList>
         </div>
 
         {/* Compact Bottom Teaser Card */}
