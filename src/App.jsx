@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
+import 'lenis/dist/lenis.css';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionTemplate, useMotionValueEvent } from 'framer-motion';
 import { ArrowUpRight, ArrowRight, GitBranch, Link2, Mail, Code2, Server, Database, Cpu, Sparkles, CheckCircle2, Command, Search, User, Folder, Award, Briefcase, Phone, X, Download, Eye, FileText, ExternalLink, Copy, MapPin, Gamepad2, TrendingUp, Globe, Flame } from 'lucide-react';
@@ -2228,7 +2229,19 @@ export default function App() {
   }, []);
 
   return (
-    <ReactLenis root options={{ lerp: 0.07, duration: 1.5, smoothWheel: true }}>
+    <ReactLenis
+      root
+      options={{
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.5,
+        infinite: false,
+      }}
+    >
       <Loader onDone={() => setLoaded(true)} />
 
       {/* Render main app immediately behind loader to prevent black flash on reveal */}
