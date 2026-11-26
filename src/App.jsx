@@ -1160,6 +1160,18 @@ const ACTIVE_PROJECTS = [
   },
   {
     num: '02',
+    title: 'SwiftDocs — Client-Side Office & PDF Suite',
+    desc: 'An all-in-one, 100% client-side Office, PDF, & Image toolkit featuring 12 instant browser tools (Merge, Split, Compress, OCR Text Extraction, HD Upscale, Crop, & Word/Excel Viewer) with a manga neo-tactile UI and 6 switchable themes.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'pdf-lib', 'PDF.js', 'Tesseract.js'],
+    visits: '168.5K Visits',
+    liveUrl: 'https://swiftdocs-ten.vercel.app/',
+    githubUrl: 'https://github.com/PradiptaPPLG/swiftdocs.git',
+    image: '/assets/projects/swiftdocs.svg',
+    status: 'Live & Active',
+    badge: 'New'
+  },
+  {
+    num: '03',
     title: 'PIXELCAM — Interactive Web Photobooth',
     desc: 'A viral web-based photobooth application that allows users to take photos directly through a browser with various templates, retro effects, and instant photo strip downloads.',
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Web Camera API', 'Canvas API'],
@@ -1170,7 +1182,7 @@ const ACTIVE_PROJECTS = [
     badge: 'Trending'
   },
   {
-    num: '03',
+    num: '04',
     title: 'NECTOR.UI — Ready-to-Use Website Template Gallery',
     desc: 'A curated collection of production-ready website templates and UI themes for MSMEs, modern cafes, studios, and digital archives with standalone source code, live responsive inspection, and color palette extraction.',
     tech: ['React 19', 'TypeScript', 'Vite', 'Lucide Icons', 'CSS Variables'],
@@ -1181,7 +1193,7 @@ const ACTIVE_PROJECTS = [
     badge: 'Curated'
   },
   {
-    num: '04',
+    num: '05',
     title: 'BLUD SMKN 1 Ciamis — Teaching Factory Service Platform',
     desc: 'This website serves as the central digital information and public service hub for the Teaching Factory (TEFA) for all departments at SMKN 1 Ciamis. Visitors can learn about available services and submit orders.',
     tech: ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'Tailwind CSS'],
@@ -1192,7 +1204,7 @@ const ACTIVE_PROJECTS = [
     badge: 'Production'
   },
   {
-    num: '05',
+    num: '06',
     title: 'APISTACK — Dataset Archive & AI Analytics Hub',
     desc: 'A public lightweight dataset repository and interactive explorer platform designed for machine learning, data science, and AI model analytics with structured CSV previews and analytical insights.',
     tech: ['HTML5', 'CSS3', 'JavaScript', 'CSV Parser', 'Data Analytics', 'Chart Engine'],
@@ -1762,7 +1774,7 @@ function ActiveProjects() {
           <div data-reveal style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
             <span className="active-live-badge-top">
               <span className="game-status-dot" />
-              <span>5 Live Applications</span>
+              <span>6 Live Applications</span>
             </span>
           </div>
         </div>
@@ -1830,6 +1842,18 @@ function ActiveProjects() {
                     <span>Visit Site</span>
                     <ExternalLink size={12} />
                   </a>
+                  {p.githubUrl && (
+                    <a
+                      href={p.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] font-bold opacity-75 hover:opacity-100 underline inline-flex items-center gap-1 mt-1"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span>GitHub Repo</span>
+                      <ExternalLink size={10} />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
