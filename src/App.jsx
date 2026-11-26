@@ -1166,7 +1166,7 @@ const ACTIVE_PROJECTS = [
     visits: '168.5K Visits',
     liveUrl: 'https://swiftdocs-ten.vercel.app/',
     githubUrl: 'https://github.com/PradiptaPPLG/swiftdocs.git',
-    image: '/assets/projects/swiftdocs.svg',
+    image: '/assets/projects/swiftdocs.webp',
     status: 'Live & Active',
     badge: 'New'
   },
